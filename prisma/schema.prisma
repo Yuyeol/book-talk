@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model StUser {
+  id        Int      @id @default(autoincrement())
+  name      String
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model Answer {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  userId    Int
+  postId    Int
+  answer    String   @db.MediumText
+
+  @@index([postId])
+  @@index([userId])
+}
+
+model Fav {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([productId])
+  @@index([userId])
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  userId    Int
+  question  String   @db.MediumText
+  latitude  Float?
+  longitude Float?
+
+  @@index([userId])
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  userId      Int
+  image       String
+  name        String
+  price       Int
+  description String   @db.MediumText
+
+  @@index([userId])
+}
+
+model Purchase {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([productId])
+  @@index([userId])
+}
+
+model Record {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  productId Int
+  createdAt DateTime    @default(now())
+  updatedAt DateTime
+  kind      Record_kind
+
+  @@index([productId])
+  @@index([userId])
+}
+
+model Review {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  review       String   @db.MediumText
+  createdById  Int
+  createdForId Int
+  score        Int      @default(1)
+
+  @@index([createdById])
+  @@index([createdForId])
+}
+
+model Sale {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([productId])
+  @@index([userId])
+}
+
+model Token {
+  id        Int      @id @default(autoincrement())
+  payload   String   @unique
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([userId])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  phone     String?  @unique
+  email     String?  @unique
+  name      String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model Wondering {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  userId    Int
+  postId    Int
+
+  @@index([postId])
+  @@index([userId])
+}
+
+enum Record_kind {
+  Purchase
+  Sale
+  Fav
+}
