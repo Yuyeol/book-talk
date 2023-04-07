@@ -1,4 +1,5 @@
 import Header from "./header";
+import NavBar from "./navbar";
 
 interface Props {
   children: React.ReactNode;
@@ -6,9 +7,10 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div className="max-w-lg w-full bg-slate-300 min-h-screen h-full">
+    <div className="max-w-lg w-full mx-auto bg-slate-300 min-h-screen h-full relative">
       <Header />
       {children}
+      <NavBar />
     </div>
   );
 };

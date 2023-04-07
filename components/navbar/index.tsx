@@ -1,11 +1,48 @@
-const Header = () => {
+import Archive from "../icon/archive";
+import Book from "../icon/book";
+import Friends from "../icon/friends";
+import Promotion from "../icon/promotion";
+import Tags from "../icon/tags";
+import NavItem from "./nav-item";
+
+const ICON_WIDTH = 8;
+const DEFAULT_COLOR = "black";
+const ACTIVE_COLOR = "red";
+
+const Text = ({ text }: { text: string }) => {
   return (
-    <div>
-      {/* 책 */}
-      {/* 아카이브 */}
-      {/* 친구 */}
-      {/* 태그 */}
+    <div className="text-xs text-center mt-1" style={{ color: DEFAULT_COLOR }}>
+      {text}
     </div>
   );
 };
-export default Header;
+
+const NavBar = () => {
+  return (
+    <div className="absolute bottom-0 w-full bg-white border-t-[1px] border-black">
+      <ul className="flex justify-between px-6 py-2">
+        <NavItem href="/">
+          <Book width={ICON_WIDTH} color={DEFAULT_COLOR} />
+          <Text text="독서중" />
+        </NavItem>
+        <NavItem href="/archive">
+          <Archive width={ICON_WIDTH} color={DEFAULT_COLOR} />
+          <Text text="보관함" />
+        </NavItem>
+        <NavItem href="/friends">
+          <Friends width={ICON_WIDTH} color={DEFAULT_COLOR} />
+          <Text text="친구" />
+        </NavItem>
+        <NavItem href="/tags">
+          <Tags width={ICON_WIDTH} color={DEFAULT_COLOR} />
+          <Text text="태그" />
+        </NavItem>
+        <NavItem href="/recommend">
+          <Promotion width={ICON_WIDTH} color={DEFAULT_COLOR} />
+          <Text text="추천책" />
+        </NavItem>
+      </ul>
+    </div>
+  );
+};
+export default NavBar;
