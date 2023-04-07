@@ -1,21 +1,19 @@
+import BookItem from "@/components/book/item";
+import FloatingButton from "@/components/floating-button";
+import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
 
 const Home = () => {
   return (
     <Layout>
-      <ul>
-        <li>
-          <div>사진</div>
-          <div>
-            <div>제목</div>
-            <div>설명</div>
-          </div>
-          <div>
-            <div>업데이트 일시</div>
-            <div>알림</div>
-          </div>
-        </li>
+      <ul className="px-4 divide-y-2">
+        <BookItem />
+        <BookItem />
       </ul>
+
+      <FloatingButton href="/book/1">
+        <Plus width={8} color="white" />
+      </FloatingButton>
     </Layout>
   );
 };
