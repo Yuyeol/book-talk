@@ -1,5 +1,4 @@
 import BookItem from "@/components/book/item";
-import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
 
 const Home = () => {
