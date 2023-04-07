@@ -11,7 +11,7 @@ export default function ResponsiveImage({
 }) {
   return (
     <div className={`relative`} style={{ aspectRatio }}>
-      <Image fill src={src} alt={alt} className=" object-cover" />
+      <Image fill src={src} alt={alt} className="object-cover" />
     </div>
   );
 }

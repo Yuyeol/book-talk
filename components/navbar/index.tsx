@@ -11,7 +11,7 @@ const ACTIVE_COLOR = "red";
 
 const Text = ({ text }: { text: string }) => {
   return (
-    <div className="text-xs text-center mt-1" style={{ color: DEFAULT_COLOR }}>
+    <div className="mt-1 text-xs text-center" style={{ color: DEFAULT_COLOR }}>
       {text}
     </div>
   );

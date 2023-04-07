@@ -7,7 +7,7 @@ interface Props {
 
 const NavItem = ({ children, href }: Props) => {
   return (
-    <Link href={href} className="w-10 flex flex-col items-center">
+    <Link href={href} className="flex flex-col items-center w-10">
       {children}
     </Link>
   );
