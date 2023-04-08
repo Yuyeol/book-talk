@@ -1,4 +1,4 @@
-import BookItem from "@/components/book/item";
+import BookItem from "@/components/book/book-item";
 import Layout from "@/components/layout";
 
 const Home = () => {

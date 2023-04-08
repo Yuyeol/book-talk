@@ -18,7 +18,7 @@ const BookInfo = ({ type }: { type: 1 | 2 | 3 }) => {
   );
 };
 
-const FriendsItem = () => {
+const FriendItem = () => {
   const [isSelected, setIsSelected] = useState(false);
   return (
     <li
@@ -53,4 +53,4 @@ const FriendsItem = () => {
     </li>
   );
 };
-export default FriendsItem;
+export default FriendItem;

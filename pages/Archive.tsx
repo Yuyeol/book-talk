@@ -1,4 +1,4 @@
-import ArchiveItem from "@/components/archive/item";
+import ArchiveItem from "@/components/archive/archive-item";
 import Layout from "@/components/layout";
 
 const Archive = () => {
