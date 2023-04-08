@@ -4,7 +4,7 @@ import Search from "../icon/search";
 import Filter from "../icon/filter";
 import Check from "../icon/check";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const ICON_WIDTH = 6;
 const ICON_DEFAULT_COLOR = "black";
@@ -26,11 +26,20 @@ const Header = ({}) => {
     }),
     [pathname]
   );
+
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const headerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+  }, []);
   return (
-    //h-9는 fixed임  h-9는 임의로 넣어준건데 나중에 자녀 높이 자동계산한 값으로 대신 넣어주자.
-    <div className="relative w-full bg-slate-400 h-9">
-      <div className="fixed flex items-center justify-between w-full max-w-lg px-2 py-1 bg-white">
-        {/* 타이틀 */}
+    <div className="relative z-50 w-0" style={{ height: headerHeight }}>
+      <div
+        ref={headerRef}
+        className="fixed flex items-center justify-between w-full max-w-lg px-2 py-1 bg-white"
+      >
         <div className="text-lg font-bold text">page</div>
         <div className="flex gap-2">
           {hasBtn.plus && (
@@ -54,10 +63,6 @@ const Header = ({}) => {
             </button>
           )}
         </div>
-        {/* 책: 추가, 검색, 정렬/필터링 */}
-        {/* 아카이브: 검색, 정렬/필터링 */}
-        {/* 친구: 검색(검색에 친구 프로필 모달, 추가버튼 있음.) */}
-        {/* 태그: 추가, 검색, 정렬/필터링 */}
       </div>
     </div>
   );
