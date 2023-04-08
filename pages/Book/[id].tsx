@@ -21,6 +21,7 @@ const BookDetail = () => {
         input bar
         <div>photo</div>
         <div>design option</div>
+        <div>select tags</div>
         <div>send button</div>
       </div>
     </Layout>
