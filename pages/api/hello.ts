@@ -10,6 +10,5 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log(await prisma.stUser.findMany());
   res.status(200).json({ ok: true });
 }
