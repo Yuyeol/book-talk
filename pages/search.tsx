@@ -6,7 +6,7 @@ const TAP_ACTIVE_TEXT_COLOR = "white";
 const TAP_DEFAULT_BG_COLOR = "white";
 const TAP_ACTIVE_BG_COLOR = "black";
 
-const Home = () => {
+const Search = () => {
   const [currentTap, setCurrentTap] = useState(0);
   const selectTap = (index: number) => setCurrentTap(index);
   return (
@@ -43,4 +43,4 @@ const Home = () => {
     </Layout>
   );
 };
-export default Home;
+export default Search;
