@@ -1,9 +1,9 @@
 import Chevron from "@/components/icon/chevron";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const BookInfo = ({ type }: { type: 1 | 2 | 3 }) => {
   return (
-    <div className="flex gap-2 mb-3 text-xs">
+    <div className="flex gap-2 py-2 text-xs">
       <div>
         {type === 1 && "읽고 있는 책"}
         {type === 2 && "함께 읽는 책"}
@@ -20,6 +20,13 @@ const BookInfo = ({ type }: { type: 1 | 2 | 3 }) => {
 
 const FriendItem = () => {
   const [isSelected, setIsSelected] = useState(false);
+  const bookInfoRef = useRef<HTMLDivElement>(null);
+  const [bookInfoHeight, setBookInfoHeight] = useState(0);
+  useEffect(() => {
+    if (bookInfoRef.current) {
+      setBookInfoHeight(bookInfoRef.current.offsetHeight);
+    }
+  }, []);
   return (
     <li
       className="overflow-hidden"
@@ -40,15 +47,16 @@ const FriendItem = () => {
         </div>
       </div>
       <div
-        className={`z-0 -top-full ${
-          isSelected ? "mt-0" : "-mt-[50%]"
-        } transition-[margin-top] duration-500 ease-in-out`}
+        ref={bookInfoRef}
+        style={{
+          marginTop: `${isSelected ? 0 : -bookInfoHeight}px`,
+        }}
+        className={`z-0 transition-[margin-top] duration-500 ease-in-out
+        `}
       >
-        <div className="">
-          <BookInfo type={1} />
-          <BookInfo type={2} />
-          <BookInfo type={3} />
-        </div>
+        <BookInfo type={1} />
+        <BookInfo type={2} />
+        <BookInfo type={3} />
       </div>
     </li>
   );
