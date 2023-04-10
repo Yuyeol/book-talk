@@ -12,6 +12,7 @@ const Tags = () => {
   };
   return (
     <Layout>
+      {/*  */}
       {/* 태그 추가버튼은 헤더에 구현. 클릭 시 추가/수정 모달 팝업 */}
       <div className="p-4">
         <TagList title="책 태그" description="장르, 특징, 목적 등">

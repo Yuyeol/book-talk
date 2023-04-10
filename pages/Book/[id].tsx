@@ -3,6 +3,7 @@ import Layout from "@/components/layout";
 const BookDetail = () => {
   return (
     <Layout>
+      {/*  */}
       <div>헤더</div>
       <div>
         대화창
