@@ -1,4 +1,5 @@
 import BookItem from "@/components/book/book-item";
+import FriendItem from "@/components/friends/friend-item/friend-item";
 import Layout from "@/components/layout";
 import { useState } from "react";
 const TAP_DEFAULT_TEXT_COLOR = "black";
@@ -11,6 +12,7 @@ const Search = () => {
   const selectTap = (index: number) => setCurrentTap(index);
   return (
     <Layout>
+      <FriendItem />
       <div className="p-4">
         <div>
           <input placeholder="Search" />
