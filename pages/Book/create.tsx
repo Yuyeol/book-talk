@@ -3,10 +3,12 @@ import ImageInput from "@/components/create/image-input";
 import Layout from "@/components/layout";
 import SelectableTag from "@/components/selectable-tag";
 import { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
 
 interface Props {}
 
 const Create = ({}: Props) => {
+  const { register, handleSubmit } = useForm();
   const [tags, setTags] = useState<string[]>([]);
   const selectTag = useCallback(
     (id: string) => {
@@ -28,9 +30,9 @@ const Create = ({}: Props) => {
         <form>
           {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
           <ImageInput />
-          <Input placeholder="책 제목" />
-          <Input placeholder="글쓴이" />
-          <Input placeholder="설명" />
+          <Input placeholder="책 제목" register={register("title")} />
+          <Input placeholder="글쓴이" register={register("author")} />
+          <Input placeholder="설명" register={register("description")} />
           {/* input은 마무리할때 안보이게 처리해도될듯. 디자인따라 정해보자 */}
           <input
             placeholder="태그"
@@ -45,7 +47,7 @@ const Create = ({}: Props) => {
             {["1", "2", "3"].map((i) => (
               <SelectableTag
                 key={i}
-                name={`tag${i}`}
+                text={`tag${i}`}
                 id={i}
                 selectTag={selectTag}
                 isSelected={tags.includes(i)}

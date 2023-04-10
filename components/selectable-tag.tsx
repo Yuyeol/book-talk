@@ -1,14 +1,11 @@
-const SelectableTag = ({
-  name,
-  id,
-  selectTag,
-  isSelected,
-}: {
-  name: string;
+interface Props {
+  text: string;
   id: string;
   selectTag: (id: string) => void;
   isSelected: boolean;
-}) => {
+}
+
+const SelectableTag = ({ text, id, selectTag, isSelected }: Props) => {
   return (
     <div
       className={`px-2 text-sm text-white rounded-full bg-slate-600 ${
@@ -16,7 +13,7 @@ const SelectableTag = ({
       }`}
       onClick={() => selectTag(id)}
     >
-      {name}
+      {text}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import Book from "@/components/icon/book";
 import Plus from "@/components/icon/plus";
 import Upload from "@/components/icon/upload";
 import Layout from "@/components/layout";
-// TODO: 달에쓰는 일기 디자인 참고해서 인풋 구현하기
 interface Props {}
 
 const ImageInput = ({}: Props) => (
