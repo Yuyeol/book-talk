@@ -8,12 +8,55 @@ datasource db {
   relationMode = "prisma"
 }
 
-model MUser {
+model BUser {
   id        Int      @id @default(autoincrement())
   name      String
   image     String?
+  comment   String?
   createdAt DateTime @default(now())
   updatedAt DateTime
+}
+
+model BBook {
+  id          Int       @id @default(autoincrement())
+  title       String
+  author      String?
+  description String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  finishedAt  DateTime?
+  Tags        BTag[]
+  Memos       BMemo[]
+}
+
+model BMemo {
+  id        Int       @id @default(autoincrement())
+  content   String
+  page      Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  Tags      BTag[]
+  book      BBook?    @relation(fields: [bookId], references: [id])
+  bookId    Int?
+
+  @@index([bookId])
+}
+
+model BTag {
+  id        Int       @id @default(autoincrement())
+  content   String
+  type      String
+  bgColor   String?
+  txtColor  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  book      BBook?    @relation(fields: [bookId], references: [id])
+  bookId    Int?
+  memo      BMemo?    @relation(fields: [memoId], references: [id])
+  memoId    Int?
+
+  @@index([bookId])
+  @@index([memoId])
 }
 
 model Answer {
