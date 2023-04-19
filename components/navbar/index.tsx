@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Archive from "../icon/archive";
 import Book from "../icon/book";
 import Friends from "../icon/friends";
-import Promotion from "../icon/promotion";
+import Profile from "../icon/profile";
 import Tags from "../icon/tags";
 import NavItem from "./nav-item";
 
@@ -54,9 +54,9 @@ const NavBar = () => {
             <Tags width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             <Text text="태그" />
           </NavItem>
-          <NavItem href="/recommend">
-            <Promotion width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
-            <Text text="추천책" />
+          <NavItem href="/profile">
+            <Profile width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
+            <Text text="프로필" />
           </NavItem>
         </ul>
       </div>

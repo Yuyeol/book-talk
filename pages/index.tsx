@@ -1,5 +1,6 @@
 import BookItem from "@/components/book/book-item";
 import Layout from "@/components/layout";
+import { useSession } from "next-auth/react";
 
 const Home = () => {
   return (
