@@ -3,6 +3,9 @@ import Layout from "@/components/layout";
 import { useSession } from "next-auth/react";
 
 const Home = () => {
+  const { data: session } = useSession();
+  console.log(session);
+
   return (
     <Layout>
       <ul className="px-4 divide-y-2">
