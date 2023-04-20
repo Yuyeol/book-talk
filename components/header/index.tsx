@@ -22,7 +22,7 @@ const Header = ({}) => {
         pathname === "/tags",
       filter:
         pathname === "/" || pathname === "/archive" || pathname === "/tags",
-      check: pathname === "/book/create",
+      // check: pathname === "/book/create",
     }),
     [pathname]
   );
@@ -57,11 +57,12 @@ const Header = ({}) => {
               <Filter width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             </button>
           )}
-          {hasBtn.check && (
+          {/* submit button으로 쓰려 했으나, 페이지 내에 포함되는게 좋을것 같아 주석처리 */}
+          {/* {hasBtn.check && (
             <button>
               <Check width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </div>

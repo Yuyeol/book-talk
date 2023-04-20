@@ -1,12 +1,7 @@
-import ResponsiveImage from "@/components/core/responsive-image";
-import ImageInput from "@/components/create/image-input";
-import Book from "@/components/icon/book";
-import Plus from "@/components/icon/plus";
-import Upload from "@/components/icon/upload";
-import Layout from "@/components/layout";
+import { UseFormRegisterReturn } from "react-hook-form";
 interface Props {
   placeholder: string;
-  register: any;
+  register: UseFormRegisterReturn;
 }
 
 const Input = ({ placeholder, register }: Props) => (

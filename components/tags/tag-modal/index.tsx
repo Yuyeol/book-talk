@@ -21,7 +21,7 @@ const TagModal = () => {
     setTagName(e.target.value);
   };
 
-  const onValid = (data: any) => {
+  const onSubmit = (data: any) => {
     console.log(data);
     console.log(tagColor);
   };
@@ -33,7 +33,7 @@ const TagModal = () => {
         {/* 식별은 id로 하면될듯 */}
         <div>태그 수정</div>
         <div>
-          <form onSubmit={handleSubmit(onValid)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <input
               placeholder="태그"
               {...register("tagName")}

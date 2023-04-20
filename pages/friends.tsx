@@ -1,4 +1,4 @@
-import FriendItem from "@/components/friends/friend-item/friend-item";
+import FriendItem from "@/components/friends/friend-item";
 import Layout from "@/components/layout";
 
 const Friends = () => {
