@@ -15,6 +15,12 @@ export default function Login() {
           <>
             <button
               className="px-4 py-2 text-white rounded-md bg-slate-800"
+              onClick={() => signIn("kakao", { callbackUrl: "/" })}
+            >
+              Sign in with Kakao
+            </button>
+            <button
+              className="px-4 py-2 text-white rounded-md bg-slate-800"
               onClick={() => signIn("google", { callbackUrl: "/" })}
             >
               Sign in with Google
