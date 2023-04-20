@@ -8,142 +8,93 @@ datasource db {
   relationMode = "prisma"
 }
 
-model MUser {
-  id        Int      @id @default(autoincrement())
-  name      String
-  image     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-}
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  refresh_token_expires_in Int?
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
 
-model Answer {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  userId    Int
-  postId    Int
-  answer    String   @db.MediumText
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([postId])
+  @@unique([provider, providerAccountId])
   @@index([userId])
 }
 
-model Fav {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  productId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-
-  @@index([productId])
-  @@index([userId])
-}
-
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  userId    Int
-  question  String   @db.MediumText
-  latitude  Float?
-  longitude Float?
-
-  @@index([userId])
-}
-
-model Product {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime
-  userId      Int
-  image       String
-  name        String
-  price       Int
-  description String   @db.MediumText
-
-  @@index([userId])
-}
-
-model Purchase {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  productId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-
-  @@index([productId])
-  @@index([userId])
-}
-
-model Record {
-  id        Int         @id @default(autoincrement())
-  userId    Int
-  productId Int
-  createdAt DateTime    @default(now())
-  updatedAt DateTime
-  kind      Record_kind
-
-  @@index([productId])
-  @@index([userId])
-}
-
-model Review {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime
-  review       String   @db.MediumText
-  createdById  Int
-  createdForId Int
-  score        Int      @default(1)
-
-  @@index([createdById])
-  @@index([createdForId])
-}
-
-model Sale {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  productId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-
-  @@index([productId])
-  @@index([userId])
-}
-
-model Token {
-  id        Int      @id @default(autoincrement())
-  payload   String   @unique
-  userId    Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  phone     String?  @unique
-  email     String?  @unique
-  name      String
-  avatar    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
-model Wondering {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  userId    Int
-  postId    Int
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-  @@index([postId])
-  @@index([userId])
+  @@unique([identifier, token])
 }
 
-enum Record_kind {
-  Purchase
-  Sale
-  Fav
+model Book {
+  id          Int       @id @default(autoincrement())
+  title       String
+  author      String?
+  description String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  finishedAt  DateTime?
+  Tags        Tag[]
+  Memos       Memo[]
+}
+
+model Memo {
+  id        Int       @id @default(autoincrement())
+  content   String
+  page      Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  Tags      Tag[]
+  book      Book?     @relation(fields: [bookId], references: [id])
+  bookId    Int?
+
+  @@index([bookId])
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  content   String
+  type      String
+  bgColor   String?
+  txtColor  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  book      Book?     @relation(fields: [bookId], references: [id])
+  bookId    Int?
+  memo      Memo?     @relation(fields: [memoId], references: [id])
+  memoId    Int?
+
+  @@index([bookId])
+  @@index([memoId])
 }
