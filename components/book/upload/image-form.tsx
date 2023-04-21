@@ -1,8 +1,5 @@
 import ResponsiveImage from "@/components/core/responsive-image";
-import Book from "@/components/icon/book";
-import Plus from "@/components/icon/plus";
 import Upload from "@/components/icon/upload";
-import Layout from "@/components/layout";
 import { UseFormRegisterReturn } from "react-hook-form";
 interface Props {
   bookImage: string;

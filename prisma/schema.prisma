@@ -64,6 +64,7 @@ model Book {
   description String?
   image       String?
   createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
   finishedAt  DateTime?
   Tags        Tag[]
   Memos       Memo[]

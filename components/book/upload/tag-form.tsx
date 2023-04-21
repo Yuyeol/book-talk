@@ -1,9 +1,4 @@
-import Input from "@/components/core/input";
-import ImageInput from "@/components/create/image-form";
-import Layout from "@/components/layout";
 import SelectableTag from "@/components/selectable-tag";
-import { useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 
 interface Props {
   selectTag: (id: string) => void;
@@ -16,13 +11,13 @@ const TagForm = ({ selectTag, tags }: Props) => {
       <input placeholder="태그" className="" value={tags} onChange={() => {}} />
       <div>태그를 추가해주세요</div>
       <div className="flex flex-wrap gap-2">
-        {["1", "2", "3"].map((i) => (
+        {["1", "2", "3"].map((name) => (
           <SelectableTag
-            key={i}
-            text={`tag${i}`}
-            id={i}
+            key={name}
+            text={name}
+            id={name}
             selectTag={selectTag}
-            isSelected={tags.includes(i)}
+            isSelected={tags.includes(name)}
           />
         ))}
       </div>
