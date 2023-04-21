@@ -76,7 +76,6 @@ model Memo {
   page      Int?
   createdAt DateTime  @default(now())
   updatedAt DateTime?
-  Tags      Tag[]
   book      Book?     @relation(fields: [bookId], references: [id])
   bookId    Int?
 
@@ -84,18 +83,13 @@ model Memo {
 }
 
 model Tag {
-  id        Int       @id @default(autoincrement())
-  content   String
-  type      String
-  bgColor   String?
-  txtColor  String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
-  book      Book?     @relation(fields: [bookId], references: [id])
+  id        Int      @id @default(autoincrement())
+  name      String
+  bgColor   String
+  txtColor  String
+  createdAt DateTime @default(now())
+  book      Book?    @relation(fields: [bookId], references: [id])
   bookId    Int?
-  memo      Memo?     @relation(fields: [memoId], references: [id])
-  memoId    Int?
 
   @@index([bookId])
-  @@index([memoId])
 }

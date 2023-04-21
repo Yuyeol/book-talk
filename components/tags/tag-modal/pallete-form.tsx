@@ -1,5 +1,3 @@
-import Input from "@/components/core/input";
-
 interface Props {
   formType: "background" | "text";
   selectColor: (background: string, color: string) => void;
