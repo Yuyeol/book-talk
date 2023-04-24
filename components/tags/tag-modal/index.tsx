@@ -40,6 +40,12 @@ const TagModal = ({ tag, setIsModalOpen }: Props) => {
     setIsModalOpen(false);
   };
 
+  const deleteTag = () => {
+    if (loading) return;
+    mutation({ id: tag?.id, isDelete: true });
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="absolute top-0 z-50 w-screen h-screen max-w-lg -translate-x-2/4 left-1/2">
       {/* modal overlay */}
@@ -66,6 +72,8 @@ const TagModal = ({ tag, setIsModalOpen }: Props) => {
             {tagName}
           </div>
           <button>등록</button>
+          {tag && <button onClick={deleteTag}>삭제</button>}
+
           <button
             onClick={() => {
               setIsModalOpen(false);

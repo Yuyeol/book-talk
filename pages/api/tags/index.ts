@@ -13,27 +13,38 @@ export default async function handler(
     });
   } else if (req.method === "POST") {
     const {
-      body: { name, background, text, id },
+      body: { name, background, text, id, isDelete },
     } = req;
-
-    const tag = await prisma.tag.upsert({
-      where: {
-        id: id,
-      },
-      update: {
-        name: name,
-        bgColor: background,
-        txtColor: text,
-      },
-      create: {
-        name: name,
-        bgColor: background,
-        txtColor: text,
-      },
-    });
-    res.status(200).json({
-      ok: true,
-      tag,
-    });
+    if (isDelete) {
+      const tag = await prisma.tag.delete({
+        where: {
+          id: id,
+        },
+      });
+      res.status(200).json({
+        ok: true,
+        tag,
+      });
+    } else {
+      const tag = await prisma.tag.upsert({
+        where: {
+          id: id,
+        },
+        update: {
+          name: name,
+          bgColor: background,
+          txtColor: text,
+        },
+        create: {
+          name: name,
+          bgColor: background,
+          txtColor: text,
+        },
+      });
+      res.status(200).json({
+        ok: true,
+        tag,
+      });
+    }
   }
 }
