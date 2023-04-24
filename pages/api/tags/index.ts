@@ -5,19 +5,35 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const {
-    body: { name, background, text },
-  } = req;
-  const tag = await prisma.tag.create({
-    data: {
-      name: name,
-      bgColor: background,
-      txtColor: text,
-    },
-  });
+  if (req.method === "GET") {
+    const tags = await prisma.tag.findMany();
+    res.status(200).json({
+      ok: true,
+      tags,
+    });
+  } else if (req.method === "POST") {
+    const {
+      body: { name, background, text, id },
+    } = req;
 
-  res.status(200).json({
-    ok: true,
-    tag,
-  });
+    const tag = await prisma.tag.upsert({
+      where: {
+        id: id,
+      },
+      update: {
+        name: name,
+        bgColor: background,
+        txtColor: text,
+      },
+      create: {
+        name: name,
+        bgColor: background,
+        txtColor: text,
+      },
+    });
+    res.status(200).json({
+      ok: true,
+      tag,
+    });
+  }
 }

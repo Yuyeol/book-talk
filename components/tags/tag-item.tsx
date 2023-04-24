@@ -1,16 +1,22 @@
+import { Tag } from "@prisma/client";
+
 interface Props {
-  id: string;
-  text: string;
-  openTagModal: (id: string) => void;
+  tag: Tag;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedTag: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const TagItem = ({ id, text, openTagModal }: Props) => {
+const TagItem = ({ tag, setIsModalOpen, setSelectedTag }: Props) => {
   return (
     <li
       className="px-4 py-1 text-white rounded-full bg-slate-800"
-      onClick={() => openTagModal(id)}
+      style={{ background: tag.bgColor, color: tag.txtColor }}
+      onClick={() => {
+        setSelectedTag(tag.id);
+        setIsModalOpen(true);
+      }}
     >
-      {text}
+      {tag.name}
     </li>
   );
 };
