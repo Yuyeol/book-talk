@@ -14,7 +14,7 @@ const palleteColors = [
   "#FF00FF",
 ];
 
-const PalleteForm = ({ formType, selectColor }: Props) => {
+const Pallete = ({ formType, selectColor }: Props) => {
   return (
     <div>
       <div>{formType === "background" ? "배경" : "폰트"}</div>
@@ -31,4 +31,4 @@ const PalleteForm = ({ formType, selectColor }: Props) => {
     </div>
   );
 };
-export default PalleteForm;
+export default Pallete;

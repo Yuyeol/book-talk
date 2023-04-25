@@ -12,7 +12,6 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       >
         <Component {...pageProps} />
-        <div id="tag-modal"></div>
       </SWRConfig>
     </SessionProvider>
   );
