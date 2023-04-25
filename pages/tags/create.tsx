@@ -1,5 +1,5 @@
 import Layout from "@/components/layout";
-import TagForm from "@/components/tags/tag-form";
+import TagForm from "@/components/tags/form";
 
 const Create = () => {
   return (

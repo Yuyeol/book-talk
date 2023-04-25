@@ -4,7 +4,7 @@ import Book from "../icon/book";
 import Friends from "../icon/friends";
 import Profile from "../icon/profile";
 import Tags from "../icon/tags";
-import NavItem from "./nav-item";
+import Item from "./item";
 
 const ICON_WIDTH = 8;
 const ICON_DEFAULT_COLOR = "black";
@@ -38,26 +38,26 @@ const NavBar = () => {
         className="fixed max-w-lg bottom-0 w-full bg-white border-t-[1px] border-black"
       >
         <ul className="flex justify-between px-6 py-2">
-          <NavItem href="/">
+          <Item href="/">
             <Book width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             <Text text="독서중" />
-          </NavItem>
-          <NavItem href="/archive">
+          </Item>
+          <Item href="/archive">
             <Archive width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             <Text text="보관함" />
-          </NavItem>
-          <NavItem href="/friends">
+          </Item>
+          <Item href="/friends">
             <Friends width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             <Text text="친구" />
-          </NavItem>
-          <NavItem href="/tags">
+          </Item>
+          <Item href="/tags">
             <Tags width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             <Text text="태그" />
-          </NavItem>
-          <NavItem href="/profile">
+          </Item>
+          <Item href="/profile">
             <Profile width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             <Text text="프로필" />
-          </NavItem>
+          </Item>
         </ul>
       </div>
     </div>

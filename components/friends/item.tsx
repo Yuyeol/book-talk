@@ -18,7 +18,7 @@ const BookInfo = ({ type }: { type: 1 | 2 | 3 }) => {
   );
 };
 
-const FriendItem = () => {
+const Item = () => {
   const [isSelected, setIsSelected] = useState(false);
   const bookInfoRef = useRef<HTMLDivElement>(null);
   const [bookInfoHeight, setBookInfoHeight] = useState(0);
@@ -61,4 +61,4 @@ const FriendItem = () => {
     </li>
   );
 };
-export default FriendItem;
+export default Item;

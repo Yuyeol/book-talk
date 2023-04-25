@@ -7,7 +7,7 @@ interface Props {
   book: Book;
 }
 
-const BookItem = ({ book }: Props) => {
+const Item = ({ book }: Props) => {
   return (
     <li className="flex items-center py-2">
       <div className="w-12 h-12 mr-2 rounded-md bg-slate-600">사진</div>
@@ -28,4 +28,4 @@ const BookItem = ({ book }: Props) => {
     </li>
   );
 };
-export default BookItem;
+export default Item;

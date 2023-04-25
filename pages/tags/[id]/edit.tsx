@@ -1,7 +1,7 @@
 import Layout from "@/components/layout";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import TagForm from "@/components/tags/tag-form";
+import TagForm from "@/components/tags/form";
 
 const Edit = () => {
   const router = useRouter();

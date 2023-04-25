@@ -5,7 +5,7 @@ interface Props {
   tag: Tag;
 }
 
-const TagItem = ({ tag }: Props) => {
+const Item = ({ tag }: Props) => {
   return (
     <Link href={`/tags/${tag.id}/edit`}>
       <li
@@ -17,4 +17,4 @@ const TagItem = ({ tag }: Props) => {
     </Link>
   );
 };
-export default TagItem;
+export default Item;

@@ -5,11 +5,11 @@ interface Props {
   href: string;
 }
 
-const NavItem = ({ children, href }: Props) => {
+const Item = ({ children, href }: Props) => {
   return (
     <Link href={href} className="flex flex-col items-center w-10">
       {children}
     </Link>
   );
 };
-export default NavItem;
+export default Item;

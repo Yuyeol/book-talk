@@ -1,4 +1,4 @@
-import BookItem from "@/components/book/book-item";
+import Item from "@/components/book/item";
 import Layout from "@/components/layout";
 import { Book } from "@prisma/client";
 import { useSession } from "next-auth/react";
@@ -14,7 +14,7 @@ const Home = () => {
     <Layout>
       <ul className="px-4 divide-y-2">
         {data?.books.map((book: Book) => (
-          <BookItem key={book.id} book={book} />
+          <Item key={book.id} book={book} />
         ))}
       </ul>
     </Layout>

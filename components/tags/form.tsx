@@ -14,7 +14,7 @@ interface Props {
   tag?: Tag;
 }
 
-const TagForm = ({ tag }: Props) => {
+const Form = ({ tag }: Props) => {
   const router = useRouter();
 
   const { register, handleSubmit, watch, setValue } = useForm<TagForm>();
@@ -85,4 +85,4 @@ const TagForm = ({ tag }: Props) => {
   );
 };
 
-export default TagForm;
+export default Form;
