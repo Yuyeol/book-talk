@@ -5,6 +5,9 @@ import Layout from "@/components/layout";
 import useMutation from "@/lib/client/useMutation";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import Header from "@/components/header";
+import TitleCol from "@/components/header/title-col";
+import IconCol from "@/components/header/icon-col";
 
 interface BookForm {
   title: string;
@@ -50,6 +53,8 @@ const Upload = () => {
   };
   return (
     <Layout>
+      <Header col1={<TitleCol>Upload Book</TitleCol>} />
+
       <div className="px-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
