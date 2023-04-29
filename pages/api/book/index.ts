@@ -5,10 +5,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const books = await prisma.book.findMany();
+  console.log(req.body);
 
-  res.status(200).json({
-    ok: true,
-    books,
-  });
+  if (req.method === "GET") {
+    const books = await prisma.book.findMany();
+    res.status(200).json({
+      ok: true,
+      books,
+    });
+  } else if (req.method === "POST") {
+    // const { body } = req;
+    // console.log(body);
+
+    // const book = await prisma.book.create({});
+    res.status(200).json({
+      ok: true,
+    });
+  }
 }
