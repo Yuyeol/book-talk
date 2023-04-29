@@ -5,15 +5,24 @@ export default function ResponsiveImage({
   alt,
   aspectRatio,
   objectFit = "cover",
+  priority,
 }: {
   src: string;
   alt: string;
   aspectRatio?: string;
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+  priority?: boolean;
 }) {
   return (
     <div className="relative" style={{ aspectRatio }}>
-      <Image fill src={src} alt={alt} style={{ objectFit: objectFit }} />
+      <Image
+        fill
+        sizes="100%"
+        src={src}
+        alt={alt}
+        style={{ objectFit: objectFit }}
+        priority={priority}
+      />
     </div>
   );
 }

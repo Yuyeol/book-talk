@@ -46,10 +46,10 @@ const Form = ({ tag }: Props) => {
     setTagName(tagNameWatch);
   }, [tagNameWatch]);
 
-  const onSubmit = (formData: TagForm) => {
+  const onSubmit = (inputs: TagForm) => {
     if (loading) return;
-    if (!formData.name) return alert("태그 이름을 입력해주세요");
-    mutation({ ...formData, ...tagColor, id: tag ? tag.id : 0 });
+    if (!inputs.name) return alert("태그 이름을 입력해주세요");
+    mutation({ ...inputs, ...tagColor, id: tag ? tag.id : 0 });
     goToTagsPage();
   };
   const deleteTag = () => {

@@ -2,20 +2,16 @@ import Item from "@/components/book/item";
 import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
 import { Book } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import useSWR from "swr";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
-import { HeaderIconPortal } from "@/lib/client/portal";
 import IconCol from "@/components/header/icon-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 
 const Home = () => {
-  const { data: session } = useSession();
-
   const { data } = useSWR("/api/book");
 
   return (

@@ -48,14 +48,13 @@ const Upload = () => {
     }
   }, [bookImageWatch]);
 
-  const onSubmit = async (formData: BookForm) => {
-    const file = formData?.image?.[0];
-    const imageSrc = await uploadImageToS3(file);
-    console.log(imageSrc);
+  const onSubmit = async ({ title, author, description, image }: BookForm) => {
+    const file = image?.[0];
+    const imageSrc = file ? await uploadImageToS3(file) : "";
 
     if (loading) return;
-    if (!formData.title) return alert("책 제목을 입력해주세요.");
-    mutation({ ...formData, selectedTags, imageSrc });
+    if (!title) return alert("책 제목을 입력해주세요.");
+    mutation({ title, author, description, selectedTags, imageSrc });
   };
   return (
     <Layout>
