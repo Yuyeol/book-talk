@@ -1,30 +1,28 @@
+import InputBar from "@/components/book/detail/input-bar";
+import UnderlinedButton from "@/components/core/button/underlined-button";
+import Header from "@/components/header";
+import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
 
 const BookDetail = () => {
   return (
     <Layout>
-      {/*  */}
-      <div>헤더</div>
-      <div>
-        대화창
-        <div>
-          comment
-          <div>edit button</div>
-        </div>
-        <div>like</div>
-        <div>
-          cocoment<div>profile image</div>
-          <div>name</div>
-          <div>comment</div>
+      <Header col1={<TitleCol>Book</TitleCol>} />
+      <div className="p-4">
+        <div className="p-4 rounded-lg bg-slate-100">
+          <div className="flex justify-between text-xs">
+            <div className="">p.12</div>
+            <div>2022.2.1</div>
+          </div>
+          <div>comment ... ok write</div>
+          <div className="flex justify-end gap-2">
+            <button className="mr-auto">toggle mark</button>
+            <UnderlinedButton text="edit" />
+            <UnderlinedButton text="delete" />
+          </div>
         </div>
       </div>
-      <div>
-        input bar
-        <div>photo</div>
-        <div>design option</div>
-        <div>select tags</div>
-        <div>send button</div>
-      </div>
+      <InputBar />
     </Layout>
   );
 };

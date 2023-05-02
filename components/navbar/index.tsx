@@ -5,6 +5,7 @@ import Friends from "../icon/friends";
 import Profile from "../icon/profile";
 import Tags from "../icon/tags";
 import Item from "./item";
+import { NAVBAR_HEIGHT } from "@/constants";
 
 const ICON_WIDTH = 8;
 const ICON_DEFAULT_COLOR = "black";
@@ -32,12 +33,15 @@ const NavBar = () => {
 
   return (
     // nav bar 높이에 맞게 자동으로 계산해서 적용하기
-    <div className="relative z-50 w-0" style={{ height: navBarHeight }}>
+    <div className="relative z-50 w-0" style={{ height: NAVBAR_HEIGHT }}>
       <div
         ref={navBarRef}
         className="fixed max-w-lg bottom-0 w-full bg-white border-t-[1px] border-black"
       >
-        <ul className="flex justify-between px-6 py-2">
+        <ul
+          className="flex items-center justify-between px-6"
+          style={{ height: NAVBAR_HEIGHT }}
+        >
           <Item href="/">
             <Book width={ICON_WIDTH} color={ICON_DEFAULT_COLOR} />
             <Text text="독서중" />
