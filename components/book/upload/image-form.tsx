@@ -2,18 +2,19 @@ import ResponsiveImage from "@/components/core/responsive-image";
 import Upload from "@/components/icon/upload";
 import { UseFormRegisterReturn } from "react-hook-form";
 interface IProps {
-  bookImage: string;
+  bookPreviewImg: string;
   register: UseFormRegisterReturn;
 }
 
-const ImageForm = ({ bookImage, register }: IProps) => (
+const ImageForm = ({ bookPreviewImg, register }: IProps) => (
   <div className="relative max-w-sm mx-auto mt-8 bg-slate-400">
-    {bookImage ? (
+    {bookPreviewImg ? (
       <ResponsiveImage
-        src={bookImage}
+        src={bookPreviewImg}
         alt="book-image"
         aspectRatio="1"
         objectFit="contain"
+        priority
       />
     ) : (
       <div className="p-4">

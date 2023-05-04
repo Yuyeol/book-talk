@@ -6,6 +6,7 @@ export default function useMutation(url: string) {
     data: undefined,
     error: undefined,
   });
+
   function mutation(data: any) {
     setState((prev) => ({ ...prev, loading: true }));
     fetch(url, {

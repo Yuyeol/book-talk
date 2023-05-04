@@ -25,24 +25,37 @@ export default async function handler(
     });
   } else if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
-    const { body } = req;
+    const {
+      body: { id, title, author, description, imageSrc, selectedTags },
+    } = req;
     if (session?.user) {
-      const book = await prisma.book.create({
-        data: {
-          title: body.title,
-          author: body.author,
-          description: body.description,
-          image: body.imageSrc,
-          User: {
+      const book = await prisma.book.upsert({
+        where: {
+          id: id,
+        },
+        update: {
+          title,
+          author,
+          description,
+          image: imageSrc,
+          user: {
             connect: {
               email: session.user.email as string,
             },
           },
-          Tags: {
-            connect: body.selectedTags.map((tag: Tag) => ({
-              id: tag,
-            })),
+          tags: { connect: selectedTags.map((tag: Tag) => ({ id: tag })) },
+        },
+        create: {
+          title,
+          author,
+          description,
+          image: imageSrc,
+          user: {
+            connect: {
+              email: session.user.email as string,
+            },
           },
+          tags: { connect: selectedTags.map((tag: Tag) => ({ id: tag })) },
         },
       });
       res.status(200).json({

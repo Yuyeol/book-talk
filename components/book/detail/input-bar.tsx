@@ -1,4 +1,3 @@
-import Layout from "@/components/layout";
 import { NAVBAR_HEIGHT } from "@/constants";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -16,7 +15,7 @@ const InputBar = () => {
   return (
     <div
       className="fixed flex w-full max-w-lg -translate-x-1/2 left-1/2 bg-slate-500"
-      style={{ bottom: NAVBAR_HEIGHT }}
+      style={{ bottom: `${NAVBAR_HEIGHT}rem` }}
     >
       <div>
         <input className="w-12" placeholder="page" {...register("page")} />

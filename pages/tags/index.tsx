@@ -8,8 +8,6 @@ import Plus from "@/components/icon/plus";
 import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
-import { HeaderIconPortal } from "@/lib/client/portal";
-import IconWrapper from "@/components/header/tools-col";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import ToolsCol from "@/components/header/tools-col";
