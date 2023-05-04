@@ -3,6 +3,11 @@ interface Props {
 }
 
 const TitleCol = ({ children }: Props) => {
-  return <div className="text-lg font-bold text">{children}</div>;
+  return (
+    <div>
+      <div></div>
+      <div className="text-lg font-bold text">{children}</div>
+    </div>
+  );
 };
 export default TitleCol;

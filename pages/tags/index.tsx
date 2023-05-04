@@ -9,10 +9,10 @@ import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
 import { HeaderIconPortal } from "@/lib/client/portal";
-import IconWrapper from "@/components/header/icon-col";
+import IconWrapper from "@/components/header/tools-col";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
-import IconCol from "@/components/header/icon-col";
+import ToolsCol from "@/components/header/tools-col";
 
 const Tags = () => {
   const { data } = useSWR("/api/tags");
@@ -22,7 +22,7 @@ const Tags = () => {
       <Header
         col1={<TitleCol>Book</TitleCol>}
         col2={
-          <IconCol>
+          <ToolsCol>
             <Link href="/tags/create">
               <Plus width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
@@ -32,7 +32,7 @@ const Tags = () => {
             <button>
               <Filter width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </button>
-          </IconCol>
+          </ToolsCol>
         }
       />
       <div className="p-4">

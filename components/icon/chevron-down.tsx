@@ -3,14 +3,14 @@ interface Props {
   color: string;
 }
 
-const Chevron = ({ width, color }: Props) => (
+const ChevronDown = ({ width, color }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke={color}
-    style={{ width: `${width / 4}rem`, height: "auto" }}
+    style={{ width: `${width}rem`, height: "auto" }}
   >
     <path
       strokeLinecap="round"
@@ -19,4 +19,4 @@ const Chevron = ({ width, color }: Props) => (
     />
   </svg>
 );
-export default Chevron;
+export default ChevronDown;

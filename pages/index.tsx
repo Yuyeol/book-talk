@@ -7,7 +7,7 @@ import useSWR from "swr";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
-import IconCol from "@/components/header/icon-col";
+import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 
@@ -19,7 +19,7 @@ const Home = () => {
       <Header
         col1={<TitleCol>Book</TitleCol>}
         col2={
-          <IconCol>
+          <ToolsCol>
             <Link href="/book/upload">
               <Plus width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
@@ -29,7 +29,7 @@ const Home = () => {
             <button>
               <Filter width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </button>
-          </IconCol>
+          </ToolsCol>
         }
       />
       <ul className="px-4 divide-y-2">

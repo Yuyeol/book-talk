@@ -1,4 +1,4 @@
-import Chevron from "@/components/icon/chevron";
+import ChevronDown from "@/components/icon/chevron-down";
 import { useEffect, useRef, useState } from "react";
 
 const BookInfo = ({ type }: { type: 1 | 2 | 3 }) => {
@@ -43,7 +43,7 @@ const Item = () => {
             isSelected ? "rotate-180" : "rotate-0"
           } transition-transform duration-500`}
         >
-          <Chevron width={5} color="black" />
+          <ChevronDown width={5} color="black" />
         </div>
       </div>
       <div

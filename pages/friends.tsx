@@ -1,7 +1,7 @@
 import Item from "@/components/friends/item";
 import Header from "@/components/header";
-import IconCol from "@/components/header/icon-col";
-import IconWrapper from "@/components/header/icon-col";
+import ToolsCol from "@/components/header/tools-col";
+import IconWrapper from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Filter from "@/components/icon/filter";
 import Layout from "@/components/layout";
@@ -14,11 +14,11 @@ const Friends = () => {
       <Header
         col1={<TitleCol>Book</TitleCol>}
         col2={
-          <IconCol>
+          <ToolsCol>
             <button>
               <Filter width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </button>
-          </IconCol>
+          </ToolsCol>
         }
       />
       <ul className="px-4 divide-y-2">

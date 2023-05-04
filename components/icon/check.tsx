@@ -10,7 +10,7 @@ const Check = ({ width, color }: Props) => (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke={color}
-    style={{ width: `${width / 4}rem`, height: "auto" }}
+    style={{ width: `${width}rem`, height: "auto" }}
   >
     <path
       strokeLinecap="round"
