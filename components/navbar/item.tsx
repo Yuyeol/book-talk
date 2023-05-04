@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useCallback, useMemo } from "react";
 
-interface Props {
+interface IProps {
   href: string;
   children: React.ReactElement;
   text: string;
@@ -17,7 +17,7 @@ const Text = ({ text, color }: { text: string; color: string }) => {
   );
 };
 
-const Item = ({ children, text, href }: Props) => {
+const Item = ({ children, text, href }: IProps) => {
   const router = useRouter();
   const itemColor =
     router.pathname === href ? NAV_ICON_ACTIVE_COLOR : NAV_ICON_COLOR;

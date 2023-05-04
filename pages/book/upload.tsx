@@ -10,7 +10,7 @@ import TitleCol from "@/components/header/title-col";
 import useSWR from "swr";
 import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 
-interface BookForm {
+interface IBookForm {
   title: string;
   description?: string;
   author?: string;
@@ -19,7 +19,7 @@ interface BookForm {
 
 const Upload = () => {
   // useSWR 태그 불러오기
-  const { register, watch, handleSubmit } = useForm<BookForm>();
+  const { register, watch, handleSubmit } = useForm<IBookForm>();
   const { data } = useSWR("/api/tags");
   const { mutation, loading } = useMutation("/api/book");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
@@ -48,7 +48,7 @@ const Upload = () => {
     }
   }, [bookImageWatch]);
 
-  const onSubmit = async ({ title, author, description, image }: BookForm) => {
+  const onSubmit = async ({ title, author, description, image }: IBookForm) => {
     const file = image?.[0];
     const imageSrc = file ? await uploadImageToS3(file) : "";
 

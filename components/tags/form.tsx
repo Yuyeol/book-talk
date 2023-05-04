@@ -6,18 +6,18 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import { Tag } from "@prisma/client";
 
-interface TagForm {
+interface ITagForm {
   name: string;
 }
 
-interface Props {
+interface IProps {
   tag?: Tag;
 }
 
-const Form = ({ tag }: Props) => {
+const Form = ({ tag }: IProps) => {
   const router = useRouter();
 
-  const { register, handleSubmit, watch, setValue } = useForm<TagForm>();
+  const { register, handleSubmit, watch, setValue } = useForm<ITagForm>();
 
   const { mutation, loading } = useMutation("/api/tags");
 
@@ -46,7 +46,7 @@ const Form = ({ tag }: Props) => {
     setTagName(tagNameWatch);
   }, [tagNameWatch]);
 
-  const onSubmit = (inputs: TagForm) => {
+  const onSubmit = (inputs: ITagForm) => {
     if (loading) return;
     if (!inputs.name) return alert("태그 이름을 입력해주세요");
     mutation({ ...inputs, ...tagColor, id: tag ? tag.id : 0 });

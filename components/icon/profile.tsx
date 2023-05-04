@@ -1,9 +1,9 @@
-interface Props {
+interface IProps {
   width: number;
   color?: string;
 }
 
-const Profile = ({ width, color }: Props) => (
+const Profile = ({ width, color }: IProps) => (
   <div>
     <svg
       xmlns="http://www.w3.org/2000/svg"

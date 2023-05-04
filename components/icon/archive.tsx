@@ -1,9 +1,9 @@
-interface Props {
+interface IProps {
   width: number;
   color?: string;
 }
 
-const Archive = ({ width, color }: Props) => (
+const Archive = ({ width, color }: IProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

@@ -1,4 +1,4 @@
-interface Props {
+interface IProps {
   formType: "background" | "text";
   selectColor: (background: string, color: string) => void;
 }
@@ -14,7 +14,7 @@ const palleteColors = [
   "#FF00FF",
 ];
 
-const Pallete = ({ formType, selectColor }: Props) => {
+const Pallete = ({ formType, selectColor }: IProps) => {
   return (
     <div>
       <div>{formType === "background" ? "배경" : "폰트"}</div>

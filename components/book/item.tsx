@@ -4,11 +4,11 @@ import ResponsiveImage from "../core/responsive-image";
 import { useCallback } from "react";
 import Link from "next/link";
 
-interface Props {
+interface IProps {
   book: Book;
 }
 
-const Item = ({ book }: Props) => {
+const Item = ({ book }: IProps) => {
   const getElapsedTime = useCallback((dateData: Date) => {
     const date = dayjs(dateData);
     const now = dayjs();

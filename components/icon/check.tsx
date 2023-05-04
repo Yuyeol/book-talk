@@ -1,9 +1,9 @@
-interface Props {
+interface IProps {
   width: number;
   color: string;
 }
 
-const Check = ({ width, color }: Props) => (
+const Check = ({ width, color }: IProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

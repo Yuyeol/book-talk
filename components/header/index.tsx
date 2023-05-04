@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-interface Props {
+interface IProps {
   col1: React.ReactNode;
   col2?: React.ReactNode;
 }
 
-const Header = ({ col1, col2 }: Props) => {
+const Header = ({ col1, col2 }: IProps) => {
   const [headerHeight, setHeaderHeight] = useState(0);
   const headerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {

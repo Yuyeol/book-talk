@@ -1,12 +1,12 @@
 import ResponsiveImage from "@/components/core/responsive-image";
 import Upload from "@/components/icon/upload";
 import { UseFormRegisterReturn } from "react-hook-form";
-interface Props {
+interface IProps {
   bookImage: string;
   register: UseFormRegisterReturn;
 }
 
-const ImageForm = ({ bookImage, register }: Props) => (
+const ImageForm = ({ bookImage, register }: IProps) => (
   <div className="relative max-w-sm mx-auto mt-8 bg-slate-400">
     {bookImage ? (
       <ResponsiveImage

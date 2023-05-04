@@ -1,8 +1,8 @@
-interface Props {
+interface IProps {
   children: React.ReactNode;
 }
 
-const TitleCol = ({ children }: Props) => {
+const TitleCol = ({ children }: IProps) => {
   return (
     <div>
       <div></div>

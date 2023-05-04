@@ -1,8 +1,8 @@
-interface Props {
+interface IProps {
   width: number;
   color?: string;
 }
-const Tags = ({ width, color }: Props) => (
+const Tags = ({ width, color }: IProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

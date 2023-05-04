@@ -1,12 +1,12 @@
 import { Tag } from "@prisma/client";
 
-interface Props {
+interface IProps {
   tags: Tag[];
   selectTag: (id: number) => void;
   selectedTags: number[];
 }
 
-const TagInput = ({ tags, selectTag, selectedTags }: Props) => {
+const TagInput = ({ tags, selectTag, selectedTags }: IProps) => {
   return (
     <>
       <div>태그를 추가해주세요</div>

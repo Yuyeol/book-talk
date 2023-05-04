@@ -1,11 +1,11 @@
 import { Tag } from "@prisma/client";
 import Link from "next/link";
 
-interface Props {
+interface IProps {
   tag: Tag;
 }
 
-const Item = ({ tag }: Props) => {
+const Item = ({ tag }: IProps) => {
   return (
     <Link href={`/tags/${tag.id}/edit`}>
       <li
