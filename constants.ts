@@ -1,4 +1,4 @@
-export const HEADER_ICON_WIDTH = 0.75;
+export const HEADER_ICON_WIDTH = 1.5;
 export const HEADER_ICON_COLOR = "#000000";
 
 export const NAV_ICON_WIDTH = 2;

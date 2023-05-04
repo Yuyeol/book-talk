@@ -58,7 +58,7 @@ const Upload = () => {
   };
   return (
     <Layout>
-      <Header col1={<TitleCol>Upload Book</TitleCol>} />
+      <Header col1={<TitleCol hasBackBtn>Upload Book</TitleCol>} />
       <div className="px-4">
         <form>
           {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}

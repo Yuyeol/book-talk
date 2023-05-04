@@ -6,7 +6,7 @@ import TagForm from "@/components/tags/form";
 const Create = () => {
   return (
     <Layout>
-      <Header col1={<TitleCol>Create Tag</TitleCol>} />
+      <Header col1={<TitleCol hasBackBtn>Create Tag</TitleCol>} />
       <TagForm />
     </Layout>
   );
