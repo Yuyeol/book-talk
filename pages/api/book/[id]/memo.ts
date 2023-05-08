@@ -6,11 +6,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    // const tags = await prisma.tag.findMany();
-    // res.status(200).json({
-    //   ok: true,
-    //   tags,
-    // });
+    const memos = await prisma.memo.findMany({
+      // select: {},
+    });
+    res.status(200).json({
+      ok: true,
+      memos,
+    });
   } else if (req.method === "POST") {
     const {
       body: { id },
