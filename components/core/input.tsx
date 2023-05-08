@@ -1,15 +1,10 @@
-import ResponsiveImage from "@/components/core/responsive-image";
-import ImageInput from "@/components/create/image-input";
-import Book from "@/components/icon/book";
-import Plus from "@/components/icon/plus";
-import Upload from "@/components/icon/upload";
-import Layout from "@/components/layout";
-interface Props {
+import { UseFormRegisterReturn } from "react-hook-form";
+interface IProps {
   placeholder: string;
-  register: any;
+  register: UseFormRegisterReturn;
 }
 
-const Input = ({ placeholder, register }: Props) => (
+const Input = ({ placeholder, register }: IProps) => (
   <input
     className="block w-full px-3 py-1 mb-2 bg-white border border-gray-300 rounded-md shadow-sm"
     type="text"

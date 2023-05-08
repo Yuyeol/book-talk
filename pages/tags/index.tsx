@@ -1,31 +1,45 @@
-import Input from "@/components/core/input";
 import Layout from "@/components/layout";
-import Tag from "@/components/tags/tag-item";
-import TagList from "@/components/tags/tag-list";
-import TagModal from "@/components/tags/tag-modal";
-import { useState } from "react";
+import Item from "@/components/tags/item";
+import List from "@/components/tags/list";
+import useSWR from "swr";
+import { Tag } from "@prisma/client";
+import Link from "next/link";
+import Plus from "@/components/icon/plus";
+import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
+import Search from "@/components/icon/search";
+import Filter from "@/components/icon/filter";
+import Header from "@/components/header";
+import TitleCol from "@/components/header/title-col";
+import ToolsCol from "@/components/header/tools-col";
 
 const Tags = () => {
-  const [selectedTag, setSelectedTag] = useState<string>("");
-  const openTagModal = (id: string) => {
-    setSelectedTag(id);
-  };
+  const { data } = useSWR("/api/tags");
+
   return (
     <Layout>
-      {/*  */}
-      {/* 태그 추가버튼은 헤더에 구현. 클릭 시 추가/수정 모달 팝업 */}
+      <Header
+        col1={<TitleCol>Book</TitleCol>}
+        col2={
+          <ToolsCol>
+            <Link href="/tags/create">
+              <Plus width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
+            </Link>
+            <Link href="/tags/search">
+              <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
+            </Link>
+            <button>
+              <Filter width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
+            </button>
+          </ToolsCol>
+        }
+      />
       <div className="p-4">
-        <TagList title="책 태그" description="장르, 특징, 목적 등">
-          {/* 클릭 시 추가/수정모달로 팝업 */}
-          {/* 적당히 크게 구현해도 될듯 */}
-          {["1", "2", "3"].map((i) => (
-            <Tag key={i} id={i} text={"tag" + i} openTagModal={openTagModal} />
+        <List title="책 태그" description="장르, 특징, 목적 등">
+          {data?.tags.map((tag: Tag) => (
+            <Item key={tag.id} tag={tag} />
           ))}
-        </TagList>
+        </List>
       </div>
-      {/* 모달은 포탈로 최상위로 내보내자 */}
-      {/* selectedTag에 저장된 id로 tag정보 불러오기 */}
-      <TagModal />
     </Layout>
   );
 };

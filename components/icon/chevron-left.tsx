@@ -1,22 +1,22 @@
-interface Props {
+interface IProps {
   width: number;
   color: string;
 }
 
-const Chevron = ({ width, color }: Props) => (
+const ChevronLeft = ({ width, color }: IProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke={color}
-    style={{ width: `${width / 4}rem`, height: "auto" }}
+    style={{ width: `${width}rem`, height: "auto" }}
   >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+      d="M15.75 19.5L8.25 12l7.5-7.5"
     />
   </svg>
 );
-export default Chevron;
+export default ChevronLeft;

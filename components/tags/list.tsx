@@ -1,9 +1,9 @@
-interface Props {
+interface IProps {
   children: React.ReactNode;
   title: string;
   description: string;
 }
-const TagList = ({ children, title, description }: Props) => {
+const List = ({ children, title, description }: IProps) => {
   return (
     <div>
       <div>{title}</div>
@@ -13,4 +13,4 @@ const TagList = ({ children, title, description }: Props) => {
   );
 };
 
-export default TagList;
+export default List;

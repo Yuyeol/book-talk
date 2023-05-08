@@ -1,9 +1,9 @@
-interface Props {
+interface IProps {
   width: number;
-  color: string;
+  color?: string;
 }
 
-const Profile = ({ width, color }: Props) => (
+const Profile = ({ width, color }: IProps) => (
   <div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +11,7 @@ const Profile = ({ width, color }: Props) => (
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke={color}
-      style={{ width: `${width / 4}rem`, height: "auto" }}
+      style={{ width: `${width}rem`, height: "auto" }}
     >
       <path
         strokeLinecap="round"
