@@ -1,7 +1,7 @@
 import Item from "@/components/book/item";
 import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
-import { Book } from "@prisma/client";
+import { Book, Tag } from "@prisma/client";
 import Link from "next/link";
 import useSWR from "swr";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
@@ -11,9 +11,17 @@ import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 
-const Home = () => {
-  const { data } = useSWR("/api/book");
+export interface IBookWithTags extends Book {
+  tags?: Tag[];
+}
 
+interface IBookResponse {
+  books: IBookWithTags[];
+  ok: boolean;
+}
+
+const Home = () => {
+  const { data } = useSWR<IBookResponse>("/api/book");
   return (
     <Layout>
       <Header

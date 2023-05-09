@@ -2,16 +2,28 @@ import { Book } from "@prisma/client";
 import ResponsiveImage from "../core/responsive-image";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
+import { IBookWithTags } from "@/pages";
+import UnderlinedButton from "../core/button/underlined-button";
+import useMutation from "@/lib/client/useMutation";
 
 interface IProps {
-  book: Book;
+  book: IBookWithTags;
 }
 
 const Item = ({ book }: IProps) => {
+  console.log(book);
+
+  const { mutation, loading } = useMutation("/api/book");
+  const onDelete = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (loading) return;
+    mutation({ id: book.id }, "DELETE");
+  };
+
   return (
     <Link href={`/book/${book.id}`}>
-      <li className="flex items-center py-2">
-        <div className="w-12 h-12 mr-2 rounded-md bg-slate-600">
+      <li className="relative bg-slate-500">
+        <div className="w-full max-w-xs mx-auto">
           {book.image && (
             <ResponsiveImage
               src={book.image}
@@ -22,16 +34,34 @@ const Item = ({ book }: IProps) => {
             />
           )}
         </div>
-        <div className="flex-1">
-          <div className="">{book.title}</div>
-          <div className="text-sm">{book.description}</div>
-        </div>
-        <div className="w-[70px]">
-          <div className="mx-auto mb-1 text-xs text-center">
-            {getElapsedTime(book.updatedAt || book.createdAt)}
+        <div className="absolute bottom-0 w-full px-4 pt-8 pb-4 text-white bg-gradient-to-t from-slate-800">
+          <div className="flex items-center justify-between border-b-[0.5px] border-white">
+            <div className="pb-1 text-l">
+              {book.title} | {book.author}
+            </div>
+            <div className="text-xs text-right">
+              {getElapsedTime(book.updatedAt || book.createdAt)}
+            </div>
           </div>
-          <div className="flex items-center justify-center w-5 h-5 mx-auto text-xs text-center text-white rounded-full bg-slate-600">
-            1
+          <div className="pt-2 pb-3 text-sm">{book.description}</div>
+          <div className="flex items-center justify-between">
+            <div className="flex flex-wrap gap-2">
+              {book.tags?.map((tag) => (
+                <div
+                  key={tag.id}
+                  className="px-2 py-1 text-xs rounded-full"
+                  style={{ color: tag.txtColor, background: tag.bgColor }}
+                >
+                  {tag.name}
+                </div>
+              ))}
+            </div>
+            <div className="space-x-1">
+              <Link href={`/book/${book.id}/edit`}>
+                <UnderlinedButton text="수정" />
+              </Link>
+              <UnderlinedButton text="삭제" onClick={onDelete} />
+            </div>
           </div>
         </div>
       </li>

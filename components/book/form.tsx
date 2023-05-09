@@ -31,6 +31,8 @@ const Form = ({ book }: IProps) => {
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
   const { data: tagsData } = useSWR("/api/tags");
   const { mutation, loading } = useMutation("/api/book");
+  const [bookPreviewImg, setBookPreviewImg] = useState("");
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
   useEffect(() => {
     if (book) {
@@ -46,7 +48,6 @@ const Form = ({ book }: IProps) => {
   }, [book, setValue]);
 
   // book image preview
-  const [bookPreviewImg, setBookPreviewImg] = useState("");
   const bookImageWatch = watch("image");
 
   useEffect(() => {
@@ -61,7 +62,6 @@ const Form = ({ book }: IProps) => {
   }, [bookImageWatch, book]);
 
   // select tag event
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const selectTag = useCallback(
     (id: number) => {
       if (selectedTags.length > 5) {
