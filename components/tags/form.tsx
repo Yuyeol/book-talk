@@ -49,12 +49,12 @@ const Form = ({ tag }: IProps) => {
   const onSubmit = (inputs: ITagForm) => {
     if (loading) return;
     if (!inputs.name) return alert("태그 이름을 입력해주세요");
-    mutation({ ...inputs, ...tagColor, id: tag ? tag.id : 0 });
+    mutation({ ...inputs, ...tagColor, id: tag ? tag.id : 0 }, "POST");
     goToTagsPage();
   };
   const deleteTag = () => {
     if (loading) return;
-    mutation({ id: tag?.id, isDelete: true });
+    mutation({ id: tag?.id }, "DELETE");
     goToTagsPage();
   };
   const goToTagsPage = () => {

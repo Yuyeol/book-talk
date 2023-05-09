@@ -7,10 +7,10 @@ export default function useMutation(url: string) {
     error: undefined,
   });
 
-  function mutation(data: any) {
+  function mutation(data: any, method: "POST" | "DELETE") {
     setState((prev) => ({ ...prev, loading: true }));
     fetch(url, {
-      method: "POST",
+      method,
       headers: {
         "Content-Type": "application/json",
       },
