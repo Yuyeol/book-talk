@@ -85,14 +85,19 @@ const Form = ({ book }: IProps) => {
       : "";
     if (loading) return;
     if (!title) return alert("책 제목을 입력해주세요.");
-    mutation({
-      title,
-      author,
-      description,
-      selectedTags,
-      imageSrc,
-      id: book ? book.id : 0,
-    });
+    mutation(
+      {
+        title,
+        author,
+        description,
+        selectedTags,
+        imageSrc,
+        // 이거 마음에 안든다. 수정일 경우, 해당 book id, 생성일경우 억지로 id를 0으로 설정한다.
+        // form을 edit과 create가 공유하기 때문. 분리하기에는 공통부분이 너무 많다.
+        id: book ? book.id : 0,
+      },
+      "POST"
+    );
     router.replace("/");
   };
 

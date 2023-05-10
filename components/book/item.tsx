@@ -11,15 +11,6 @@ interface IProps {
 }
 
 const Item = ({ book }: IProps) => {
-  console.log(book);
-
-  const { mutation, loading } = useMutation("/api/book");
-  const onDelete = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (loading) return;
-    mutation({ id: book.id }, "DELETE");
-  };
-
   return (
     <Link href={`/book/${book.id}`}>
       <li className="relative bg-slate-500">
@@ -55,12 +46,6 @@ const Item = ({ book }: IProps) => {
                   {tag.name}
                 </div>
               ))}
-            </div>
-            <div className="space-x-1">
-              <Link href={`/book/${book.id}/edit`}>
-                <UnderlinedButton text="수정" />
-              </Link>
-              <UnderlinedButton text="삭제" onClick={onDelete} />
             </div>
           </div>
         </div>
