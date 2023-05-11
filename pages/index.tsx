@@ -12,7 +12,7 @@ import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 
 export interface IBookWithTags extends Book {
-  tags?: Tag[];
+  tags: Tag[];
 }
 
 interface IBookResponse {
@@ -40,8 +40,8 @@ const Home = () => {
           </ToolsCol>
         }
       />
-      <ul className="px-4 divide-y-2">
-        {data?.books.map((book: Book) => (
+      <ul className="divide-y-2">
+        {data?.books.map((book: IBookWithTags) => (
           <Item key={book.id} book={book} />
         ))}
       </ul>

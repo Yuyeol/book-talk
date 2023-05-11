@@ -1,4 +1,3 @@
-import { Book } from "@prisma/client";
 import ResponsiveImage from "../core/responsive-image";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/client/getElapsedTime";

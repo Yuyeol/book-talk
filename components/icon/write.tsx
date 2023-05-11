@@ -3,7 +3,7 @@ interface IProps {
   color?: string;
 }
 
-const Edit = ({ width, color }: IProps) => (
+const Write = ({ width, color }: IProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -19,4 +19,4 @@ const Edit = ({ width, color }: IProps) => (
     />
   </svg>
 );
-export default Edit;
+export default Write;

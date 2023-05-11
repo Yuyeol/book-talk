@@ -7,18 +7,14 @@ import { useForm } from "react-hook-form";
 import useSWR from "swr";
 import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 import { useRouter } from "next/router";
-import { Book, Tag } from "@prisma/client";
 import { urlToFileList } from "@/lib/client/convertImgToFileList";
+import { IBookWithTags } from "@/pages";
 
 interface IBookForm {
   title: string;
   description?: string;
   author?: string;
   image?: FileList;
-}
-
-interface IBookWithTags extends Book {
-  tags: Tag[];
 }
 
 interface IProps {
