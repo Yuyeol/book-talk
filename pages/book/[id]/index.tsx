@@ -11,6 +11,7 @@ import useSWR from "swr";
 import { IBookWithTags } from "@/pages";
 import Info from "@/components/book/detail/info";
 import Memo from "@/components/book/detail/memo";
+import { useCallback, useState } from "react";
 
 interface IBookResponse {
   book: IBookWithTags;
@@ -29,26 +30,23 @@ const BookDetail = () => {
   const { data: memosData } = useSWR<IMemosResponse>(
     router.query.id ? `/api/book/${router.query.id}/memo` : null
   );
-  console.log(bookData);
+  const [selectedMemo, setSelectedMemo] = useState<Memo>();
+  const selectMemo = useCallback(
+    (id: number) => {
+      setSelectedMemo(memosData?.memos.find((memo) => memo.id === id));
+    },
+    [memosData]
+  );
 
   return (
     <Layout>
-      <Header
-        col1={<TitleCol hasBackBtn>{bookData?.book.title}</TitleCol>}
-        col2={
-          <ToolsCol>
-            <button>
-              <Write width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
-            </button>
-          </ToolsCol>
-        }
-      />
+      <Header col1={<TitleCol hasBackBtn>{bookData?.book.title}</TitleCol>} />
       {bookData && (
         <>
           <Info book={bookData.book} />
-          <Form />
+          <Form selectedMemo={selectedMemo} />
           {memosData?.memos.map((memo) => (
-            <Memo memo={memo} key={memo.id} />
+            <Memo memo={memo} key={memo.id} selectMemo={selectMemo} />
           ))}
         </>
       )}
