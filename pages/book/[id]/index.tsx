@@ -1,5 +1,4 @@
-import InputBar from "@/components/book/detail/input-bar";
-import Memo from "@/components/book/detail/memo";
+import Form from "@/components/book/detail/memo/form";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import ToolsCol from "@/components/header/tools-col";
@@ -11,6 +10,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { IBookWithTags } from "@/pages";
 import Info from "@/components/book/detail/info";
+import Memo from "@/components/book/detail/memo";
 
 interface IBookResponse {
   book: IBookWithTags;
@@ -46,10 +46,10 @@ const BookDetail = () => {
       {bookData && (
         <>
           <Info book={bookData.book} />
+          <Form />
           {memosData?.memos.map((memo) => (
             <Memo memo={memo} key={memo.id} />
           ))}
-          <InputBar />
         </>
       )}
     </Layout>

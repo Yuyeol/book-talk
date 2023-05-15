@@ -21,6 +21,10 @@ const Item = ({ book }: IProps) => {
     mutation({ id: book.id }, "DELETE");
     router.replace("/");
   };
+  const redirectWithHref = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    router.push(href);
+  };
   return (
     <Link href={`/book/${book.id}`}>
       <li className="relative overflow-hidden">
@@ -64,9 +68,10 @@ const Item = ({ book }: IProps) => {
               ))}
             </div>
             <div className="space-x-1">
-              <Link href={`/book/${book.id}/edit`}>
-                <UnderlinedButton text="수정" />
-              </Link>
+              <UnderlinedButton
+                text="수정"
+                onClick={(e) => redirectWithHref(e, `/book/${book.id}/edit`)}
+              />
               <UnderlinedButton text="삭제" onClick={onDelete} />
             </div>
           </div>

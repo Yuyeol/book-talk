@@ -1,6 +1,6 @@
 interface IProps {
   text: string;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick: (params: any) => void;
 }
 const UnderlinedButton = ({ text, onClick }: IProps) => {
   return (
