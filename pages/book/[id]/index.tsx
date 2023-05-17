@@ -1,10 +1,7 @@
 import Form from "@/components/book/detail/memo/form";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
-import ToolsCol from "@/components/header/tools-col";
-import Write from "@/components/icon/write";
 import Layout from "@/components/layout";
-import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
 import { Memo as TMemo } from "@prisma/client";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -12,6 +9,8 @@ import { IBookWithTags } from "@/pages";
 import Info from "@/components/book/detail/info";
 import Memo from "@/components/book/detail/memo";
 import { useCallback, useState } from "react";
+import { useAppDispatch } from "@/app/hooks";
+import { openForm } from "@/features/memo/memoSlice";
 
 interface IBookResponse {
   book: IBookWithTags;
@@ -24,6 +23,7 @@ interface IMemosResponse {
 
 const BookDetail = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { data: bookData } = useSWR<IBookResponse>(
     router.query.id ? `/api/book/${router.query.id}` : null
   );
@@ -31,11 +31,13 @@ const BookDetail = () => {
     router.query.id ? `/api/book/${router.query.id}/memo` : null
   );
   const [selectedMemo, setSelectedMemo] = useState<Memo>();
+  // 메모 수정하기 위해 select
   const selectMemo = useCallback(
     (id: number) => {
       setSelectedMemo(memosData?.memos.find((memo) => memo.id === id));
+      dispatch(openForm());
     },
-    [memosData]
+    [dispatch, memosData?.memos]
   );
 
   return (

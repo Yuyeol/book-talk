@@ -6,7 +6,6 @@ import TitleCol from "@/components/header/title-col";
 import Filter from "@/components/icon/filter";
 import Layout from "@/components/layout";
 import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
-import { HeaderIconPortal } from "@/lib/client/portal";
 
 const Friends = () => {
   return (

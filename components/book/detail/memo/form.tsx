@@ -1,8 +1,10 @@
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import Plus from "@/components/icon/plus";
+import { toggleForm } from "@/features/memo/memoSlice";
 import useMutation from "@/lib/client/useMutation";
 import { Memo } from "@prisma/client";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface IMemoForm {
@@ -17,7 +19,8 @@ interface IProps {
 
 const Form = ({ selectedMemo }: IProps) => {
   const router = useRouter();
-  const [isFormOpen, setIsFormOpen] = useState(true);
+  const { isFormOpen } = useAppSelector((state) => state.memo);
+  const dispatch = useAppDispatch();
   const [memoHeight, setMemoHeight] = useState(0);
   const [formHeight, setFormHeight] = useState(0);
   const { register, watch, handleSubmit, setValue } = useForm<IMemoForm>();
@@ -48,10 +51,6 @@ const Form = ({ selectedMemo }: IProps) => {
       setValue("content", selectedMemo.content || "");
     }
   }, [selectedMemo, setValue]);
-
-  const toggleForm = () => {
-    setIsFormOpen(!isFormOpen);
-  };
 
   const onSubmit = ({ page, content }: IMemoForm) => {
     if (loading) return;
@@ -94,7 +93,7 @@ const Form = ({ selectedMemo }: IProps) => {
         </div>
       </div>
       <button
-        onClick={toggleForm}
+        onClick={() => dispatch(toggleForm())}
         className="flex justify-center w-12 mx-auto bg-blue-500 rounded-b-md"
       >
         <div

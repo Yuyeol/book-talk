@@ -6,20 +6,12 @@ interface IProps {
 }
 
 const Header = ({ col1, col2 }: IProps) => {
-  const [headerHeight, setHeaderHeight] = useState(0);
-  const headerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (headerRef.current) {
-      setHeaderHeight(headerRef.current.offsetHeight);
-    }
-  }, []);
   return (
     <div
       className="relative z-50 w-0"
       style={{ height: `${HEADER_HEIGHT}rem` }}
     >
       <div
-        ref={headerRef}
         className="fixed flex items-center justify-between w-full max-w-lg px-2 bg-white"
         style={{ height: `${HEADER_HEIGHT}rem` }}
       >
