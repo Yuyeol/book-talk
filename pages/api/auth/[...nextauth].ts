@@ -18,7 +18,12 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.KAKAO_CLIENT_SECRET as string,
     }),
   ],
-
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    maxAge: 60 * 60 * 24, // 세션 유효 기간 설정 (예: 1일)
+  },
   secret: process.env.SECRET as string,
 };
 export default NextAuth(authOptions);

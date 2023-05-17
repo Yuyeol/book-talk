@@ -15,7 +15,7 @@ export interface IBookWithTags extends Book {
   tags: Tag[];
 }
 
-interface IBookResponse {
+export interface IBookResponse {
   books: IBookWithTags[];
   ok: boolean;
 }
@@ -31,7 +31,7 @@ const Home = () => {
             <Link href="/book/upload">
               <Plus width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
-            <Link href="/search">
+            <Link href="/book/search">
               <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
             <button>
