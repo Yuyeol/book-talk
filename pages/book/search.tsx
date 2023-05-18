@@ -10,8 +10,16 @@ import Tab from "@/components/book/search/tab";
 const Search = () => {
   const { data } = useSWR<IBookResponse>("/api/book");
   const [currentTab, setCurrentTab] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IBookWithTags[]>([]);
-  const selectTab = useCallback((index: number) => setCurrentTab(index), []);
+  const selectTab = useCallback((index: number) => {
+    setCurrentTab(index);
+    resetSearch();
+  }, []);
+  const resetSearch = () => {
+    setSearchValue("");
+    setSearchResults([]);
+  };
   const filterBooks = useCallback(
     (search: string) => {
       if (!search || !data?.books) return [];
@@ -25,20 +33,30 @@ const Search = () => {
     [currentTab, data?.books]
   );
 
-  const handleSearchInput = _.debounce(
+  const setResultsWithDebounce = _.debounce(
     useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchResults(filterBooks(e.target.value));
+      (value: string) => {
+        setSearchResults(filterBooks(value));
       },
       [filterBooks]
     ),
     200
   );
-
+  const handleSearch = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchValue(e.target.value);
+      setResultsWithDebounce(e.target.value);
+    },
+    [setResultsWithDebounce]
+  );
   return (
     <Layout>
       <div className="p-4">
-        <Form handleSearchInput={handleSearchInput} />
+        <Form
+          handleSearch={handleSearch}
+          searchValue={searchValue}
+          resetSearch={resetSearch}
+        />
         <Tab selectTab={selectTab} currentTab={currentTab} />
         <div className="divide-y-2">
           {searchResults.map((result) => (
