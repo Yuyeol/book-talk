@@ -1,9 +1,7 @@
-import UnderlinedButton from "@/components/core/button/underlined-button";
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import useMutation from "@/lib/client/useMutation";
 import { Memo } from "@prisma/client";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 
 interface IProps {
   memo: Memo;
@@ -29,10 +27,20 @@ const Memo = ({ memo, selectMemo }: IProps) => {
           </div>
         </div>
         <div>{memo.content}</div>
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-1">
           {/* TODO: edit 클릭 시 자동으로 toggle open하도록 구현하기. */}
-          <UnderlinedButton text="edit" onClick={() => selectMemo(memo.id)} />
-          <UnderlinedButton text="delete" onClick={() => onDelete(memo.id)} />
+          <button
+            className="c_button_underlined"
+            onClick={() => selectMemo(memo.id)}
+          >
+            수정
+          </button>
+          <button
+            className="c_button_underlined"
+            onClick={() => onDelete(memo.id)}
+          >
+            삭제
+          </button>
         </div>
       </div>
     </div>

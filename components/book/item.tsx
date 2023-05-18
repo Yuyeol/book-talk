@@ -2,7 +2,6 @@ import ResponsiveImage from "../core/responsive-image";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import { IBookWithTags } from "@/pages";
-import UnderlinedButton from "../core/button/underlined-button";
 import useMutation from "@/lib/client/useMutation";
 import Image from "next/image";
 import { CF_DOMAIN } from "@/constants";
@@ -68,11 +67,18 @@ const Item = ({ book }: IProps) => {
               ))}
             </div>
             <div className="space-x-1">
-              <UnderlinedButton
-                text="수정"
+              <button
+                className="c_button_underlined"
                 onClick={(e) => redirectWithHref(e, `/book/${book.id}/edit`)}
-              />
-              <UnderlinedButton text="삭제" onClick={onDelete} />
+              >
+                수정
+              </button>
+              <button
+                className="c_button_underlined"
+                onClick={(e) => onDelete(e)}
+              >
+                삭제
+              </button>
             </div>
           </div>
         </div>

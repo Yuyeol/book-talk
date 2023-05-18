@@ -1,4 +1,3 @@
-import Input from "@/components/core/input";
 import ImageForm from "@/components/book/upload/image-form";
 import TagInput from "@/components/book/upload/tag-input";
 import useMutation from "@/lib/client/useMutation";
@@ -105,9 +104,21 @@ const Form = ({ book }: IProps) => {
           bookPreviewImg={bookPreviewImg}
           register={register("image")}
         />
-        <Input placeholder="책 제목" register={register("title")} />
-        <Input placeholder="글쓴이" register={register("author")} />
-        <Input placeholder="설명" register={register("description")} />
+        <input
+          className="c_input"
+          placeholder="책 제목"
+          {...register("title")}
+        />
+        <input
+          className="c_input"
+          placeholder="글쓴이"
+          {...register("author")}
+        />
+        <input
+          className="c_input"
+          placeholder="설명"
+          {...register("description")}
+        />
         {/* input은 마무리할때 안보이게 처리해도될듯. 디자인따라 정해보자 */}
         {tagsData?.ok && (
           <TagInput
