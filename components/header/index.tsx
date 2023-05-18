@@ -1,5 +1,5 @@
 import { HEADER_HEIGHT } from "@/constants";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 interface IProps {
   col1: React.ReactNode;
   col2?: React.ReactNode;
