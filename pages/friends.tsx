@@ -1,7 +1,6 @@
 import Item from "@/components/friends/item";
 import Header from "@/components/header";
 import ToolsCol from "@/components/header/tools-col";
-import IconWrapper from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Filter from "@/components/icon/filter";
 import Layout from "@/components/layout";
