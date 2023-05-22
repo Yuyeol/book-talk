@@ -4,7 +4,6 @@ import TitleCol from "@/components/header/title-col";
 import Form from "@/components/book/form";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import useMutation from "@/lib/client/useMutation";
 
 const Edit = () => {
   const router = useRouter();

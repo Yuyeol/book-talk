@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useMutation from "@/lib/client/useMutation";
 import Pallete from "@/components/tags/pallete";
-import useSWR from "swr";
 import { useRouter } from "next/router";
 import { Tag } from "@prisma/client";
 
