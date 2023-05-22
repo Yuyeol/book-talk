@@ -1,7 +1,7 @@
 import { NAV_ICON_ACTIVE_COLOR, NAV_ICON_COLOR } from "@/constants";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useCallback, useMemo } from "react";
+import React from "react";
 
 interface IProps {
   href: string;

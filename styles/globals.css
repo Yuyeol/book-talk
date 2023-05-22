@@ -1,7 +1,15 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 body {
     font-size: 16px;
 }
+
+.c_input{
+    @apply w-full block px-3 py-1 mb-2 bg-white border border-gray-300 rounded-md shadow-sm
+}
+.c_button_underlined {
+    @apply text-sm underline
+}
+
+@tailwind utilities;

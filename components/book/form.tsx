@@ -1,4 +1,3 @@
-import Input from "@/components/core/input";
 import ImageForm from "@/components/book/upload/image-form";
 import TagInput from "@/components/book/upload/tag-input";
 import useMutation from "@/lib/client/useMutation";
@@ -7,18 +6,14 @@ import { useForm } from "react-hook-form";
 import useSWR from "swr";
 import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 import { useRouter } from "next/router";
-import { Book, Tag } from "@prisma/client";
 import { urlToFileList } from "@/lib/client/convertImgToFileList";
+import { IBookWithTags } from "@/pages";
 
 interface IBookForm {
   title: string;
   description?: string;
   author?: string;
   image?: FileList;
-}
-
-interface IBookWithTags extends Book {
-  tags: Tag[];
 }
 
 interface IProps {
@@ -31,6 +26,8 @@ const Form = ({ book }: IProps) => {
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
   const { data: tagsData } = useSWR("/api/tags");
   const { mutation, loading } = useMutation("/api/book");
+  const [bookPreviewImg, setBookPreviewImg] = useState("");
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
   useEffect(() => {
     if (book) {
@@ -46,7 +43,6 @@ const Form = ({ book }: IProps) => {
   }, [book, setValue]);
 
   // book image preview
-  const [bookPreviewImg, setBookPreviewImg] = useState("");
   const bookImageWatch = watch("image");
 
   useEffect(() => {
@@ -61,7 +57,6 @@ const Form = ({ book }: IProps) => {
   }, [bookImageWatch, book]);
 
   // select tag event
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const selectTag = useCallback(
     (id: number) => {
       if (selectedTags.length > 5) {
@@ -85,14 +80,19 @@ const Form = ({ book }: IProps) => {
       : "";
     if (loading) return;
     if (!title) return alert("책 제목을 입력해주세요.");
-    mutation({
-      title,
-      author,
-      description,
-      selectedTags,
-      imageSrc,
-      id: book ? book.id : 0,
-    });
+    mutation(
+      {
+        title,
+        author,
+        description,
+        selectedTags,
+        imageSrc,
+        // 이거 마음에 안든다. 수정일 경우, 해당 book id, 생성일경우 억지로 id를 0으로 설정한다.
+        // form을 edit과 create가 공유하기 때문. 분리하기에는 공통부분이 너무 많다.
+        id: book ? book.id : 0,
+      },
+      "POST"
+    );
     router.replace("/");
   };
 
@@ -104,9 +104,21 @@ const Form = ({ book }: IProps) => {
           bookPreviewImg={bookPreviewImg}
           register={register("image")}
         />
-        <Input placeholder="책 제목" register={register("title")} />
-        <Input placeholder="글쓴이" register={register("author")} />
-        <Input placeholder="설명" register={register("description")} />
+        <input
+          className="c_input"
+          placeholder="책 제목"
+          {...register("title")}
+        />
+        <input
+          className="c_input"
+          placeholder="글쓴이"
+          {...register("author")}
+        />
+        <input
+          className="c_input"
+          placeholder="설명"
+          {...register("description")}
+        />
         {/* input은 마무리할때 안보이게 처리해도될듯. 디자인따라 정해보자 */}
         {tagsData?.ok && (
           <TagInput

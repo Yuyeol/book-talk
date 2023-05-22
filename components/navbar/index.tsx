@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useRef, useState } from "react";
 import Archive from "../icon/archive";
 import Book from "../icon/book";
 import Friends from "../icon/friends";
@@ -6,14 +5,6 @@ import Profile from "../icon/profile";
 import Tags from "../icon/tags";
 import Item from "./item";
 import { NAVBAR_HEIGHT, NAV_ICON_WIDTH } from "@/constants";
-
-const Text = ({ text, color }: { text: string; color?: string }) => {
-  return (
-    <div className="mt-1 text-xs text-center" style={{ color: color }}>
-      {text}
-    </div>
-  );
-};
 
 const NavBar = () => {
   return (

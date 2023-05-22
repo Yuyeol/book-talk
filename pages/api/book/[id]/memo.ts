@@ -15,18 +15,49 @@ export default async function handler(
     });
   } else if (req.method === "POST") {
     const {
-      body: { id },
+      body: { id, page, content },
     } = req;
-    // const memo = await prisma.memo.upsert({
-    //   where: {
-    //     id: id,
-    //   },
-    //   update: {},
-    //   create: {},
-    // });
+
+    const memo = await prisma.memo.upsert({
+      where: {
+        id,
+      },
+      update: {
+        page,
+        content,
+        book: {
+          connect: {
+            id: parseInt(req.query.id as string),
+          },
+        },
+      },
+      create: {
+        page,
+        content,
+        book: {
+          connect: {
+            id: parseInt(req.query.id as string),
+          },
+        },
+      },
+    });
+
     res.status(200).json({
       ok: true,
-      //   memo,
+      memo,
+    });
+  } else if (req.method === "DELETE") {
+    const {
+      body: { id },
+    } = req;
+    const memo = await prisma.memo.delete({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).json({
+      ok: true,
+      memo,
     });
   }
 }
