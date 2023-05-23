@@ -9,7 +9,7 @@ export default function ResponsiveImage({
 }: {
   src: string;
   alt: string;
-  aspectRatio?: string;
+  aspectRatio: string;
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   priority?: boolean;
 }) {
