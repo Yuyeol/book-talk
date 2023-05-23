@@ -21,7 +21,7 @@ export interface IBookResponse {
 }
 
 const Home = () => {
-  const { data } = useSWR<IBookResponse>("/api/book");
+  const { data } = useSWR<IBookResponse>(`/api/users/books`);
   return (
     <Layout>
       <Header

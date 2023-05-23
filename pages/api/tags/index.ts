@@ -1,5 +1,7 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,6 +14,7 @@ export default async function handler(
       tags,
     });
   } else if (req.method === "POST") {
+    const session = await getServerSession(req, res, authOptions);
     const {
       body: { name, background, text, id },
     } = req;
@@ -29,6 +32,11 @@ export default async function handler(
         name: name,
         bgColor: background,
         txtColor: text,
+        user: {
+          connect: {
+            email: session?.user?.email as string,
+          },
+        },
       },
     });
     res.status(200).json({
