@@ -15,8 +15,8 @@ interface IUserResponse {
 
 const Profile = () => {
   const { data: session } = useSession();
-  const { data } = useSWR<IUserResponse>("/api/user");
-  const { mutation, loading } = useMutation("/api/user");
+  const { data } = useSWR<IUserResponse>("/api/users");
+  const { mutation, loading } = useMutation("/api/users");
 
   const handleSubmit = () => {
     // 이후 프로필 수정 만들때 구현할것

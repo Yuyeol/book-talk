@@ -49,6 +49,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Book          Book[]
+  Tag           Tag[]
+  Memo          Memo[]
 }
 
 model VerificationToken {
@@ -84,8 +86,11 @@ model Memo {
   updatedAt DateTime?
   book      Book?     @relation(fields: [bookId], references: [id])
   bookId    Int?
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
 
   @@index([bookId])
+  @@index([userId])
 }
 
 model Tag {
@@ -95,4 +100,8 @@ model Tag {
   txtColor  String
   createdAt DateTime @default(now())
   books     Book[]   @relation("BookTags")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@index([userId])
 }

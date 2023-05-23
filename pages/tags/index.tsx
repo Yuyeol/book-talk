@@ -13,12 +13,13 @@ import TitleCol from "@/components/header/title-col";
 import ToolsCol from "@/components/header/tools-col";
 
 const Tags = () => {
-  const { data } = useSWR("/api/tags");
+  // const { data } = useSWR("/api/tags");
+  const { data } = useSWR("/api/users/tags");
 
   return (
     <Layout>
       <Header
-        col1={<TitleCol>Book</TitleCol>}
+        col1={<TitleCol>Tags</TitleCol>}
         col2={
           <ToolsCol>
             <Link href="/tags/create">
