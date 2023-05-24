@@ -48,9 +48,11 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Book          Book[]
-  Tag           Tag[]
-  Memo          Memo[]
+  book          Book[]
+  tag           Tag[]
+  memo          Memo[]
+  friendTo      User[]    @relation("Friendship")
+  friendBy      User[]    @relation("Friendship")
 }
 
 model VerificationToken {
