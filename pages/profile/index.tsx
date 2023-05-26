@@ -8,14 +8,17 @@ import { User } from "@prisma/client";
 import { signOut, useSession } from "next-auth/react";
 import useSWR from "swr";
 
-interface IUserResponse {
+export interface IUserResponse {
   ok: boolean;
-  user: Omit<User, "id" | "emailVerified">;
+  user: Omit<User, "emailVerified">;
 }
 
 const Profile = () => {
   const { data: session } = useSession();
-  const { data } = useSWR<IUserResponse>("/api/users");
+  const { data } = useSWR<IUserResponse>(
+    session?.user?.id ? `/api/users/${session.user.id}` : null
+  );
+
   const { mutation, loading } = useMutation("/api/users");
 
   const handleSubmit = () => {
