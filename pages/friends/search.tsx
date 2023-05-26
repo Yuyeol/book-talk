@@ -7,6 +7,7 @@ import Tab from "@/components/search/tab";
 import Item from "@/components/search/friends/item";
 import { IUserWithFriends } from ".";
 import { useSession } from "next-auth/react";
+import useMutation from "@/lib/client/useMutation";
 
 const Search = () => {
   const { data: session } = useSession();
@@ -17,6 +18,20 @@ const Search = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IUserWithFriends[]>([]);
+  const { mutation: mutationAddFriend, loading: loadingAddFriend } =
+    useMutation(`/api/users/${session?.user?.id}/friends/add`);
+  const { mutation: mutationRemoveFriend, loading: loadingRemoveFriend } =
+    useMutation(`/api/users/${session?.user?.id}/friends/delete`);
+
+  const addFriend = (id: string) => {
+    if (loadingAddFriend) return;
+    mutationAddFriend({ friendId: id }, "POST");
+  };
+  const removeFriend = (id: string) => {
+    if (loadingRemoveFriend) return;
+    mutationRemoveFriend({ friendId: id }, "POST");
+  };
+
   const selectTab = useCallback((index: number) => {
     setCurrentTab(index);
     resetSearch();
@@ -75,7 +90,14 @@ const Search = () => {
             const isFriend = !!myFriends?.find(
               (myFriend) => myFriend.id === result.id
             );
-            return <Item key={result.id} user={result} isFriend={isFriend} />;
+            return (
+              <Item
+                key={result.id}
+                user={result}
+                isFriend={isFriend}
+                onClickFriend={isFriend ? removeFriend : addFriend}
+              />
+            );
           })}
         </div>
       </div>

@@ -4,7 +4,6 @@ import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
 import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
-import useMutation from "@/lib/client/useMutation";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { User } from "@prisma/client";
@@ -23,23 +22,12 @@ const Friends = () => {
 
   // 전체 유저 불러와서 해당하는 id를 body로 보내준다
   const { data: session } = useSession();
-  const { data: usersData } = useSWR<{ ok: boolean; users: User[] }>(
-    "/api/users"
-  );
   const { data: userData } = useSWR<{
     ok: boolean;
     user: IUserWithFriends;
   }>(session?.user?.id ? `/api/users/${session.user.id}` : null);
   console.log(userData);
 
-  const { mutation, loading } = useMutation(
-    `/api/user/${session?.user?.id}/friends`
-  );
-
-  const handleAddFriend = () => {
-    if (loading) return;
-    mutation({ friendId: usersData?.users[2].id }, "POST");
-  };
   if (userData?.user.friendsTo)
     return (
       <Layout>

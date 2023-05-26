@@ -5,10 +5,9 @@ import { User } from "@prisma/client";
 interface IProps {
   user: User;
   isFriend: boolean;
+  onClickFriend: (id: string) => void;
 }
-const Item = ({ user, isFriend }: IProps) => {
-  console.log(isFriend);
-
+const Item = ({ user, isFriend, onClickFriend }: IProps) => {
   return (
     <div className="flex items-center py-1 space-x-2">
       <div className="w-12 bg-white">
@@ -24,11 +23,10 @@ const Item = ({ user, isFriend }: IProps) => {
         <div>{user.name}</div>
         <div className="text-sm">{user.email}</div>
       </div>
-      {isFriend ? (
-        <button className="bg-white w-10">삭제</button>
-      ) : (
-        <button className="bg-white w-10">추가</button>
-      )}
+
+      <button className="bg-white w-10" onClick={() => onClickFriend(user.id)}>
+        {isFriend ? "삭제" : "추가"}
+      </button>
     </div>
   );
 };
