@@ -1,17 +1,22 @@
 import Layout from "@/components/layout";
 import { useCallback, useState } from "react";
 import useSWR from "swr";
-import { IBookResponse, IBookWithTags } from "@/pages/index";
 import _ from "lodash";
 import Form from "@/components/search/form";
-import Item from "@/components/search/book/item";
 import Tab from "@/components/search/tab";
+import Item from "@/components/search/friends/item";
+import { IUserWithFriends } from ".";
+import { useSession } from "next-auth/react";
 
 const Search = () => {
-  const { data } = useSWR<IBookResponse>("/api/book");
+  const { data: session } = useSession();
+  const { data } = useSWR<{
+    ok: boolean;
+    users: IUserWithFriends[];
+  }>("/api/users");
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState<IBookWithTags[]>([]);
+  const [searchResults, setSearchResults] = useState<IUserWithFriends[]>([]);
   const selectTab = useCallback((index: number) => {
     setCurrentTab(index);
     resetSearch();
@@ -20,25 +25,25 @@ const Search = () => {
     setSearchValue("");
     setSearchResults([]);
   };
-  const filterBooks = useCallback(
+
+  const filterUsers = useCallback(
     (search: string) => {
-      if (!search || !data?.books) return [];
-      return data.books.filter((book) => {
-        if (currentTab === 0) return book.title.includes(search);
-        if (currentTab === 1) return book.author?.includes(search);
-        if (currentTab === 2)
-          return book.tags.some((tag) => tag.name.includes(search));
+      if (!search || !data?.users) return [];
+      return data.users.filter((user) => {
+        if (user.id === session?.user?.id) return;
+        if (currentTab === 0) return user.name?.includes(search);
+        if (currentTab === 1) return user.email?.includes(search);
       });
     },
-    [currentTab, data?.books]
+    [currentTab, data?.users, session?.user?.id]
   );
 
   const setResultsWithDebounce = _.debounce(
     useCallback(
       (value: string) => {
-        setSearchResults(filterBooks(value));
+        setSearchResults(filterUsers(value));
       },
-      [filterBooks]
+      [filterUsers]
     ),
     200
   );
@@ -60,12 +65,18 @@ const Search = () => {
         <Tab
           selectTab={selectTab}
           currentTab={currentTab}
-          tabs={["제목", "저자", "태그"]}
+          tabs={["닉네임", "이메일"]}
         />
         <div className="divide-y-2">
-          {searchResults.map((result) => (
-            <Item key={result.id} book={result} />
-          ))}
+          {searchResults.map((result) => {
+            const myFriends = data?.users.find(
+              (user) => user.id === session?.user?.id
+            )?.friendsTo;
+            const isFriend = !!myFriends?.find(
+              (myFriend) => myFriend.id === result.id
+            );
+            return <Item key={result.id} user={result} isFriend={isFriend} />;
+          })}
         </div>
       </div>
     </Layout>

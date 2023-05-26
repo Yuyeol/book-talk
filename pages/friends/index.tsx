@@ -9,14 +9,10 @@ import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { User } from "@prisma/client";
 import Search from "@/components/icon/search";
+import Link from "next/link";
 
-interface IUsersResponse {
-  ok: boolean;
-  user: User[];
-}
-interface IUserResponse {
-  ok: boolean;
-  user: User & { friendsTo: User[] };
+export interface IUserWithFriends extends User {
+  friendsTo: User[];
 }
 
 const Friends = () => {
@@ -27,19 +23,22 @@ const Friends = () => {
 
   // 전체 유저 불러와서 해당하는 id를 body로 보내준다
   const { data: session } = useSession();
-  const { data: usersData } = useSWR<IUsersResponse>("/api/users");
-  const { data: userData } = useSWR<IUserResponse>(
-    session?.user?.id ? `/api/users/${session.user.id}/friends` : null
+  const { data: usersData } = useSWR<{ ok: boolean; users: User[] }>(
+    "/api/users"
   );
+  const { data: userData } = useSWR<{
+    ok: boolean;
+    user: IUserWithFriends;
+  }>(session?.user?.id ? `/api/users/${session.user.id}` : null);
   console.log(userData);
 
   const { mutation, loading } = useMutation(
-    `/api/users/${session?.user?.id}/friends`
+    `/api/user/${session?.user?.id}/friends`
   );
 
   const handleAddFriend = () => {
     if (loading) return;
-    mutation({ friendId: usersData?.user[2].id }, "POST");
+    mutation({ friendId: usersData?.users[2].id }, "POST");
   };
   if (userData?.user.friendsTo)
     return (
@@ -49,9 +48,9 @@ const Friends = () => {
           col2={
             <ToolsCol>
               {/* 친구추가 모달? 페이지? 구현하기 */}
-              <button onClick={handleAddFriend}>
+              <Link href="/friends/search">
                 <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
-              </button>
+              </Link>
             </ToolsCol>
           }
         />

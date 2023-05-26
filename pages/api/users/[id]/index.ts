@@ -18,6 +18,7 @@ export default async function handler(
           id: id as string,
         },
         select: {
+          id: true,
           email: true,
           name: true,
           nickname: true,

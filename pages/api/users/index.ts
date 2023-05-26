@@ -10,7 +10,7 @@ export default async function handler(
   const session = await getServerSession(req, res, authOptions);
   if (session?.user) {
     if (req.method === "GET") {
-      const user = await prisma.user.findMany({
+      const users = await prisma.user.findMany({
         select: {
           id: true,
           email: true,
@@ -23,7 +23,7 @@ export default async function handler(
 
       res.status(200).json({
         ok: true,
-        user,
+        users,
       });
     }
   } else {
