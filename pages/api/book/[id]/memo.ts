@@ -28,7 +28,7 @@ export default async function handler(
       update: {
         page,
         content,
-        book: {
+        books: {
           connect: {
             id: parseInt(req.query.id as string),
           },
@@ -37,7 +37,7 @@ export default async function handler(
       create: {
         page,
         content,
-        book: {
+        books: {
           connect: {
             id: parseInt(req.query.id as string),
           },

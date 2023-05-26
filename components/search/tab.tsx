@@ -1,12 +1,13 @@
 interface IProps {
   selectTab: (tab: number) => void;
   currentTab: number;
+  tabs: string[];
 }
 
-const Tab = ({ selectTab, currentTab }: IProps) => {
+const Tab = ({ selectTab, currentTab, tabs }: IProps) => {
   return (
     <div className="flex gap-2">
-      {["제목", "저자", "태그"].map((item, i) => (
+      {tabs.map((item, i) => (
         <button
           className="w-14 border-white rounded-md"
           key={i}

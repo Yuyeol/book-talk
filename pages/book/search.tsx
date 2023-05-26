@@ -3,9 +3,9 @@ import { useCallback, useState } from "react";
 import useSWR from "swr";
 import { IBookResponse, IBookWithTags } from "@/pages/index";
 import _ from "lodash";
-import Form from "@/components/book/search/form";
-import Item from "@/components/book/search/item";
-import Tab from "@/components/book/search/tab";
+import Form from "@/components/search/form";
+import Item from "@/components/search/book/item";
+import Tab from "@/components/search/tab";
 
 const Search = () => {
   const { data } = useSWR<IBookResponse>("/api/book");
@@ -57,7 +57,11 @@ const Search = () => {
           searchValue={searchValue}
           resetSearch={resetSearch}
         />
-        <Tab selectTab={selectTab} currentTab={currentTab} />
+        <Tab
+          selectTab={selectTab}
+          currentTab={currentTab}
+          tabs={["제목", "저자", "태그"]}
+        />
         <div className="divide-y-2">
           {searchResults.map((result) => (
             <Item key={result.id} book={result} />

@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]";
+import { authOptions } from "../../auth/[...nextauth]";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/server/client";
 
@@ -7,10 +7,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const {
+    query: { id },
+  } = req;
   const session = await getServerSession(req, res, authOptions);
   if (session?.user) {
     if (req.method === "GET") {
-      const users = await prisma.user.findMany({
+      const user = await prisma.user.findUnique({
+        where: {
+          id: id as string,
+        },
         select: {
           id: true,
           email: true,
@@ -23,7 +29,22 @@ export default async function handler(
 
       res.status(200).json({
         ok: true,
-        users,
+        user,
+      });
+    } else if (req.method === "POST") {
+      // 이후 프로필 수정 만들때
+      const user = await prisma.user.update({
+        where: {
+          id: id as string,
+        },
+        data: {
+          nickname: req.body.nickname,
+        },
+      });
+
+      res.status(200).json({
+        ok: true,
+        user,
       });
     }
   } else {
