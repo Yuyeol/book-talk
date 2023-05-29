@@ -1,16 +1,18 @@
 import BookInfo from "@/components/friends/book-info";
 import InfoModal from "./info-modal";
 import { useState } from "react";
-import { User } from "@prisma/client";
 import ResponsiveImage from "../core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
+import { IUserWithBooks } from "@/pages/friends";
+import FriendInfo from "./friend-info";
 
 interface IProps {
-  friend: User;
+  friend: IUserWithBooks;
 }
 
 const Item = ({ friend }: IProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <li onClick={() => setIsModalOpen(true)}>
@@ -30,11 +32,17 @@ const Item = ({ friend }: IProps) => {
         </div>
       </li>
       {isModalOpen && (
-        <InfoModal setIsModalOpen={setIsModalOpen}>
-          <BookInfo type={1} />
-          <BookInfo type={2} />
-          <BookInfo type={3} />
-        </InfoModal>
+        <InfoModal
+          setIsModalOpen={setIsModalOpen}
+          friendInfo={<FriendInfo friend={friend} />}
+          bookInfo1={<BookInfo title={"읽고 있는 책"} books={friend.books} />}
+          bookInfo2={
+            <BookInfo
+              title={"아카이브"}
+              books={friend.books.filter((book) => book.finishedAt)}
+            />
+          }
+        />
       )}
     </>
   );

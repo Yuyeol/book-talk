@@ -1,12 +1,21 @@
 interface IProps {
-  children: React.ReactNode;
+  friendInfo: React.ReactNode;
+  bookInfo1: React.ReactNode;
+  bookInfo2: React.ReactNode;
   setIsModalOpen: (value: boolean) => void;
 }
-const InfoModal = ({ children, setIsModalOpen }: IProps) => {
+const InfoModal = ({
+  friendInfo,
+  bookInfo1,
+  bookInfo2,
+  setIsModalOpen,
+}: IProps) => {
   return (
-    <div className="absolute top-0 left-0 w-full h-full z-10">
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white max-w-sm w-full z-10">
-        {children}
+    <div className="absolute top-0 left-0 w-full h-full z-10 p-6 flex items-center justify-center">
+      <div className="relative bg-white max-w-sm w-full z-10 p-4">
+        {friendInfo}
+        {bookInfo1}
+        {bookInfo2}
       </div>
 
       <div
