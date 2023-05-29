@@ -5,6 +5,7 @@ import ResponsiveImage from "../core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import { IUserWithBooks } from "@/pages/friends";
 import FriendInfo from "./friend-info";
+import { FriendModalPortal } from "@/lib/client/portal";
 
 interface IProps {
   friend: IUserWithBooks;
@@ -32,17 +33,20 @@ const Item = ({ friend }: IProps) => {
         </div>
       </li>
       {isModalOpen && (
-        <InfoModal
-          setIsModalOpen={setIsModalOpen}
-          friendInfo={<FriendInfo friend={friend} />}
-          bookInfo1={<BookInfo title={"읽고 있는 책"} books={friend.books} />}
-          bookInfo2={
-            <BookInfo
-              title={"아카이브"}
-              books={friend.books.filter((book) => book.finishedAt)}
-            />
-          }
-        />
+        <FriendModalPortal>
+          <InfoModal
+            setIsModalOpen={setIsModalOpen}
+            friendId={friend.id}
+            friendInfo={<FriendInfo friend={friend} />}
+            bookInfo1={<BookInfo title={"읽고 있는 책"} books={friend.books} />}
+            bookInfo2={
+              <BookInfo
+                title={"아카이브"}
+                books={friend.books.filter((book) => book.finishedAt)}
+              />
+            }
+          />
+        </FriendModalPortal>
       )}
     </>
   );

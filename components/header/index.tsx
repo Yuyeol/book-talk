@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT } from "@/constants";
+import { HEADER_HEIGHT, HEADER_ZINDEX } from "@/constants";
 import React from "react";
 interface IProps {
   col1: React.ReactNode;
@@ -8,8 +8,8 @@ interface IProps {
 const Header = ({ col1, col2 }: IProps) => {
   return (
     <div
-      className="relative z-50 w-0"
-      style={{ height: `${HEADER_HEIGHT}rem` }}
+      className="relative w-0"
+      style={{ height: `${HEADER_HEIGHT}rem`, zIndex: HEADER_ZINDEX }}
     >
       <div
         className="fixed flex items-center justify-between w-full max-w-lg px-2 bg-white"

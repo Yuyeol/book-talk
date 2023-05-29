@@ -27,7 +27,7 @@ const Item = ({ book }: IProps) => {
   return (
     <Link href={`/book/${book.id}`}>
       <li className="relative overflow-hidden">
-        <div className="absolute z-0 w-full h-full blur-sm">
+        <div className="absolute w-full h-full blur-sm">
           <Image
             src={book.image || `${CF_DOMAIN}no_book.png`}
             alt={book.title}
