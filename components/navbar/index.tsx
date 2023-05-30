@@ -20,7 +20,7 @@ const NavBar = () => {
           <Item href="/" text="독서중">
             <Book width={NAV_ICON_WIDTH} />
           </Item>
-          <Item href="/archive" text="소셜">
+          <Item href="/social" text="소셜">
             <Archive width={NAV_ICON_WIDTH} />
           </Item>
           <Item href="/friends" text="친구">
