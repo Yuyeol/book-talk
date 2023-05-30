@@ -5,10 +5,10 @@ interface IProps {
   children: React.ReactNode;
 }
 
-export const HeaderIconPortal = ({ children }: IProps) => {
+export const FriendModalPortal = ({ children }: IProps) => {
   const [el, setEl] = useState<HTMLElement | null>(null);
   useEffect(() => {
-    setEl(document.getElementById("header-icon"));
+    setEl(document.getElementById("friend-modal"));
   }, []);
   if (!el) return <></>;
   return reactDom.createPortal(children, el);

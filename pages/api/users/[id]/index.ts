@@ -21,9 +21,15 @@ export default async function handler(
           id: true,
           email: true,
           name: true,
+          bio: true,
           nickname: true,
           image: true,
-          friendsTo: true,
+          friendsTo: {
+            include: {
+              books: true,
+            },
+          },
+          books: true,
         },
       });
 

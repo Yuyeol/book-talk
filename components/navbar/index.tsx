@@ -4,13 +4,13 @@ import Friends from "../icon/friends";
 import Profile from "../icon/profile";
 import Tags from "../icon/tags";
 import Item from "./item";
-import { NAVBAR_HEIGHT, NAV_ICON_WIDTH } from "@/constants";
+import { NAVBAR_HEIGHT, NAVBAR_ZINDEX, NAV_ICON_WIDTH } from "@/constants";
 
 const NavBar = () => {
   return (
     <div
-      className="relative z-50 w-0"
-      style={{ height: `${NAVBAR_HEIGHT}rem` }}
+      className="relative w-0"
+      style={{ height: `${NAVBAR_HEIGHT}rem`, zIndex: NAVBAR_ZINDEX }}
     >
       <div className="fixed max-w-lg bottom-0 w-full bg-white border-t-[1px] border-black">
         <ul
@@ -20,7 +20,7 @@ const NavBar = () => {
           <Item href="/" text="독서중">
             <Book width={NAV_ICON_WIDTH} />
           </Item>
-          <Item href="/archive" text="보관함">
+          <Item href="/archive" text="소셜">
             <Archive width={NAV_ICON_WIDTH} />
           </Item>
           <Item href="/friends" text="친구">
