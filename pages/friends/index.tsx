@@ -18,12 +18,6 @@ export interface IUserWithFriends extends IUserWithBooks {
 }
 
 const Friends = () => {
-  // TODO: user 가져오기
-  // friend 모달 구현
-  // friend 추가하기 구현
-  // friend 책 구경하기 구현
-
-  // 전체 유저 불러와서 해당하는 id를 body로 보내준다
   const { data: session } = useSession();
   const { data: userData } = useSWR<{
     ok: boolean;
@@ -37,7 +31,6 @@ const Friends = () => {
           col1={<TitleCol>Friends</TitleCol>}
           col2={
             <ToolsCol>
-              {/* 친구추가 모달? 페이지? 구현하기 */}
               <Link href="/friends/search">
                 <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
               </Link>

@@ -1,6 +1,7 @@
 import { Book } from "@prisma/client";
 import ResponsiveImage from "../core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
+import Link from "next/link";
 
 interface IProps {
   title: string;
@@ -23,6 +24,18 @@ const BookInfo = ({ title, books }: IProps) => {
           {books.length > 10 ? "+9" : books.length.toString()}
         </div>
       </div>
+      {books.map((book) => (
+        <Link
+          href={`/book/${book.id}`}
+          className="w-full bg-slate-400"
+          key={book.id}
+        >
+          <div>사진</div>
+          <div>
+            {book.title} | {book.author}
+          </div>
+        </Link>
+      ))}
     </div>
   );
 };
