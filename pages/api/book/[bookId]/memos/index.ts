@@ -19,6 +19,7 @@ export default async function handler(
             user: { select: { name: true, nickname: true, image: true } },
           },
         },
+        likes: true,
       },
     });
     res.status(200).json({

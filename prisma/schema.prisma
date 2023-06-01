@@ -55,6 +55,7 @@ model User {
   friendsTo     User[]    @relation("Friendship")
   friendsBy     User[]    @relation("Friendship")
   comments      Comment[]
+  likes         Like[]
 }
 
 model VerificationToken {
@@ -93,6 +94,7 @@ model Memo {
   user      User      @relation(fields: [userId], references: [id])
   userId    String
   comments  Comment[]
+  likes     Like[]
 
   @@index([bookId])
   @@index([userId])
@@ -101,6 +103,19 @@ model Memo {
 model Comment {
   id        Int       @id @default(autoincrement())
   content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  memo      Memo      @relation(fields: [memoId], references: [id])
+  memoId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@index([memoId])
+  @@index([userId])
+}
+
+model Like {
+  id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime?
   memo      Memo      @relation(fields: [memoId], references: [id])
