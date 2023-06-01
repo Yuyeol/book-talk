@@ -1,7 +1,7 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]";
+import { authOptions } from "../../../auth/[...nextauth]";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +9,17 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const memos = await prisma.memo.findMany({
-      // select: {},
+      where: {
+        bookId: parseInt(req.query.bookId as string),
+      },
+      include: {
+        user: { select: { id: true, name: true, nickname: true } },
+        comments: {
+          include: {
+            user: { select: { name: true, nickname: true, image: true } },
+          },
+        },
+      },
     });
     res.status(200).json({
       ok: true,

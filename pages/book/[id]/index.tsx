@@ -2,7 +2,7 @@ import Form from "@/components/book/detail/memo/form";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
-import { Memo as TMemo } from "@prisma/client";
+import { Comment, Memo as TMemo } from "@prisma/client";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { IBookWithTags } from "@/pages";
@@ -16,8 +16,20 @@ interface IBookResponse {
   book: IBookWithTags;
   ok: boolean;
 }
+
+export interface ICommentWithUser extends Comment {
+  user: {
+    name: string;
+    nickname: string;
+    image: string;
+  };
+  userId: string;
+}
+export interface IMemoWithComments extends TMemo {
+  comments: ICommentWithUser[];
+}
 interface IMemosResponse {
-  memos: TMemo[];
+  memos: IMemoWithComments[];
   ok: boolean;
 }
 
@@ -28,9 +40,11 @@ const BookDetail = () => {
     router.query.id ? `/api/book/${router.query.id}` : null
   );
   const { data: memosData } = useSWR<IMemosResponse>(
-    router.query.id ? `/api/book/${router.query.id}/memo` : null
+    router.query.id ? `/api/book/${router.query.id}/memos` : null
   );
-  const [selectedMemo, setSelectedMemo] = useState<Memo>();
+  console.log(memosData);
+
+  const [selectedMemo, setSelectedMemo] = useState<IMemoWithComments>();
   // 메모 수정하기 위해 select
   const selectMemo = useCallback(
     (id: number) => {

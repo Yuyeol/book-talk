@@ -1,6 +1,7 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
+// 소셜용 메모 전체조회
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

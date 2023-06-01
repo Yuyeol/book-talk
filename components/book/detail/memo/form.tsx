@@ -27,7 +27,7 @@ const Form = ({ selectedMemo }: IProps) => {
   const memoWatch = watch("content") || "";
   const formRef = useRef<HTMLDivElement>(null);
   const { mutation, loading } = useMutation(
-    `/api/book/${router.query.id}/memo`
+    `/api/book/${router.query.id}/memos`
   );
 
   // 줄 수에 따라 자동으로 textarea 높이 설정
