@@ -3,7 +3,7 @@ import useMutation from "@/lib/client/useMutation";
 import { IMemoWithReactions } from "@/pages/book/[id]";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 interface IProps {
   memo: IMemoWithReactions;
@@ -22,10 +22,13 @@ const Memo = ({ memo, selectMemo }: IProps) => {
   const { mutation: likeMutation, loading: likeLoading } = useMutation(
     `/api/book/${router.query.id}/memos/${memo.id}/like`
   );
-  const currentUserLike = useMemo(
-    () => memo.likes.find((like) => like.userId === session?.user?.id),
-    [memo.likes, session?.user]
+
+  // 해당 메모의 좋아요 중 내 좋아요 확인
+  const currentUserLike = memo.likes.find(
+    (like) => like.userId === session?.user?.id
   );
+  // 해당 메모의 작성자인지 확인
+  const isOwner = memo.userId === session?.user?.id;
 
   const onDeleteMemo = (id: number) => {
     if (loading) return;
@@ -51,7 +54,6 @@ const Memo = ({ memo, selectMemo }: IProps) => {
     if (likeLoading) return;
     likeMutation(
       {
-        // 해당 메모의 좋아요에 내가 좋아요를 눌렀는지 확인
         id: currentUserLike?.id,
       },
       "DELETE"
@@ -69,24 +71,33 @@ const Memo = ({ memo, selectMemo }: IProps) => {
         </div>
         <div>{memo.content}</div>
         {currentUserLike ? (
-          <button onClick={handleLikeDelete}>❤️</button>
+          <>
+            <button onClick={handleLikeDelete}>❤️</button>
+            <span>{memo.likes.length}</span>
+          </>
         ) : (
-          <button onClick={handleLikeSubmit}>🖤</button>
+          <>
+            <button onClick={handleLikeSubmit}>🖤</button>
+            <span>{memo.likes.length}</span>
+          </>
         )}
-        <div className="flex justify-end gap-1">
-          <button
-            className="c_button_underlined"
-            onClick={() => selectMemo(memo.id)}
-          >
-            수정
-          </button>
-          <button
-            className="c_button_underlined"
-            onClick={() => onDeleteMemo(memo.id)}
-          >
-            삭제
-          </button>
-        </div>
+        {isOwner && (
+          <div className="flex justify-end gap-1">
+            <button
+              className="c_button_underlined"
+              onClick={() => selectMemo(memo.id)}
+            >
+              수정
+            </button>
+            <button
+              className="c_button_underlined"
+              onClick={() => onDeleteMemo(memo.id)}
+            >
+              삭제
+            </button>
+          </div>
+        )}
+
         <div>
           <input
             value={commentValue}

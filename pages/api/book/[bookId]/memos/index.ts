@@ -30,6 +30,7 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
     const {
       body: { id, page, content },
+      query: { bookId },
     } = req;
 
     const memo = await prisma.memo.upsert({
@@ -41,7 +42,7 @@ export default async function handler(
         content,
         books: {
           connect: {
-            id: parseInt(req.query.id as string),
+            id: parseInt(bookId as string),
           },
         },
       },
@@ -50,7 +51,7 @@ export default async function handler(
         content,
         books: {
           connect: {
-            id: parseInt(req.query.id as string),
+            id: parseInt(bookId as string),
           },
         },
         user: {
