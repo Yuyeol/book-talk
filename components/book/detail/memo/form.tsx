@@ -16,7 +16,7 @@ const Form = ({ memo }: IProps) => {
   const router = useRouter();
   const { register, handleSubmit, setValue } = useForm<IMemoForm>();
   const { mutation, loading } = useMutation(
-    `/api/books/${router.query.bookId}/memos`
+    `/api/books/${router.query.bookId}/memos/${memo?.id ?? 0}}`
   );
   useEffect(() => {
     if (memo) {

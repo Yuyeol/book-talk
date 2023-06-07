@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { urlToFileList } from "@/lib/client/convertImgToFileList";
 import { IBookWithTags } from "@/pages";
 import fetcher from "@/lib/client/fetcher";
+import { useSession } from "next-auth/react";
 
 interface IBookForm {
   title: string;
@@ -22,10 +23,14 @@ interface IProps {
 }
 
 const Form = ({ book }: IProps) => {
+  const { data: session } = useSession();
   const router = useRouter();
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
-  const { data: tagsData } = useSWR("/api/tags", fetcher);
-  const { mutation, loading } = useMutation("/api/books");
+  const { data: tagsData } = useSWR(
+    `/api/tags?userId=${session?.user?.id}`,
+    fetcher
+  );
+  const { mutation, loading } = useMutation(`/api/books/${book?.id ?? 0}`);
   const [bookPreviewImg, setBookPreviewImg] = useState("");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
@@ -87,9 +92,6 @@ const Form = ({ book }: IProps) => {
         description,
         selectedTags,
         imageSrc,
-        // 이거 마음에 안든다. 수정일 경우, 해당 book id, 생성일경우 억지로 id를 0으로 설정한다.
-        // form을 edit과 create가 공유하기 때문. 분리하기에는 공통부분이 너무 많다.
-        id: book ? book.id : 0,
       },
       "POST"
     );

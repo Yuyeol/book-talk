@@ -11,6 +11,7 @@ import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 import fetcher from "@/lib/client/fetcher";
+import { useSession } from "next-auth/react";
 
 export interface IBookWithTags extends Book {
   tags: Tag[];
@@ -22,7 +23,11 @@ export interface IBookResponse {
 }
 
 const Home = () => {
-  const { data } = useSWR<IBookResponse>(`/api/users/books`, fetcher);
+  const { data: session } = useSession();
+  const { data } = useSWR<IBookResponse>(
+    `/api/books?userId=${session?.user?.id}`,
+    fetcher
+  );
   return (
     <Layout>
       <Header

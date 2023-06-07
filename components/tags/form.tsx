@@ -18,7 +18,7 @@ const Form = ({ tag }: IProps) => {
 
   const { register, handleSubmit, watch, setValue } = useForm<ITagForm>();
 
-  const { mutation, loading } = useMutation("/api/tags");
+  const { mutation, loading } = useMutation(`/api/tags/${tag?.id ?? 0}`);
 
   const [tagColor, setTagColor] = useState({
     background: "#000000",
@@ -48,7 +48,7 @@ const Form = ({ tag }: IProps) => {
   const onSubmit = (inputs: ITagForm) => {
     if (loading) return;
     if (!inputs.name) return alert("태그 이름을 입력해주세요");
-    mutation({ ...inputs, ...tagColor, id: tag ? tag.id : 0 }, "POST");
+    mutation({ ...inputs, ...tagColor }, "POST");
     goToTagsPage();
   };
   const deleteTag = () => {

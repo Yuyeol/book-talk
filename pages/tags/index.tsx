@@ -12,10 +12,11 @@ import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import ToolsCol from "@/components/header/tools-col";
 import fetcher from "@/lib/client/fetcher";
+import { useSession } from "next-auth/react";
 
 const Tags = () => {
-  // const { data } = useSWR("/api/tags");
-  const { data } = useSWR("/api/users/tags", fetcher);
+  const { data: session } = useSession();
+  const { data } = useSWR(`/api/tags?userId=${session?.user?.id}`, fetcher);
 
   return (
     <Layout>
