@@ -1,12 +1,12 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// 소셜용 메모 전체조회
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
+    // 소셜에서 사용하기 위해 모든 메모 조회
     const memos = await prisma.memo.findMany({
       include: {
         user: { select: { id: true, name: true, nickname: true } },

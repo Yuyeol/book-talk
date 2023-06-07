@@ -11,6 +11,7 @@ export default async function handler(
     query: { bookId },
   } = req;
   if (req.method === "GET") {
+    // bookId에 해당하는 책의 메모만 조회
     const memos = await prisma.memo.findMany({
       where: {
         bookId: parseInt(bookId as string),

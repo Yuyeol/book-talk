@@ -1,20 +1,17 @@
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
-import { Memo, User } from "@prisma/client";
 import useSWR from "swr";
-
-interface IMemoWithUser extends Memo {
-  user: User;
-}
+import { IMemoWithReactions } from "./book/[bookId]";
+import Memo from "@/components/book/detail/memo";
 
 interface IMemosResponse {
-  memos: IMemoWithUser[];
+  memos: IMemoWithReactions[];
+  ok: boolean;
 }
 
 const Social = () => {
   const { data } = useSWR<IMemosResponse>("/api/memos");
-  console.log(data);
 
   return (
     <Layout>
@@ -22,10 +19,7 @@ const Social = () => {
 
       <ul className="">
         {data?.memos.map((memo) => (
-          <li key={memo.id}>
-            <div>{memo.user.name}</div>
-            <div>{memo.content}</div>
-          </li>
+          <Memo memo={memo} key={memo.id} />
         ))}
       </ul>
     </Layout>
