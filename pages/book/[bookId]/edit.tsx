@@ -8,7 +8,7 @@ import useSWR from "swr";
 const Edit = () => {
   const router = useRouter();
   const { data } = useSWR(
-    router.query.id ? `/api/book/${router.query.id}` : null
+    router.query.id ? `/api/books/${router.query.id}` : null
   );
   return (
     <Layout>

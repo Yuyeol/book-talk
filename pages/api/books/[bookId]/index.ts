@@ -5,10 +5,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id } = req.query;
+  const { bookId } = req.query;
   const book = await prisma.book.findUnique({
     where: {
-      id: parseInt(id as string),
+      id: parseInt(bookId as string),
     },
     select: {
       id: true,
@@ -17,6 +17,7 @@ export default async function handler(
       author: true,
       description: true,
       tags: true,
+      userId: true,
     },
   });
   res.status(200).json({

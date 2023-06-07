@@ -1,15 +1,30 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]";
+import { authOptions } from "../../../auth/[...nextauth]";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const {
+    query: { bookId },
+  } = req;
   if (req.method === "GET") {
+    // bookId에 해당하는 책의 메모만 조회
     const memos = await prisma.memo.findMany({
-      // select: {},
+      where: {
+        bookId: parseInt(bookId as string),
+      },
+      include: {
+        user: { select: { id: true, name: true, nickname: true } },
+        comments: {
+          include: {
+            user: { select: { name: true, nickname: true, image: true } },
+          },
+        },
+        likes: true,
+      },
     });
     res.status(200).json({
       ok: true,
@@ -30,7 +45,7 @@ export default async function handler(
         content,
         books: {
           connect: {
-            id: parseInt(req.query.id as string),
+            id: parseInt(bookId as string),
           },
         },
       },
@@ -39,7 +54,7 @@ export default async function handler(
         content,
         books: {
           connect: {
-            id: parseInt(req.query.id as string),
+            id: parseInt(bookId as string),
           },
         },
         user: {

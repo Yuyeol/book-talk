@@ -8,7 +8,7 @@ import Item from "@/components/search/book/item";
 import Tab from "@/components/search/tab";
 
 const Search = () => {
-  const { data } = useSWR<IBookResponse>("/api/book");
+  const { data } = useSWR<IBookResponse>("/api/books");
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IBookWithTags[]>([]);

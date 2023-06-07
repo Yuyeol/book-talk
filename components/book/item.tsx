@@ -13,7 +13,7 @@ interface IProps {
 
 const Item = ({ book }: IProps) => {
   const router = useRouter();
-  const { mutation, loading } = useMutation("/api/book");
+  const { mutation, loading } = useMutation("/api/books");
   const onDelete = (e: React.MouseEvent) => {
     e.preventDefault();
     if (loading) return;
