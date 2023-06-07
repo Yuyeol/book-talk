@@ -9,6 +9,7 @@ import useSWR from "swr";
 import { Book, User } from "@prisma/client";
 import Search from "@/components/icon/search";
 import Link from "next/link";
+import fetcher from "@/lib/client/fetcher";
 
 export interface IUserWithBooks extends User {
   books: Book[];
@@ -22,7 +23,7 @@ const Friends = () => {
   const { data: userData } = useSWR<{
     ok: boolean;
     user: IUserWithFriends;
-  }>(session?.user?.id ? `/api/users/${session.user.id}` : null);
+  }>(session?.user?.id ? `/api/users/${session.user.id}` : null, fetcher);
 
   if (userData?.user.friendsTo)
     return (

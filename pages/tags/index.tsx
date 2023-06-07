@@ -11,10 +11,11 @@ import Filter from "@/components/icon/filter";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import ToolsCol from "@/components/header/tools-col";
+import fetcher from "@/lib/client/fetcher";
 
 const Tags = () => {
   // const { data } = useSWR("/api/tags");
-  const { data } = useSWR("/api/users/tags");
+  const { data } = useSWR("/api/users/tags", fetcher);
 
   return (
     <Layout>

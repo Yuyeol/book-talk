@@ -8,13 +8,14 @@ import Item from "@/components/search/friends/item";
 import { IUserWithFriends } from ".";
 import { useSession } from "next-auth/react";
 import useMutation from "@/lib/client/useMutation";
+import fetcher from "@/lib/client/fetcher";
 
 const Search = () => {
   const { data: session } = useSession();
   const { data } = useSWR<{
     ok: boolean;
     users: IUserWithFriends[];
-  }>("/api/users");
+  }>("/api/users", fetcher);
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IUserWithFriends[]>([]);

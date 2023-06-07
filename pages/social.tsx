@@ -4,6 +4,7 @@ import Layout from "@/components/layout";
 import useSWR from "swr";
 import { IMemoWithReactions } from "./book/[bookId]";
 import Memo from "@/components/book/detail/memo";
+import fetcher from "@/lib/client/fetcher";
 
 interface IMemosResponse {
   memos: IMemoWithReactions[];
@@ -11,7 +12,7 @@ interface IMemosResponse {
 }
 
 const Social = () => {
-  const { data } = useSWR<IMemosResponse>("/api/memos");
+  const { data } = useSWR<IMemosResponse>("/api/memos", fetcher);
 
   return (
     <Layout>

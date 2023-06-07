@@ -4,11 +4,13 @@ import TitleCol from "@/components/header/title-col";
 import Form from "@/components/book/form";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import fetcher from "@/lib/client/fetcher";
 
 const Edit = () => {
   const router = useRouter();
   const { data } = useSWR(
-    router.query.id ? `/api/books/${router.query.id}` : null
+    router.query.id ? `/api/books/${router.query.id}` : null,
+    fetcher
   );
   return (
     <Layout>

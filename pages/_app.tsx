@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
-import { SWRConfig } from "swr";
 import { Provider } from "react-redux";
 import { store } from "@/app/store";
 import { useEffect } from "react";
@@ -12,13 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <SessionProvider session={pageProps.session}>
       <AuthChecker>
         <Provider store={store}>
-          <SWRConfig
-            value={{
-              fetcher: (url) => fetch(url).then((res) => res.json()),
-            }}
-          >
-            <Component {...pageProps} />
-          </SWRConfig>
+          <Component {...pageProps} />
         </Provider>
       </AuthChecker>
     </SessionProvider>

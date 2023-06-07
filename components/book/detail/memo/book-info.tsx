@@ -4,6 +4,7 @@ import { IBookWithTags } from "@/pages";
 import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import Link from "next/link";
+import fetcher from "@/lib/client/fetcher";
 
 interface IProps {
   memo: IMemoWithReactions;
@@ -11,7 +12,8 @@ interface IProps {
 
 const BookInfo = ({ memo }: IProps) => {
   const { data: bookData } = useSWR<{ ok: boolean; book: IBookWithTags }>(
-    `/api/books/${memo.bookId}/`
+    `/api/books/${memo.bookId}/`,
+    fetcher
   );
   return (
     <Link href={`/book/${memo.bookId}`}>

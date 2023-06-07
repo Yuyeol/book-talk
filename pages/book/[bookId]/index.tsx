@@ -9,6 +9,7 @@ import Info from "@/components/book/detail/info";
 import Memo from "@/components/book/detail/memo";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import fetcher from "@/lib/client/fetcher";
 
 interface IBookResponse {
   book: IBookWithTags;
@@ -46,10 +47,12 @@ const BookDetail = () => {
     query: { bookId },
   } = useRouter();
   const { data: bookData } = useSWR<IBookResponse>(
-    bookId ? `/api/books/${bookId}` : null
+    bookId ? `/api/books/${bookId}` : null,
+    fetcher
   );
   const { data: memosData } = useSWR<IMemosResponse>(
-    bookId ? `/api/books/${bookId}/memos` : null
+    bookId ? `/api/books/${bookId}/memos` : null,
+    fetcher
   );
   const isOwner = bookData?.book.userId === session?.user?.id;
 

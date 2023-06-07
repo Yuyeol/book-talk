@@ -10,6 +10,7 @@ import Filter from "@/components/icon/filter";
 import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
+import fetcher from "@/lib/client/fetcher";
 
 export interface IBookWithTags extends Book {
   tags: Tag[];
@@ -21,7 +22,7 @@ export interface IBookResponse {
 }
 
 const Home = () => {
-  const { data } = useSWR<IBookResponse>(`/api/users/books`);
+  const { data } = useSWR<IBookResponse>(`/api/users/books`, fetcher);
   return (
     <Layout>
       <Header

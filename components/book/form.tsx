@@ -8,6 +8,7 @@ import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 import { useRouter } from "next/router";
 import { urlToFileList } from "@/lib/client/convertImgToFileList";
 import { IBookWithTags } from "@/pages";
+import fetcher from "@/lib/client/fetcher";
 
 interface IBookForm {
   title: string;
@@ -21,10 +22,9 @@ interface IProps {
 }
 
 const Form = ({ book }: IProps) => {
-  // useSWR 태그 불러오기
   const router = useRouter();
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
-  const { data: tagsData } = useSWR("/api/tags");
+  const { data: tagsData } = useSWR("/api/tags", fetcher);
   const { mutation, loading } = useMutation("/api/books");
   const [bookPreviewImg, setBookPreviewImg] = useState("");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
