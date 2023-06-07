@@ -28,6 +28,7 @@ const Form = ({ memo }: IProps) => {
   const onSubmit = ({ page, content }: IMemoForm) => {
     if (loading) return;
     mutation({ page, content, id: memo?.id ?? 0 }, "POST");
+    router.push(`/book/${router.query.bookId}`);
   };
   return (
     <div>
