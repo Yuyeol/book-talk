@@ -17,6 +17,7 @@ export default async function handler(
       author: true,
       description: true,
       tags: true,
+      userId: true,
     },
   });
   res.status(200).json({
