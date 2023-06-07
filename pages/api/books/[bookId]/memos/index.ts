@@ -7,10 +7,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const {
+    query: { bookId },
+  } = req;
   if (req.method === "GET") {
     const memos = await prisma.memo.findMany({
       where: {
-        bookId: parseInt(req.query.bookId as string),
+        bookId: parseInt(bookId as string),
       },
       include: {
         user: { select: { id: true, name: true, nickname: true } },
@@ -30,7 +33,6 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
     const {
       body: { id, page, content },
-      query: { bookId },
     } = req;
 
     const memo = await prisma.memo.upsert({

@@ -8,7 +8,15 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const memos = await prisma.memo.findMany({
-      include: { user: { select: { id: true, name: true, nickname: true } } },
+      include: {
+        user: { select: { id: true, name: true, nickname: true } },
+        comments: {
+          include: {
+            user: { select: { name: true, nickname: true, image: true } },
+          },
+        },
+        likes: true,
+      },
     });
     res.status(200).json({
       ok: true,

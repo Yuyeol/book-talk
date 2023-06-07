@@ -25,7 +25,7 @@ const Form = ({ book }: IProps) => {
   const router = useRouter();
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
   const { data: tagsData } = useSWR("/api/tags");
-  const { mutation, loading } = useMutation("/api/book");
+  const { mutation, loading } = useMutation("/api/books");
   const [bookPreviewImg, setBookPreviewImg] = useState("");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
 

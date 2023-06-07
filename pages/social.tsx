@@ -18,7 +18,7 @@ const Social = () => {
 
   return (
     <Layout>
-      <Header col1={<TitleCol>Book</TitleCol>} />
+      <Header col1={<TitleCol>Social</TitleCol>} />
 
       <ul className="">
         {data?.memos.map((memo) => (

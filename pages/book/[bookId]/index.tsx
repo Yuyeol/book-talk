@@ -1,4 +1,3 @@
-import Form from "@/components/book/detail/memo/form";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
@@ -8,9 +7,7 @@ import useSWR from "swr";
 import { IBookWithTags } from "@/pages";
 import Info from "@/components/book/detail/info";
 import Memo from "@/components/book/detail/memo";
-import { useCallback, useState } from "react";
-import { useAppDispatch } from "@/app/hooks";
-import { openForm } from "@/features/memo/memoSlice";
+import Link from "next/link";
 
 interface IBookResponse {
   book: IBookWithTags;
@@ -43,23 +40,14 @@ interface IMemosResponse {
 }
 
 const BookDetail = () => {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  const {
+    query: { bookId },
+  } = useRouter();
   const { data: bookData } = useSWR<IBookResponse>(
-    router.query.id ? `/api/book/${router.query.id}` : null
+    bookId ? `/api/books/${bookId}` : null
   );
   const { data: memosData } = useSWR<IMemosResponse>(
-    router.query.id ? `/api/book/${router.query.id}/memos` : null
-  );
-
-  const [selectedMemo, setSelectedMemo] = useState<IMemoWithReactions>();
-  // 메모 수정하기 위해 select
-  const selectMemo = useCallback(
-    (id: number) => {
-      setSelectedMemo(memosData?.memos.find((memo) => memo.id === id));
-      dispatch(openForm());
-    },
-    [dispatch, memosData?.memos]
+    bookId ? `/api/books/${bookId}/memos` : null
   );
 
   return (
@@ -68,9 +56,12 @@ const BookDetail = () => {
       {bookData && (
         <>
           <Info book={bookData.book} />
-          <Form selectedMemo={selectedMemo} />
+          {/* 플로팅으로 만들것. */}
+          <Link href={`/book/${bookId}/memo/upload`} className="bg-slate-500">
+            업로드
+          </Link>
           {memosData?.memos.map((memo) => (
-            <Memo memo={memo} key={memo.id} selectMemo={selectMemo} />
+            <Memo memo={memo} key={memo.id} />
           ))}
         </>
       )}
