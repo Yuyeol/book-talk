@@ -1,26 +1,23 @@
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import useMutation from "@/lib/client/useMutation";
-import { IMemoWithReactions } from "@/pages/book/[id]";
+import { IMemoWithReactions } from "@/pages/book/[bookId]";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import Comment from "@/components/book/detail/memo/comment";
+import Link from "next/link";
 
 interface IProps {
   memo: IMemoWithReactions;
-  selectMemo: (id: number) => void;
 }
 
-const Memo = ({ memo, selectMemo }: IProps) => {
+const Memo = ({ memo }: IProps) => {
   const { data: session } = useSession();
-  const router = useRouter();
-  const { mutation, loading } = useMutation(
-    `/api/book/${router.query.id}/memos`
-  );
-  const { mutation: commentMutation, loading: commentLoading } = useMutation(
-    `/api/book/${router.query.id}/memos/${memo.id}/comment`
-  );
+  const {
+    query: { bookId },
+  } = useRouter();
+  const { mutation, loading } = useMutation(`/api/books/${bookId}/memos`);
   const { mutation: likeMutation, loading: likeLoading } = useMutation(
-    `/api/book/${router.query.id}/memos/${memo.id}/like`
+    `/api/books/${bookId}/memos/${memo.id}/like`
   );
 
   // 해당 메모의 좋아요 중 내 좋아요 확인
@@ -33,18 +30,6 @@ const Memo = ({ memo, selectMemo }: IProps) => {
   const onDeleteMemo = (id: number) => {
     if (loading) return;
     mutation({ id: id }, "DELETE");
-  };
-  const [commentValue, setCommentValue] = useState("");
-  const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCommentValue(e.target.value);
-  };
-  const handleCommentSubmit = () => {
-    if (commentLoading) return;
-    commentMutation({ content: commentValue }, "POST");
-  };
-  const handleCommentDelete = (id: number) => {
-    if (commentLoading) return;
-    commentMutation({ id }, "DELETE");
   };
   const handleLikeSubmit = () => {
     if (likeLoading) return;
@@ -83,12 +68,12 @@ const Memo = ({ memo, selectMemo }: IProps) => {
         )}
         {isOwner && (
           <div className="flex justify-end gap-1">
-            <button
+            <Link
+              href={`/book/${bookId}/memo/${memo.id}/edit`}
               className="c_button_underlined"
-              onClick={() => selectMemo(memo.id)}
             >
               수정
-            </button>
+            </Link>
             <button
               className="c_button_underlined"
               onClick={() => onDeleteMemo(memo.id)}
@@ -97,33 +82,7 @@ const Memo = ({ memo, selectMemo }: IProps) => {
             </button>
           </div>
         )}
-
-        <div>
-          <input
-            value={commentValue}
-            onChange={handleCommentChange}
-            className="c_input text-xs"
-            placeholder="댓글"
-          />
-          <button
-            onClick={handleCommentSubmit}
-            className="w-6 h-6 rounded-full bg-black text-white"
-          >
-            ↑
-          </button>
-        </div>
-        {memo.comments.map((comment) => (
-          <div key={comment.id}>
-            <div>{comment.user.name}</div>
-            <div>{comment.content}</div>
-            <div>{getElapsedTime(comment.createdAt)}</div>
-            {session?.user?.id === comment.userId && (
-              <button onClick={() => handleCommentDelete(comment.id)}>
-                ❎
-              </button>
-            )}
-          </div>
-        ))}
+        <Comment memo={memo} />
       </div>
     </div>
   );
