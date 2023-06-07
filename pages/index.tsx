@@ -3,7 +3,7 @@ import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
 import { Book, Tag } from "@prisma/client";
 import Link from "next/link";
-import useSWR from "swr";
+import useSWR, { SWRConfig } from "swr";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
@@ -12,6 +12,9 @@ import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 import fetcher from "@/lib/client/fetcher";
 import { useSession } from "next-auth/react";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export interface IBookWithTags extends Book {
   tags: Tag[];
@@ -54,4 +57,41 @@ const Home = () => {
     </Layout>
   );
 };
-export default Home;
+
+export default function Page({
+  fallback,
+}: {
+  fallback: {
+    [url: string]: Book[];
+  };
+}) {
+  // SWR hooks inside the `SWRConfig` boundary will use those values.
+  return (
+    <SWRConfig value={{ fallback }}>
+      <Home />
+    </SWRConfig>
+  );
+}
+export async function getServerSideProps({
+  req,
+  res,
+}: {
+  req: NextApiRequest;
+  res: NextApiResponse;
+}) {
+  const session = await getServerSession(req, res, authOptions);
+  const apiUrl = `${process.env.apiUrl}/api/books?userId=${session?.user?.id}`;
+
+  try {
+    const books = await fetch(apiUrl).then((res) => res.json());
+    return {
+      props: {
+        fallback: {
+          [apiUrl]: books,
+        },
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch books:", error);
+  }
+}
