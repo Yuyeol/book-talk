@@ -5,14 +5,17 @@ import Form from "@/components/book/form";
 import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import fetcher from "@/lib/client/fetcher";
-import { Book } from "@prisma/client";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
+import { IBookResponse } from "@/pages/book/[bookId]";
 
 const Edit = () => {
   const {
     query: { bookId },
   } = useRouter();
-  const { data } = useSWR(bookId ? `/api/books/${bookId}` : null, fetcher);
+  const { data } = useSWR<IBookResponse>(
+    bookId ? `/api/books/${bookId}` : null,
+    fetcher
+  );
 
   return (
     <Layout>
@@ -25,7 +28,7 @@ export default function Page({
   fallback,
 }: {
   fallback: {
-    [url: string]: Book;
+    [url: string]: IBookResponse;
   };
 }) {
   return (

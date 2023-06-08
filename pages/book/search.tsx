@@ -1,7 +1,7 @@
 import Layout from "@/components/layout";
 import { useCallback, useState } from "react";
 import useSWR from "swr";
-import { IBookResponse, IBookWithTags } from "@/pages/index";
+import { IBooksResponse, IBookWithTags } from "@/pages/index";
 import _ from "lodash";
 import Form from "@/components/search/form";
 import Item from "@/components/search/book/item";
@@ -9,7 +9,7 @@ import Tab from "@/components/search/tab";
 import fetcher from "@/lib/client/fetcher";
 
 const Search = () => {
-  const { data } = useSWR<IBookResponse>("/api/books", fetcher);
+  const { data } = useSWR<IBooksResponse>("/api/books", fetcher);
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IBookWithTags[]>([]);

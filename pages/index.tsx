@@ -21,14 +21,14 @@ export interface IBookWithTags extends Book {
   tags: Tag[];
 }
 
-export interface IBookResponse {
+export interface IBooksResponse {
   books: IBookWithTags[];
   ok: boolean;
 }
 
 const Home = () => {
   const { data: session } = useSession();
-  const { data } = useSWR<IBookResponse>(
+  const { data } = useSWR<IBooksResponse>(
     `/api/books?userId=${session?.user?.id}`,
     fetcher
   );
@@ -63,7 +63,7 @@ export default function Page({
   fallback,
 }: {
   fallback: {
-    [url: string]: Book[];
+    [url: string]: IBooksResponse;
   };
 }) {
   return (

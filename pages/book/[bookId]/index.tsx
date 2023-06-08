@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import fetcher from "@/lib/client/fetcher";
 
-interface IBookResponse {
+export interface IBookResponse {
   book: IBookWithTags;
   ok: boolean;
 }
