@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import fetcher from "@/lib/client/fetcher";
 import { Book } from "@prisma/client";
+import { ssrFetcher } from "@/lib/server/ssrFetcher";
 
 const Edit = () => {
   const {
@@ -39,18 +40,5 @@ export async function getServerSideProps({
 }: {
   query: { bookId: string };
 }) {
-  const apiUrl = `${process.env.apiUrl}/api/books/${query.bookId}`;
-  try {
-    const book = await fetch(apiUrl).then((res) => res.json());
-    return {
-      props: {
-        fallback: {
-          [apiUrl]: book,
-        },
-      },
-    };
-  } catch (error) {
-    console.error("Failed to fetch book:", error);
-    return { props: {} };
-  }
+  return ssrFetcher(`/api/books/${query.bookId}`);
 }

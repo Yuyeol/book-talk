@@ -15,6 +15,7 @@ import { useSession } from "next-auth/react";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { NextApiRequest, NextApiResponse } from "next";
+import { ssrFetcher } from "@/lib/server/ssrFetcher";
 
 export interface IBookWithTags extends Book {
   tags: Tag[];
@@ -79,19 +80,5 @@ export async function getServerSideProps({
   res: NextApiResponse;
 }) {
   const session = await getServerSession(req, res, authOptions);
-  const apiUrl = `${process.env.apiUrl}/api/books?userId=${session?.user?.id}`;
-
-  try {
-    const books = await fetch(apiUrl).then((res) => res.json());
-    return {
-      props: {
-        fallback: {
-          [apiUrl]: books,
-        },
-      },
-    };
-  } catch (error) {
-    console.error("Failed to fetch books:", error);
-    return { props: {} };
-  }
+  return ssrFetcher(`/api/books?userId=${session?.user?.id}`);
 }
