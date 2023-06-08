@@ -56,6 +56,7 @@ const Item = ({ book }: IProps) => {
           <div className="pt-2 pb-3 text-sm">{book.description}</div>
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap gap-2">
+              {/* #TODO: 자기가 가지고있는 tag만 나올수있게 하자. 삭제한태그는 여기서도 사라져야 함. */}
               {book.tags?.map((tag) => (
                 <div
                   key={tag.id}

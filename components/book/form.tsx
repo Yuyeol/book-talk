@@ -121,7 +121,6 @@ const Form = ({ book }: IProps) => {
           placeholder="설명"
           {...register("description")}
         />
-        {/* input은 마무리할때 안보이게 처리해도될듯. 디자인따라 정해보자 */}
         {tagsData?.ok && (
           <TagInput
             tags={tagsData.tags}

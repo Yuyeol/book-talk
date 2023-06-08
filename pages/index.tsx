@@ -65,7 +65,6 @@ export default function Page({
     [url: string]: Book[];
   };
 }) {
-  // SWR hooks inside the `SWRConfig` boundary will use those values.
   return (
     <SWRConfig value={{ fallback }}>
       <Home />
@@ -93,5 +92,6 @@ export async function getServerSideProps({
     };
   } catch (error) {
     console.error("Failed to fetch books:", error);
+    return { props: {} };
   }
 }
