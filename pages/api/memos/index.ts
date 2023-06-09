@@ -6,7 +6,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    // 소셜에서 사용하기 위해 모든 메모 조회
     const {
       query: { bookId },
     } = req;
@@ -17,11 +16,6 @@ export default async function handler(
         },
         include: {
           user: { select: { id: true, name: true, nickname: true } },
-          comments: {
-            include: {
-              user: { select: { name: true, nickname: true, image: true } },
-            },
-          },
           likes: true,
         },
       });
@@ -33,11 +27,6 @@ export default async function handler(
       const memos = await prisma.memo.findMany({
         include: {
           user: { select: { id: true, name: true, nickname: true } },
-          comments: {
-            include: {
-              user: { select: { name: true, nickname: true, image: true } },
-            },
-          },
           likes: true,
         },
       });

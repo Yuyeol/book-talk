@@ -29,17 +29,9 @@ export interface IMemoResponse {
   ok: boolean;
 }
 export interface IMemoWithReactions extends Memo {
-  comments: ICommentWithUser[];
   likes: ILikeWithUser[];
 }
-export interface ICommentWithUser extends Comment {
-  user: {
-    name: string;
-    nickname: string;
-    image: string;
-  };
-  userId: string;
-}
+
 export interface ILikeWithUser extends Like {
   user: {
     name: string;
@@ -88,4 +80,18 @@ export interface IUserWithFriends extends IUserWithBooks {
 export interface IProfileResponse {
   ok: boolean;
   user: Omit<User, "emailVerified">;
+}
+
+// Comment
+export interface ICommentsResponse {
+  comments: ICommentWithUser[];
+  ok: boolean;
+}
+export interface ICommentWithUser extends Comment {
+  user: {
+    name: string;
+    nickname: string;
+    image: string;
+  };
+  userId: string;
 }

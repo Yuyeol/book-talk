@@ -1,28 +1,24 @@
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import useMutation from "@/lib/client/useMutation";
-import { IMemoWithReactions } from "@/types";
+import useComments from "@/lib/client/useSwr/useComments";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 interface IProps {
-  memo: IMemoWithReactions;
+  memoId: number;
 }
 
-const Comment = ({ memo }: IProps) => {
+const Comment = ({ memoId }: IProps) => {
   const { data: session } = useSession();
-  const router = useRouter();
-  const { mutation, loading } = useMutation(
-    `/api/books/${router.query.id}/memos/${memo.id}/comment`
-  );
-
+  const { data } = useComments(memoId);
+  const { mutation, loading } = useMutation(`/api/comments`);
   const [commentValue, setCommentValue] = useState("");
   const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCommentValue(e.target.value);
   };
   const handleCommentSubmit = () => {
     if (loading) return;
-    mutation({ content: commentValue }, "POST");
+    mutation({ content: commentValue, memoId }, "POST");
   };
   const handleCommentDelete = (id: number) => {
     if (loading) return;
@@ -45,7 +41,7 @@ const Comment = ({ memo }: IProps) => {
           ↑
         </button>
       </div>
-      {memo.comments.map((comment) => (
+      {data?.comments.map((comment) => (
         <div key={comment.id}>
           <div>{comment.user.name}</div>
           <div>{comment.content}</div>

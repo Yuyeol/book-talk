@@ -51,7 +51,7 @@ const Memo = ({ memo }: IProps) => {
             </button>
           </div>
         )}
-        <Comment memo={memo} />
+        <Comment memoId={memo.id} />
       </div>
     </div>
   );
