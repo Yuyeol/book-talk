@@ -10,6 +10,7 @@ import Memo from "@/components/book/detail/memo";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import fetcher from "@/lib/client/fetcher";
+import { ssrFetcher } from "@/lib/server/ssrFetcher";
 
 export interface IBookResponse {
   book: IBookWithTags;
@@ -77,3 +78,13 @@ const BookDetail = () => {
   );
 };
 export default BookDetail;
+export async function getServerSideProps({
+  query,
+}: {
+  query: { bookId: string };
+}) {
+  return ssrFetcher(
+    `/api/books/${query.bookId}`,
+    `/api/books/${query.bookId}/memos`
+  );
+}
