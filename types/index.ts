@@ -62,14 +62,30 @@ export interface ITagsResponse {
   tags: Tag[];
   ok: boolean;
 }
+export interface ITagResponse {
+  tag: Tag;
+  ok: boolean;
+}
 export interface ITagForm {
   name: string;
 }
 
 // User
+export interface IUsersResponse {
+  users: IUserWithFriends[];
+  ok: boolean;
+}
+export interface IUserResponse {
+  user: IUserWithFriends;
+  ok: boolean;
+}
 export interface IUserWithBooks extends User {
   books: Book[];
 }
 export interface IUserWithFriends extends IUserWithBooks {
   friendsTo: IUserWithBooks[];
+}
+export interface IProfileResponse {
+  ok: boolean;
+  user: Omit<User, "emailVerified">;
 }

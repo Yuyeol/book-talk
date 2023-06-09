@@ -3,23 +3,13 @@ import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
 import { CF_DOMAIN } from "@/constants";
-import fetcher from "@/lib/client/fetcher";
 import useMutation from "@/lib/client/useMutation";
-import { User } from "@prisma/client";
+import useUser from "@/lib/client/useSwr/useUser";
 import { signOut, useSession } from "next-auth/react";
-import useSWR from "swr";
-
-export interface IUserResponse {
-  ok: boolean;
-  user: Omit<User, "emailVerified">;
-}
 
 const Profile = () => {
   const { data: session } = useSession();
-  const { data } = useSWR<IUserResponse>(
-    session?.user?.id ? `/api/users/${session.user.id}` : null,
-    fetcher
-  );
+  const { data } = useUser(session?.user?.id as string);
 
   const { mutation, loading } = useMutation("/api/users");
 

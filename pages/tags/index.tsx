@@ -1,7 +1,6 @@
 import Layout from "@/components/layout";
 import Item from "@/components/tags/item";
 import List from "@/components/tags/list";
-import useSWR from "swr";
 import { Tag } from "@prisma/client";
 import Link from "next/link";
 import Plus from "@/components/icon/plus";
@@ -11,16 +10,12 @@ import Filter from "@/components/icon/filter";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import ToolsCol from "@/components/header/tools-col";
-import fetcher from "@/lib/client/fetcher";
 import { useSession } from "next-auth/react";
-import { ITagsResponse } from "@/types";
+import useTags from "@/lib/client/useSwr/useTags";
 
 const Tags = () => {
   const { data: session } = useSession();
-  const { data } = useSWR<ITagsResponse>(
-    `/api/tags?userId=${session?.user?.id}`,
-    fetcher
-  );
+  const { data } = useTags(session?.user?.id);
 
   return (
     <Layout>

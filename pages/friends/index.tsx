@@ -5,22 +5,19 @@ import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
 import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
 import { useSession } from "next-auth/react";
-import useSWR, { SWRConfig } from "swr";
+import { SWRConfig } from "swr";
 import Search from "@/components/icon/search";
 import Link from "next/link";
-import fetcher from "@/lib/client/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
-import { IUserWithBooks, IUserWithFriends } from "@/types";
+import { IUserWithBooks } from "@/types";
+import useUser from "@/lib/client/useSwr/useUser";
 
 const Friends = () => {
   const { data: session } = useSession();
-  const { data: userData } = useSWR<{
-    ok: boolean;
-    user: IUserWithFriends;
-  }>(`/api/users/${session?.user?.id}`, fetcher);
+  const { data: userData } = useUser(session?.user?.id as string);
 
   return (
     <Layout>

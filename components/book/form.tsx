@@ -3,13 +3,12 @@ import TagInput from "@/components/book/upload/tag-input";
 import useMutation from "@/lib/client/useMutation";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import useSWR from "swr";
 import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 import { useRouter } from "next/router";
 import { urlToFileList } from "@/lib/client/convertImgToFileList";
-import fetcher from "@/lib/client/fetcher";
 import { useSession } from "next-auth/react";
 import { IBookForm, IBookWithTags } from "@/types";
+import useTags from "@/lib/client/useSwr/useTags";
 
 interface IProps {
   book?: IBookWithTags;
@@ -19,10 +18,7 @@ const Form = ({ book }: IProps) => {
   const { data: session } = useSession();
   const router = useRouter();
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
-  const { data: tagsData } = useSWR(
-    `/api/tags?userId=${session?.user?.id}`,
-    fetcher
-  );
+  const { data: tagsData } = useTags(session?.user?.id);
   const { mutation, loading } = useMutation(`/api/books/${book?.id ?? 0}`);
   const [bookPreviewImg, setBookPreviewImg] = useState("");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);

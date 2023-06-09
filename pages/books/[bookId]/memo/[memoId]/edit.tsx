@@ -2,20 +2,17 @@ import Layout from "@/components/layout";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Form from "@/components/book/detail/memo/form";
-import useSWR from "swr";
 import { useRouter } from "next/router";
-import fetcher from "@/lib/client/fetcher";
-import { IMemoResponse } from "@/types";
+import useMemoData from "@/lib/client/useSwr/useMemoData";
 
 const Edit = () => {
   const {
     query: { bookId, memoId },
   } = useRouter();
-  const { data } = useSWR<IMemoResponse>(
-    bookId && memoId ? `/api/books/${bookId}/memos/${memoId}` : null,
-    fetcher
+  const { data } = useMemoData(
+    parseInt(bookId as string),
+    parseInt(memoId as string)
   );
-  console.log(data);
 
   return (
     <Layout>

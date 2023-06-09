@@ -3,19 +3,16 @@ import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Form from "@/components/book/form";
 import { useRouter } from "next/router";
-import useSWR, { SWRConfig } from "swr";
-import fetcher from "@/lib/client/fetcher";
+import { SWRConfig } from "swr";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
 import { IBookResponse } from "@/types";
+import useBook from "@/lib/client/useSwr/useBook";
 
 const Edit = () => {
   const {
     query: { bookId },
   } = useRouter();
-  const { data } = useSWR<IBookResponse>(
-    bookId ? `/api/books/${bookId}` : null,
-    fetcher
-  );
+  const { data } = useBook(parseInt(bookId as string));
 
   return (
     <Layout>

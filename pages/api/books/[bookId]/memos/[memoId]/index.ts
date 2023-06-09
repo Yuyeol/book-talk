@@ -33,7 +33,7 @@ export default async function handler(
       update: {
         page,
         content,
-        books: {
+        book: {
           connect: {
             id: parseInt(bookId as string),
           },
@@ -42,7 +42,7 @@ export default async function handler(
       create: {
         page,
         content,
-        books: {
+        book: {
           connect: {
             id: parseInt(bookId as string),
           },

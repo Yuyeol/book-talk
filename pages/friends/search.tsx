@@ -1,21 +1,17 @@
 import Layout from "@/components/layout";
 import { useCallback, useState } from "react";
-import useSWR from "swr";
 import _ from "lodash";
 import Form from "@/components/search/form";
 import Tab from "@/components/search/tab";
 import Item from "@/components/search/friends/item";
 import { useSession } from "next-auth/react";
 import useMutation from "@/lib/client/useMutation";
-import fetcher from "@/lib/client/fetcher";
 import { IUserWithFriends } from "@/types";
+import useUsers from "@/lib/client/useSwr/useUsers";
 
 const Search = () => {
   const { data: session } = useSession();
-  const { data } = useSWR<{
-    ok: boolean;
-    users: IUserWithFriends[];
-  }>("/api/users", fetcher);
+  const { data } = useUsers();
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IUserWithFriends[]>([]);
