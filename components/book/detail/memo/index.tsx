@@ -13,7 +13,7 @@ interface IProps {
 
 const Memo = ({ memo }: IProps) => {
   const { data: session } = useSession();
-  const { mutation, loading } = useMutation(`/api/books/${memo.bookId}/memos`);
+  const { mutation, loading } = useMutation(`/api/memos/${memo.id}`);
 
   // 해당 메모의 작성자인지 확인
   const isOwner = memo.userId === session?.user?.id;

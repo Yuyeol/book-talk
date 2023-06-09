@@ -8,7 +8,6 @@ import useTag from "@/lib/client/useSwr/useTag";
 const Edit = () => {
   const router = useRouter();
   const { data } = useTag(parseInt(router.query.id as string));
-  console.log(data);
 
   return (
     <Layout>

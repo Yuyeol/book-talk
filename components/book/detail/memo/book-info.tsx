@@ -11,7 +11,7 @@ interface IProps {
 const BookInfo = ({ memo }: IProps) => {
   const { data: bookData } = useBook(memo.bookId);
   return (
-    <Link href={`/book/${memo.bookId}`}>
+    <Link href={`/books/${memo.bookId}`}>
       <div className="flex">
         <div className="w-20">
           <ResponsiveImage

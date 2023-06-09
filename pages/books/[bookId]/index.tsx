@@ -9,6 +9,8 @@ import { useSession } from "next-auth/react";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
 import useBook from "@/lib/client/useSwr/useBook";
 import useMemos from "@/lib/client/useSwr/useMemos";
+import { SWRConfig } from "swr";
+import { IBookResponse } from "@/types";
 
 const BookDetail = () => {
   const { data: session } = useSession();
@@ -42,14 +44,23 @@ const BookDetail = () => {
     </Layout>
   );
 };
-export default BookDetail;
+export default function Page({
+  fallback,
+}: {
+  fallback: {
+    [url: string]: IBookResponse;
+  };
+}) {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <BookDetail />
+    </SWRConfig>
+  );
+}
 export async function getServerSideProps({
   query,
 }: {
   query: { bookId: string };
 }) {
-  return ssrFetcher(
-    `/api/books/${query.bookId}`,
-    `/api/books/${query.bookId}/memos`
-  );
+  return ssrFetcher(`/api/books/${query.bookId}`);
 }

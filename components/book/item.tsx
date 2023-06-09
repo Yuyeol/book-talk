@@ -70,7 +70,7 @@ const Item = ({ book }: IProps) => {
             <div className="space-x-1">
               <button
                 className="c_button_underlined"
-                onClick={(e) => redirectWithHref(e, `/book/${book.id}/edit`)}
+                onClick={(e) => redirectWithHref(e, `/books/${book.id}/edit`)}
               >
                 수정
               </button>

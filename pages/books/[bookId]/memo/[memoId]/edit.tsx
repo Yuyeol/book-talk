@@ -7,12 +7,10 @@ import useMemoData from "@/lib/client/useSwr/useMemoData";
 
 const Edit = () => {
   const {
-    query: { bookId, memoId },
+    query: { memoId },
   } = useRouter();
-  const { data } = useMemoData(
-    parseInt(bookId as string),
-    parseInt(memoId as string)
-  );
+
+  const { data } = useMemoData(parseInt(memoId as string));
 
   return (
     <Layout>
