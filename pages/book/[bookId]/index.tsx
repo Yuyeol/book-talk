@@ -1,46 +1,15 @@
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
-import { Comment, Like, Memo as TMemo } from "@prisma/client";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { IBookWithTags } from "@/pages";
 import Info from "@/components/book/detail/info";
 import Memo from "@/components/book/detail/memo";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import fetcher from "@/lib/client/fetcher";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
-
-export interface IBookResponse {
-  book: IBookWithTags;
-  ok: boolean;
-}
-
-export interface ICommentWithUser extends Comment {
-  user: {
-    name: string;
-    nickname: string;
-    image: string;
-  };
-  userId: string;
-}
-export interface ILikeWithUser extends Like {
-  user: {
-    name: string;
-    nickname: string;
-    image: string;
-  };
-  userId: string;
-}
-export interface IMemoWithReactions extends TMemo {
-  comments: ICommentWithUser[];
-  likes: ILikeWithUser[];
-}
-interface IMemosResponse {
-  memos: IMemoWithReactions[];
-  ok: boolean;
-}
+import { IBookResponse, IMemosResponse } from "@/types";
 
 const BookDetail = () => {
   const { data: session } = useSession();

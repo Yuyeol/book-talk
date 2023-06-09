@@ -1,10 +1,9 @@
-import { IMemoWithReactions } from "@/pages/book/[bookId]";
 import useSWR from "swr";
-import { IBookWithTags } from "@/pages";
 import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import Link from "next/link";
 import fetcher from "@/lib/client/fetcher";
+import { IBookWithTags, IMemoWithReactions } from "@/types";
 
 interface IProps {
   memo: IMemoWithReactions;

@@ -1,12 +1,12 @@
 import Layout from "@/components/layout";
 import { useCallback, useState } from "react";
 import useSWR from "swr";
-import { IBooksResponse, IBookWithTags } from "@/pages/index";
 import _ from "lodash";
 import Form from "@/components/search/form";
 import Item from "@/components/search/book/item";
 import Tab from "@/components/search/tab";
 import fetcher from "@/lib/client/fetcher";
+import { IBookWithTags, IBooksResponse } from "@/types";
 
 const Search = () => {
   const { data } = useSWR<IBooksResponse>("/api/books", fetcher);

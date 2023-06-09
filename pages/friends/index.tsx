@@ -6,7 +6,6 @@ import Layout from "@/components/layout";
 import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
 import { useSession } from "next-auth/react";
 import useSWR, { SWRConfig } from "swr";
-import { Book, User } from "@prisma/client";
 import Search from "@/components/icon/search";
 import Link from "next/link";
 import fetcher from "@/lib/client/fetcher";
@@ -14,13 +13,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
-
-export interface IUserWithBooks extends User {
-  books: Book[];
-}
-export interface IUserWithFriends extends IUserWithBooks {
-  friendsTo: IUserWithBooks[];
-}
+import { IUserWithBooks, IUserWithFriends } from "@/types";
 
 const Friends = () => {
   const { data: session } = useSession();

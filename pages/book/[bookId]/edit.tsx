@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import fetcher from "@/lib/client/fetcher";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
-import { IBookResponse } from "@/pages/book/[bookId]";
+import { IBookResponse } from "@/types";
 
 const Edit = () => {
   const {

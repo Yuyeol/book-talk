@@ -13,10 +13,14 @@ import TitleCol from "@/components/header/title-col";
 import ToolsCol from "@/components/header/tools-col";
 import fetcher from "@/lib/client/fetcher";
 import { useSession } from "next-auth/react";
+import { ITagsResponse } from "@/types";
 
 const Tags = () => {
   const { data: session } = useSession();
-  const { data } = useSWR(`/api/tags?userId=${session?.user?.id}`, fetcher);
+  const { data } = useSWR<ITagsResponse>(
+    `/api/tags?userId=${session?.user?.id}`,
+    fetcher
+  );
 
   return (
     <Layout>

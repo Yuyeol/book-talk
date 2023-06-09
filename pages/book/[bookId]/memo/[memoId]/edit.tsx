@@ -4,13 +4,8 @@ import TitleCol from "@/components/header/title-col";
 import Form from "@/components/book/detail/memo/form";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import { Memo } from "@prisma/client";
 import fetcher from "@/lib/client/fetcher";
-
-interface IMemoResponse {
-  memo: Memo;
-  ok: boolean;
-}
+import { IMemoResponse } from "@/types";
 
 const Edit = () => {
   const {
@@ -20,6 +15,8 @@ const Edit = () => {
     bookId && memoId ? `/api/books/${bookId}/memos/${memoId}` : null,
     fetcher
   );
+  console.log(data);
+
   return (
     <Layout>
       <Header col1={<TitleCol hasBackBtn>Edit Memo</TitleCol>} />

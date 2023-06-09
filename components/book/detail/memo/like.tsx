@@ -1,5 +1,5 @@
 import useMutation from "@/lib/client/useMutation";
-import { IMemoWithReactions } from "@/pages/book/[bookId]";
+import { IMemoWithReactions } from "@/types";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 

@@ -3,9 +3,9 @@ import InfoModal from "./info-modal";
 import { useState } from "react";
 import ResponsiveImage from "../core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
-import { IUserWithBooks } from "@/pages/friends";
 import FriendInfo from "./friend-info";
 import { FriendModalPortal } from "@/lib/client/portal";
+import { IUserWithBooks } from "@/types";
 
 interface IProps {
   friend: IUserWithBooks;

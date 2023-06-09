@@ -1,11 +1,11 @@
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import useMutation from "@/lib/client/useMutation";
-import { IMemoWithReactions } from "@/pages/book/[bookId]";
 import { useSession } from "next-auth/react";
 import Comment from "@/components/book/detail/memo/comment";
 import Link from "next/link";
 import Like from "./like";
 import BookInfo from "./book-info";
+import { IMemoWithReactions } from "@/types";
 
 interface IProps {
   memo: IMemoWithReactions;

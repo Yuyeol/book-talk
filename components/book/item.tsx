@@ -1,11 +1,11 @@
 import ResponsiveImage from "../core/responsive-image";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
-import { IBookWithTags } from "@/pages";
 import useMutation from "@/lib/client/useMutation";
 import Image from "next/image";
 import { CF_DOMAIN } from "@/constants";
 import { useRouter } from "next/router";
+import { IBookWithTags } from "@/types";
 
 interface IProps {
   book: IBookWithTags;

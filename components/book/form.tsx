@@ -7,16 +7,9 @@ import useSWR from "swr";
 import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 import { useRouter } from "next/router";
 import { urlToFileList } from "@/lib/client/convertImgToFileList";
-import { IBookWithTags } from "@/pages";
 import fetcher from "@/lib/client/fetcher";
 import { useSession } from "next-auth/react";
-
-interface IBookForm {
-  title: string;
-  description?: string;
-  author?: string;
-  image?: FileList;
-}
+import { IBookForm, IBookWithTags } from "@/types";
 
 interface IProps {
   book?: IBookWithTags;

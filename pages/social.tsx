@@ -2,18 +2,14 @@ import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
 import useSWR, { SWRConfig } from "swr";
-import { IMemoWithReactions } from "./book/[bookId]";
 import Memo from "@/components/book/detail/memo";
 import fetcher from "@/lib/client/fetcher";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
-
-interface IMemosResponse {
-  memos: IMemoWithReactions[];
-  ok: boolean;
-}
+import { IMemosResponse } from "@/types";
 
 const Social = () => {
   const { data } = useSWR<IMemosResponse>("/api/memos", fetcher);
+  console.log(data);
 
   return (
     <Layout>

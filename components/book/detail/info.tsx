@@ -1,6 +1,6 @@
 import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
-import { IBookWithTags } from "@/pages";
+import { IBookWithTags } from "@/types";
 import { Tag } from "@prisma/client";
 
 interface IProps {

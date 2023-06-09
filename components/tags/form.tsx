@@ -4,10 +4,7 @@ import useMutation from "@/lib/client/useMutation";
 import Pallete from "@/components/tags/pallete";
 import { useRouter } from "next/router";
 import { Tag } from "@prisma/client";
-
-interface ITagForm {
-  name: string;
-}
+import { ITagForm } from "@/types";
 
 interface IProps {
   tag?: Tag;

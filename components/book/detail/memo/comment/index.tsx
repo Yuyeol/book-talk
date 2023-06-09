@@ -1,6 +1,6 @@
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import useMutation from "@/lib/client/useMutation";
-import { IMemoWithReactions } from "@/pages/book/[bookId]";
+import { IMemoWithReactions } from "@/types";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";

@@ -5,10 +5,10 @@ import _ from "lodash";
 import Form from "@/components/search/form";
 import Tab from "@/components/search/tab";
 import Item from "@/components/search/friends/item";
-import { IUserWithFriends } from ".";
 import { useSession } from "next-auth/react";
 import useMutation from "@/lib/client/useMutation";
 import fetcher from "@/lib/client/fetcher";
+import { IUserWithFriends } from "@/types";
 
 const Search = () => {
   const { data: session } = useSession();

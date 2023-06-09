@@ -1,37 +1,26 @@
 import Item from "@/components/book/item";
 import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
-import { Book, Tag } from "@prisma/client";
 import Link from "next/link";
-import useSWR, { SWRConfig } from "swr";
+import { SWRConfig } from "swr";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
 import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
-import fetcher from "@/lib/client/fetcher";
 import { useSession } from "next-auth/react";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ssrFetcher } from "@/lib/server/ssrFetcher";
-
-export interface IBookWithTags extends Book {
-  tags: Tag[];
-}
-
-export interface IBooksResponse {
-  books: IBookWithTags[];
-  ok: boolean;
-}
+import useBooks from "@/lib/client/useSwr/useBooks";
+import { IBookWithTags, IBooksResponse } from "@/types";
 
 const Home = () => {
   const { data: session } = useSession();
-  const { data } = useSWR<IBooksResponse>(
-    `/api/books?userId=${session?.user?.id}`,
-    fetcher
-  );
+  const { data } = useBooks(session?.user?.id);
+
   return (
     <Layout>
       <Header

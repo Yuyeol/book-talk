@@ -1,13 +1,10 @@
 import useMutation from "@/lib/client/useMutation";
+import { IMemoForm } from "@/types";
 import { Memo } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-interface IMemoForm {
-  page?: number;
-  content: string;
-}
 interface IProps {
   memo?: Memo;
 }
