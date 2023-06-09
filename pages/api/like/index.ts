@@ -1,7 +1,8 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "../auth/[...nextauth]";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -9,7 +10,7 @@ export default async function handler(
   if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
     const {
-      query: { memoId },
+      body: { memoId },
     } = req;
     const like = await prisma.like.create({
       data: {
@@ -20,7 +21,7 @@ export default async function handler(
         },
         memo: {
           connect: {
-            id: parseInt(memoId as string),
+            id: memoId,
           },
         },
       },
@@ -33,9 +34,10 @@ export default async function handler(
     const {
       body: { id },
     } = req;
-
-    const like = await prisma.like.deleteMany({
-      where: { id },
+    const like = await prisma.like.delete({
+      where: {
+        id: id,
+      },
     });
     res.status(200).json({
       ok: true,
