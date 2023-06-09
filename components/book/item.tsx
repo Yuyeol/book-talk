@@ -25,7 +25,7 @@ const Item = ({ book }: IProps) => {
     router.push(href);
   };
   return (
-    <Link href={`/book/${book.id}`}>
+    <Link href={`/books/${book.id}`}>
       <li className="relative overflow-hidden">
         <div className="absolute w-full h-full blur-sm">
           <Image

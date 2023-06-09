@@ -1,4 +1,4 @@
-import BookInfo from "@/components/friends/book-info";
+import BookInfo from "@/components/friend/book-info";
 import InfoModal from "./info-modal";
 import { useState } from "react";
 import ResponsiveImage from "../core/responsive-image";

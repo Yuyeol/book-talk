@@ -27,10 +27,10 @@ const Home = () => {
         col1={<TitleCol>Book</TitleCol>}
         col2={
           <ToolsCol>
-            <Link href="/book/upload">
+            <Link href="/books/upload">
               <Plus width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
-            <Link href="/book/search">
+            <Link href="/books/search">
               <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
             <button>

@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import useSWR from "swr";
 import _ from "lodash";
 import Form from "@/components/search/form";
-import Item from "@/components/search/book/item";
+import Item from "@/components/search/books/item";
 import Tab from "@/components/search/tab";
 import fetcher from "@/lib/client/fetcher";
 import { IBookWithTags, IBooksResponse } from "@/types";

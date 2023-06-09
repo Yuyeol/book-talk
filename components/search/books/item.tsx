@@ -9,7 +9,7 @@ interface IProps {
 const Item = ({ book }: IProps) => {
   return (
     <Link
-      href={`/book/${book.id}`}
+      href={`/books/${book.id}`}
       className="flex items-center py-1 space-x-2"
     >
       <div className="w-12 bg-white">

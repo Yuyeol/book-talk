@@ -38,7 +38,7 @@ const Memo = ({ memo }: IProps) => {
         {isOwner && (
           <div className="flex justify-end gap-1">
             <Link
-              href={`/book/${memo.bookId}/memo/${memo.id}/edit`}
+              href={`/books/${memo.bookId}/memo/${memo.id}/edit`}
               className="c_button_underlined"
             >
               수정

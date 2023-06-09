@@ -34,7 +34,10 @@ const BookDetail = () => {
           <Info book={bookData.book} />
           {/* 플로팅으로 만들것. */}
           {isOwner && (
-            <Link href={`/book/${bookId}/memo/upload`} className="bg-slate-500">
+            <Link
+              href={`/books/${bookId}/memo/upload`}
+              className="bg-slate-500"
+            >
               업로드
             </Link>
           )}

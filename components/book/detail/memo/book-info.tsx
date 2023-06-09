@@ -15,7 +15,7 @@ const BookInfo = ({ memo }: IProps) => {
     fetcher
   );
   return (
-    <Link href={`/book/${memo.bookId}`}>
+    <Link href={`/books/${memo.bookId}`}>
       <div className="flex">
         <div className="w-20">
           <ResponsiveImage

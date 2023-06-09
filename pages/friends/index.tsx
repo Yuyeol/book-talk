@@ -1,4 +1,4 @@
-import Item from "@/components/friends/item";
+import Item from "@/components/friend/item";
 import Header from "@/components/header";
 import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
