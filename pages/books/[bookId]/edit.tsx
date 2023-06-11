@@ -3,9 +3,6 @@ import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Form from "@/components/book/form";
 import { useRouter } from "next/router";
-import { SWRConfig } from "swr";
-import { ssrFetcher } from "@/lib/server/ssrFetcher";
-import { IBookResponse } from "@/types";
 import useBook from "@/lib/client/useSwr/useBook";
 
 const Edit = () => {
@@ -21,24 +18,4 @@ const Edit = () => {
     </Layout>
   );
 };
-export default function Page({
-  fallback,
-}: {
-  fallback: {
-    [url: string]: IBookResponse;
-  };
-}) {
-  return (
-    <SWRConfig value={{ fallback }}>
-      <Edit />
-    </SWRConfig>
-  );
-}
-
-export async function getServerSideProps({
-  query,
-}: {
-  query: { bookId: string };
-}) {
-  return ssrFetcher(`/api/books/${query.bookId}`);
-}
+export default Edit;

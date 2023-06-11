@@ -2,7 +2,6 @@ import Item from "@/components/book/item";
 import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
 import Link from "next/link";
-import { SWRConfig } from "swr";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
@@ -10,12 +9,8 @@ import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 import { useSession } from "next-auth/react";
-import { authOptions } from "./api/auth/[...nextauth]";
-import { getServerSession } from "next-auth";
-import { NextApiRequest, NextApiResponse } from "next";
-import { ssrFetcher } from "@/lib/server/ssrFetcher";
 import useBooks from "@/lib/client/useSwr/useBooks";
-import { IBookWithTags, IBooksResponse } from "@/types";
+import { IBookWithTags } from "@/types";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -48,26 +43,4 @@ const Home = () => {
   );
 };
 
-export default function Page({
-  fallback,
-}: {
-  fallback: {
-    [url: string]: IBooksResponse;
-  };
-}) {
-  return (
-    <SWRConfig value={{ fallback }}>
-      <Home />
-    </SWRConfig>
-  );
-}
-export async function getServerSideProps({
-  req,
-  res,
-}: {
-  req: NextApiRequest;
-  res: NextApiResponse;
-}) {
-  const session = await getServerSession(req, res, authOptions);
-  return ssrFetcher(`/api/books?userId=${session?.user?.id}`);
-}
+export default Home;

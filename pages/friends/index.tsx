@@ -5,14 +5,8 @@ import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
 import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
 import { useSession } from "next-auth/react";
-import { SWRConfig } from "swr";
 import Search from "@/components/icon/search";
 import Link from "next/link";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { ssrFetcher } from "@/lib/server/ssrFetcher";
-import { IUserWithBooks } from "@/types";
 import useUser from "@/lib/client/useSwr/useUser";
 
 const Friends = () => {
@@ -41,26 +35,4 @@ const Friends = () => {
     </Layout>
   );
 };
-export default function Page({
-  fallback,
-}: {
-  fallback: {
-    [url: string]: IUserWithBooks;
-  };
-}) {
-  return (
-    <SWRConfig value={{ fallback }}>
-      <Friends />
-    </SWRConfig>
-  );
-}
-export async function getServerSideProps({
-  req,
-  res,
-}: {
-  req: NextApiRequest;
-  res: NextApiResponse;
-}) {
-  const session = await getServerSession(req, res, authOptions);
-  return ssrFetcher(`/api/users/${session?.user?.id}`);
-}
+export default Friends;
