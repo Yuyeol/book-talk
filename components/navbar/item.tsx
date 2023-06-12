@@ -11,7 +11,7 @@ interface IProps {
 
 const Text = ({ text, color }: { text: string; color: string }) => {
   return (
-    <div className="mt-1 text-xs text-center" style={{ color: color }}>
+    <div className=" text-[11px] text-center" style={{ color: color }}>
       {text}
     </div>
   );

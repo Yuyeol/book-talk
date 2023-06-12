@@ -1,6 +1,5 @@
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
-import Layout from "@/components/layout";
 import { useRouter } from "next/router";
 import Info from "@/components/book/detail/info";
 import Memo from "@/components/book/detail/memo";
@@ -19,7 +18,7 @@ const BookDetail = () => {
   const isOwner = bookData?.book.userId === session?.user?.id;
 
   return (
-    <Layout>
+    <>
       <Header col1={<TitleCol hasBackBtn>{bookData?.book.title}</TitleCol>} />
       {bookData && (
         <>
@@ -38,7 +37,7 @@ const BookDetail = () => {
           ))}
         </>
       )}
-    </Layout>
+    </>
   );
 };
 export default BookDetail;

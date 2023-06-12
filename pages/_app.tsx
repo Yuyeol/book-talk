@@ -5,13 +5,16 @@ import { Provider } from "react-redux";
 import { store } from "@/app/store";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Layout from "@/components/layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <AuthChecker>
         <Provider store={store}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </Provider>
       </AuthChecker>
     </SessionProvider>

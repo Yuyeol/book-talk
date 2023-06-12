@@ -1,4 +1,3 @@
-import Layout from "@/components/layout";
 import { useCallback, useState } from "react";
 import _ from "lodash";
 import Form from "@/components/search/form";
@@ -67,7 +66,7 @@ const Search = () => {
     [setResultsWithDebounce]
   );
   return (
-    <Layout>
+    <>
       <div className="p-4">
         <Form
           handleSearch={handleSearch}
@@ -98,7 +97,7 @@ const Search = () => {
           })}
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 export default Search;

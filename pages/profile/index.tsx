@@ -1,7 +1,6 @@
 import ResponsiveImage from "@/components/core/responsive-image";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
-import Layout from "@/components/layout";
 import { CF_DOMAIN } from "@/constants";
 import useMutation from "@/lib/client/useMutation";
 import useUser from "@/lib/client/useSwr/useUser";
@@ -25,7 +24,7 @@ const Profile = () => {
   };
 
   return (
-    <Layout>
+    <>
       <Header col1={<TitleCol>Profile</TitleCol>} />
       <div className="flex">
         <div className="w-16 rounded-full overflow-hidden">
@@ -50,7 +49,7 @@ const Profile = () => {
       ) : (
         "로그아웃되었습니다."
       )}
-    </Layout>
+    </>
   );
 };
 export default Profile;
