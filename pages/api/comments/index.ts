@@ -1,17 +1,32 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
+    const {
+      query: { memoId },
+    } = req;
+    const comments = await prisma.comment.findMany({
+      where: {
+        memoId: parseInt(memoId as string),
+      },
+      include: {
+        user: { select: { name: true, nickname: true, image: true } },
+      },
+    });
+    res.status(200).json({
+      ok: true,
+      comments,
+    });
+  } else if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
     const {
-      body: { content },
-      query: { memoId },
+      body: { content, memoId },
     } = req;
     const comment = await prisma.comment.create({
       data: {
@@ -23,7 +38,7 @@ export default async function handler(
         },
         memo: {
           connect: {
-            id: parseInt(memoId as string),
+            id: memoId,
           },
         },
       },

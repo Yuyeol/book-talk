@@ -3,13 +3,14 @@ import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Form from "@/components/book/form";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import useBook from "@/lib/client/useSwr/useBook";
 
 const Edit = () => {
-  const router = useRouter();
-  const { data } = useSWR(
-    router.query.id ? `/api/books/${router.query.id}` : null
-  );
+  const {
+    query: { bookId },
+  } = useRouter();
+  const { data } = useBook(parseInt(bookId as string));
+
   return (
     <Layout>
       <Header col1={<TitleCol hasBackBtn>Edit Book</TitleCol>} />

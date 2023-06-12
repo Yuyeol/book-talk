@@ -1,11 +1,11 @@
 import ResponsiveImage from "../core/responsive-image";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
-import { IBookWithTags } from "@/pages";
 import useMutation from "@/lib/client/useMutation";
 import Image from "next/image";
 import { CF_DOMAIN } from "@/constants";
 import { useRouter } from "next/router";
+import { IBookWithTags } from "@/types";
 
 interface IProps {
   book: IBookWithTags;
@@ -25,7 +25,7 @@ const Item = ({ book }: IProps) => {
     router.push(href);
   };
   return (
-    <Link href={`/book/${book.id}`}>
+    <Link href={`/books/${book.id}`}>
       <li className="relative overflow-hidden">
         <div className="absolute w-full h-full blur-sm">
           <Image
@@ -56,6 +56,7 @@ const Item = ({ book }: IProps) => {
           <div className="pt-2 pb-3 text-sm">{book.description}</div>
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap gap-2">
+              {/* #TODO: 자기가 가지고있는 tag만 나올수있게 하자. 삭제한태그는 여기서도 사라져야 함. */}
               {book.tags?.map((tag) => (
                 <div
                   key={tag.id}
@@ -69,7 +70,7 @@ const Item = ({ book }: IProps) => {
             <div className="space-x-1">
               <button
                 className="c_button_underlined"
-                onClick={(e) => redirectWithHref(e, `/book/${book.id}/edit`)}
+                onClick={(e) => redirectWithHref(e, `/books/${book.id}/edit`)}
               >
                 수정
               </button>

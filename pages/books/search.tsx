@@ -1,14 +1,16 @@
 import Layout from "@/components/layout";
 import { useCallback, useState } from "react";
-import useSWR from "swr";
-import { IBookResponse, IBookWithTags } from "@/pages/index";
 import _ from "lodash";
 import Form from "@/components/search/form";
-import Item from "@/components/search/book/item";
+import Item from "@/components/search/books/item";
 import Tab from "@/components/search/tab";
+import { IBookWithTags } from "@/types";
+import useBooks from "@/lib/client/useSwr/useBooks";
+import { useSession } from "next-auth/react";
 
 const Search = () => {
-  const { data } = useSWR<IBookResponse>("/api/books");
+  const { data: session } = useSession();
+  const { data } = useBooks(session?.user?.id);
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IBookWithTags[]>([]);

@@ -1,37 +1,31 @@
 import Item from "@/components/book/item";
 import Plus from "@/components/icon/plus";
 import Layout from "@/components/layout";
-import { Book, Tag } from "@prisma/client";
 import Link from "next/link";
-import useSWR from "swr";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
 import Filter from "@/components/icon/filter";
 import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
-
-export interface IBookWithTags extends Book {
-  tags: Tag[];
-}
-
-export interface IBookResponse {
-  books: IBookWithTags[];
-  ok: boolean;
-}
+import { useSession } from "next-auth/react";
+import useBooks from "@/lib/client/useSwr/useBooks";
+import { IBookWithTags } from "@/types";
 
 const Home = () => {
-  const { data } = useSWR<IBookResponse>(`/api/users/books`);
+  const { data: session } = useSession();
+  const { data } = useBooks(session?.user?.id);
+
   return (
     <Layout>
       <Header
         col1={<TitleCol>Book</TitleCol>}
         col2={
           <ToolsCol>
-            <Link href="/book/upload">
+            <Link href="/books/upload">
               <Plus width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
-            <Link href="/book/search">
+            <Link href="/books/search">
               <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
             <button>
@@ -48,4 +42,5 @@ const Home = () => {
     </Layout>
   );
 };
+
 export default Home;

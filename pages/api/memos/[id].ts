@@ -1,49 +1,41 @@
 import prisma from "@/lib/server/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../auth/[...nextauth]";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const {
-    query: { bookId },
-  } = req;
+  console.log(req.query);
+
   if (req.method === "GET") {
-    // bookId에 해당하는 책의 메모만 조회
-    const memos = await prisma.memo.findMany({
+    const memo = await prisma.memo.findUnique({
       where: {
-        bookId: parseInt(bookId as string),
-      },
-      include: {
-        user: { select: { id: true, name: true, nickname: true } },
-        comments: {
-          include: {
-            user: { select: { name: true, nickname: true, image: true } },
-          },
-        },
-        likes: true,
+        id: parseInt(req.query.id as string),
       },
     });
+
     res.status(200).json({
       ok: true,
-      memos,
+      memo,
     });
   } else if (req.method === "POST") {
+    const { bookId, id } = req.query;
+
     const session = await getServerSession(req, res, authOptions);
     const {
-      body: { id, page, content },
+      body: { page, content },
     } = req;
 
     const memo = await prisma.memo.upsert({
       where: {
-        id,
+        id: parseInt(id as string),
       },
       update: {
         page,
         content,
-        books: {
+        book: {
           connect: {
             id: parseInt(bookId as string),
           },
@@ -52,7 +44,7 @@ export default async function handler(
       create: {
         page,
         content,
-        books: {
+        book: {
           connect: {
             id: parseInt(bookId as string),
           },
@@ -70,12 +62,10 @@ export default async function handler(
       memo,
     });
   } else if (req.method === "DELETE") {
-    const {
-      body: { id },
-    } = req;
+    const { id } = req.query;
     const memo = await prisma.memo.delete({
       where: {
-        id: id,
+        id: parseInt(id as string),
       },
     });
     res.status(200).json({

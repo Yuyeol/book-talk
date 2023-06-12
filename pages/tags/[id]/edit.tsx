@@ -1,15 +1,14 @@
 import Layout from "@/components/layout";
-import useSWR from "swr";
 import { useRouter } from "next/router";
 import TagForm from "@/components/tags/form";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
+import useTag from "@/lib/client/useSwr/useTag";
 
 const Edit = () => {
   const router = useRouter();
-  const { data } = useSWR(
-    router.query.id ? `/api/tags/${router.query.id}` : null
-  );
+  const { data } = useTag(parseInt(router.query.id as string));
+
   return (
     <Layout>
       <Header col1={<TitleCol hasBackBtn>Edit Tag</TitleCol>} />

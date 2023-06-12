@@ -3,29 +3,23 @@ import TagInput from "@/components/book/upload/tag-input";
 import useMutation from "@/lib/client/useMutation";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import useSWR from "swr";
 import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 import { useRouter } from "next/router";
 import { urlToFileList } from "@/lib/client/convertImgToFileList";
-import { IBookWithTags } from "@/pages";
-
-interface IBookForm {
-  title: string;
-  description?: string;
-  author?: string;
-  image?: FileList;
-}
+import { useSession } from "next-auth/react";
+import { IBookForm, IBookWithTags } from "@/types";
+import useTags from "@/lib/client/useSwr/useTags";
 
 interface IProps {
   book?: IBookWithTags;
 }
 
 const Form = ({ book }: IProps) => {
-  // useSWR 태그 불러오기
+  const { data: session } = useSession();
   const router = useRouter();
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
-  const { data: tagsData } = useSWR("/api/tags");
-  const { mutation, loading } = useMutation("/api/books");
+  const { data: tagsData } = useTags(session?.user?.id);
+  const { mutation, loading } = useMutation(`/api/books/${book?.id ?? 0}`);
   const [bookPreviewImg, setBookPreviewImg] = useState("");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
@@ -87,9 +81,6 @@ const Form = ({ book }: IProps) => {
         description,
         selectedTags,
         imageSrc,
-        // 이거 마음에 안든다. 수정일 경우, 해당 book id, 생성일경우 억지로 id를 0으로 설정한다.
-        // form을 edit과 create가 공유하기 때문. 분리하기에는 공통부분이 너무 많다.
-        id: book ? book.id : 0,
       },
       "POST"
     );
@@ -119,7 +110,6 @@ const Form = ({ book }: IProps) => {
           placeholder="설명"
           {...register("description")}
         />
-        {/* input은 마무리할때 안보이게 처리해도될듯. 디자인따라 정해보자 */}
         {tagsData?.ok && (
           <TagInput
             tags={tagsData.tags}

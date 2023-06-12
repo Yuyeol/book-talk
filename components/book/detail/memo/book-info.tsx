@@ -1,20 +1,17 @@
-import { IMemoWithReactions } from "@/pages/book/[bookId]";
-import useSWR from "swr";
-import { IBookWithTags } from "@/pages";
 import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import Link from "next/link";
+import { IMemoWithReactions } from "@/types";
+import useBook from "@/lib/client/useSwr/useBook";
 
 interface IProps {
   memo: IMemoWithReactions;
 }
 
 const BookInfo = ({ memo }: IProps) => {
-  const { data: bookData } = useSWR<{ ok: boolean; book: IBookWithTags }>(
-    `/api/books/${memo.bookId}/`
-  );
+  const { data: bookData } = useBook(memo.bookId);
   return (
-    <Link href={`/book/${memo.bookId}`}>
+    <Link href={`/books/${memo.bookId}`}>
       <div className="flex">
         <div className="w-20">
           <ResponsiveImage

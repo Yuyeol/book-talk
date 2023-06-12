@@ -1,11 +1,11 @@
 import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import useMutation from "@/lib/client/useMutation";
-import { IMemoWithReactions } from "@/pages/book/[bookId]";
 import { useSession } from "next-auth/react";
 import Comment from "@/components/book/detail/memo/comment";
 import Link from "next/link";
 import Like from "./like";
 import BookInfo from "./book-info";
+import { IMemoWithReactions } from "@/types";
 
 interface IProps {
   memo: IMemoWithReactions;
@@ -13,7 +13,7 @@ interface IProps {
 
 const Memo = ({ memo }: IProps) => {
   const { data: session } = useSession();
-  const { mutation, loading } = useMutation(`/api/books/${memo.bookId}/memos`);
+  const { mutation, loading } = useMutation(`/api/memos/${memo.id}`);
 
   // 해당 메모의 작성자인지 확인
   const isOwner = memo.userId === session?.user?.id;
@@ -38,7 +38,7 @@ const Memo = ({ memo }: IProps) => {
         {isOwner && (
           <div className="flex justify-end gap-1">
             <Link
-              href={`/book/${memo.bookId}/memo/${memo.id}/edit`}
+              href={`/books/${memo.bookId}/memo/${memo.id}/edit`}
               className="c_button_underlined"
             >
               수정
@@ -51,7 +51,7 @@ const Memo = ({ memo }: IProps) => {
             </button>
           </div>
         )}
-        <Comment memo={memo} />
+        <Comment memoId={memo.id} />
       </div>
     </div>
   );

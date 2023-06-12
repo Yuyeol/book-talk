@@ -1,22 +1,22 @@
 import useMutation from "@/lib/client/useMutation";
+import { IMemoForm } from "@/types";
 import { Memo } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-interface IMemoForm {
-  page?: number;
-  content: string;
-}
 interface IProps {
   memo?: Memo;
 }
 
 const Form = ({ memo }: IProps) => {
-  const router = useRouter();
+  const {
+    query: { bookId },
+    push,
+  } = useRouter();
   const { register, handleSubmit, setValue } = useForm<IMemoForm>();
   const { mutation, loading } = useMutation(
-    `/api/books/${router.query.bookId}/memos`
+    `/api/memos/${memo?.id ?? 0}?bookId=${bookId}`
   );
   useEffect(() => {
     if (memo) {
@@ -27,8 +27,8 @@ const Form = ({ memo }: IProps) => {
 
   const onSubmit = ({ page, content }: IMemoForm) => {
     if (loading) return;
-    mutation({ page, content, id: memo?.id ?? 0 }, "POST");
-    router.push(`/book/${router.query.bookId}`);
+    mutation({ page, content }, "POST");
+    push(`/books/${bookId}`);
   };
   return (
     <div>

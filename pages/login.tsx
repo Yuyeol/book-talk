@@ -3,8 +3,6 @@ import { signIn, useSession } from "next-auth/react";
 
 export default function Login() {
   const { data: session } = useSession();
-  console.log(session);
-
   return (
     <Layout>
       <div className="flex flex-col h-full min-h-screen p-8 bg-slate-400">

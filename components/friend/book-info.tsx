@@ -26,7 +26,7 @@ const BookInfo = ({ title, books }: IProps) => {
       </div>
       {books.map((book) => (
         <Link
-          href={`/book/${book.id}`}
+          href={`/books/${book.id}`}
           className="w-full bg-slate-400"
           key={book.id}
         >

@@ -1,17 +1,11 @@
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import Layout from "@/components/layout";
-import useSWR from "swr";
-import { IMemoWithReactions } from "./book/[bookId]";
 import Memo from "@/components/book/detail/memo";
-
-interface IMemosResponse {
-  memos: IMemoWithReactions[];
-  ok: boolean;
-}
+import useMemos from "@/lib/client/useSwr/useMemos";
 
 const Social = () => {
-  const { data } = useSWR<IMemosResponse>("/api/memos");
+  const { data } = useMemos();
 
   return (
     <Layout>

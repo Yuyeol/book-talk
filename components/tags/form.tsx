@@ -4,10 +4,7 @@ import useMutation from "@/lib/client/useMutation";
 import Pallete from "@/components/tags/pallete";
 import { useRouter } from "next/router";
 import { Tag } from "@prisma/client";
-
-interface ITagForm {
-  name: string;
-}
+import { ITagForm } from "@/types";
 
 interface IProps {
   tag?: Tag;
@@ -18,7 +15,7 @@ const Form = ({ tag }: IProps) => {
 
   const { register, handleSubmit, watch, setValue } = useForm<ITagForm>();
 
-  const { mutation, loading } = useMutation("/api/tags");
+  const { mutation, loading } = useMutation(`/api/tags/${tag?.id ?? 0}`);
 
   const [tagColor, setTagColor] = useState({
     background: "#000000",
@@ -48,7 +45,7 @@ const Form = ({ tag }: IProps) => {
   const onSubmit = (inputs: ITagForm) => {
     if (loading) return;
     if (!inputs.name) return alert("태그 이름을 입력해주세요");
-    mutation({ ...inputs, ...tagColor, id: tag ? tag.id : 0 }, "POST");
+    mutation({ ...inputs, ...tagColor }, "POST");
     goToTagsPage();
   };
   const deleteTag = () => {

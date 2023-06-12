@@ -1,6 +1,6 @@
+import { IUserWithBooks } from "@/types";
 import ResponsiveImage from "../core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
-import { IUserWithBooks } from "@/pages/friends";
 
 interface IProps {
   friend: IUserWithBooks;
