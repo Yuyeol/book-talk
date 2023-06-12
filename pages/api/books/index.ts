@@ -23,6 +23,7 @@ export default async function handler(
           updatedAt: true,
           description: true,
           tags: true,
+          userId: true,
         },
       });
       res.status(200).json({
@@ -40,6 +41,7 @@ export default async function handler(
           updatedAt: true,
           description: true,
           tags: true,
+          userId: true,
         },
       });
       res.status(200).json({

@@ -9,6 +9,7 @@ import { urlToFileList } from "@/lib/client/convertImgToFileList";
 import { useSession } from "next-auth/react";
 import { IBookForm, IBookWithTags } from "@/types";
 import useTags from "@/lib/client/useSwr/useTags";
+import useBook from "@/lib/client/useSwr/useBook";
 
 interface IProps {
   book?: IBookWithTags;
@@ -18,8 +19,13 @@ const Form = ({ book }: IProps) => {
   const { data: session } = useSession();
   const router = useRouter();
   const { register, watch, handleSubmit, setValue } = useForm<IBookForm>();
+  const { mutate } = useBook(book?.id as number);
   const { data: tagsData } = useTags(session?.user?.id);
-  const { mutation, loading } = useMutation(`/api/books/${book?.id ?? 0}`);
+  const {
+    mutation,
+    loading,
+    data: bookResData,
+  } = useMutation(`/api/books/${book?.id ?? 0}`);
   const [bookPreviewImg, setBookPreviewImg] = useState("");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
@@ -84,8 +90,14 @@ const Form = ({ book }: IProps) => {
       },
       "POST"
     );
-    router.replace("/");
   };
+  useEffect(() => {
+    if (bookResData) {
+      mutate();
+      router.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookResData]);
 
   return (
     <div className="px-4">

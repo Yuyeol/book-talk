@@ -1,6 +1,8 @@
 import { FRIEND_MODAL_ZINDEX } from "@/constants";
 import useMutation from "@/lib/client/useMutation";
+import useUser from "@/lib/client/useSwr/useUser";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 interface IProps {
   friendId: string;
@@ -18,12 +20,21 @@ const InfoModal = ({
   setIsModalOpen,
 }: IProps) => {
   const { data: session } = useSession();
-  const { mutation: mutationRemoveFriend, loading: loadingRemoveFriend } =
-    useMutation(`/api/users/${session?.user?.id}/friends/delete`);
+  const { mutate } = useUser(session?.user?.id as string);
+  const { mutation, data, loading } = useMutation(
+    `/api/users/${session?.user?.id}/friends/delete`
+  );
   const removeFriend = () => {
-    if (loadingRemoveFriend) return;
-    mutationRemoveFriend({ friendId }, "POST");
+    if (loading) return;
+    mutation({ friendId }, "POST");
   };
+  useEffect(() => {
+    if (data) {
+      mutate();
+      setIsModalOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
   return (
     // 샤라락 올라오는 애니메이션 어떤데
     <div

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import _ from "lodash";
 import Form from "@/components/search/form";
 import Tab from "@/components/search/tab";
@@ -27,6 +27,7 @@ const Search = () => {
     if (loadingRemoveFriend) return;
     mutationRemoveFriend({ friendId: id }, "POST");
   };
+  useEffect(() => {}, []);
 
   const selectTab = useCallback((index: number) => {
     setCurrentTab(index);

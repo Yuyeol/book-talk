@@ -14,7 +14,6 @@ import { IBookWithTags } from "@/types";
 const Home = () => {
   const { data: session } = useSession();
   const { data } = useBooks(session?.user?.id);
-
   return (
     <>
       <Header

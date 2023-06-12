@@ -4,12 +4,15 @@ import { IBooksResponse } from "@/types";
 
 function useBooks(userId?: string) {
   const url = userId ? `/api/books?userId=${userId}` : "/api/books";
-  const { data, error, isLoading } = useSWR<IBooksResponse>(url, fetcher);
-
+  const { data, error, isLoading, mutate } = useSWR<IBooksResponse>(
+    url,
+    fetcher
+  );
   return {
     data,
     isLoading,
     isError: error,
+    mutate,
   };
 }
 
