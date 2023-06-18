@@ -5,6 +5,7 @@ import Pallete from "@/components/tags/pallete";
 import { useRouter } from "next/router";
 import { Tag } from "@prisma/client";
 import { ITagForm } from "@/types";
+import useTags from "@/lib/client/useSwr/useTags";
 
 interface IProps {
   tag?: Tag;
@@ -15,7 +16,8 @@ const Form = ({ tag }: IProps) => {
 
   const { register, handleSubmit, watch, setValue } = useForm<ITagForm>();
 
-  const { mutation, loading } = useMutation(`/api/tags/${tag?.id ?? 0}`);
+  const { mutate } = useTags(tag?.userId);
+  const { mutation, data, loading } = useMutation(`/api/tags/${tag?.id ?? 0}`);
 
   const [tagColor, setTagColor] = useState({
     background: "#000000",
@@ -46,16 +48,18 @@ const Form = ({ tag }: IProps) => {
     if (loading) return;
     if (!inputs.name) return alert("태그 이름을 입력해주세요");
     mutation({ ...inputs, ...tagColor }, "POST");
-    goToTagsPage();
   };
   const deleteTag = () => {
     if (loading) return;
     mutation({ id: tag?.id }, "DELETE");
-    goToTagsPage();
   };
-  const goToTagsPage = () => {
-    router.replace("/tags");
-  };
+  useEffect(() => {
+    if (data) {
+      mutate();
+      router.replace("/tags");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <>
@@ -76,7 +80,13 @@ const Form = ({ tag }: IProps) => {
       </form>
       <button onClick={handleSubmit(onSubmit)}>{tag ? "수정" : "등록"}</button>
       {tag && <button onClick={deleteTag}>삭제</button>}
-      <button onClick={goToTagsPage}>취소</button>
+      <button
+        onClick={() => {
+          router.replace("/tags");
+        }}
+      >
+        취소
+      </button>
     </>
   );
 };

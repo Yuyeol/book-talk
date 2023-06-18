@@ -6,6 +6,8 @@ import Image from "next/image";
 import { CF_DOMAIN } from "@/constants";
 import { useRouter } from "next/router";
 import { IBookWithTags } from "@/types";
+import { useEffect } from "react";
+import useBooks from "@/lib/client/useSwr/useBooks";
 
 interface IProps {
   book: IBookWithTags;
@@ -13,13 +15,24 @@ interface IProps {
 
 const Item = ({ book }: IProps) => {
   const router = useRouter();
-  const { mutation, loading } = useMutation("/api/books");
+  const { mutate } = useBooks(book.userId);
+  const {
+    mutation,
+    loading,
+    data: booksResData,
+  } = useMutation(`/api/books/${book.id}`);
   const onDelete = (e: React.MouseEvent) => {
     e.preventDefault();
     if (loading) return;
-    mutation({ id: book.id }, "DELETE");
-    router.replace("/");
+    mutation({}, "DELETE");
   };
+  useEffect(() => {
+    if (booksResData) {
+      mutate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [booksResData]);
+
   const redirectWithHref = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     router.push(href);
@@ -27,7 +40,7 @@ const Item = ({ book }: IProps) => {
   return (
     <Link href={`/books/${book.id}`}>
       <li className="relative overflow-hidden">
-        <div className="absolute w-full h-full blur-sm">
+        <div className="absolute w-full h-full blur-md">
           <Image
             src={book.image || `${CF_DOMAIN}no_book.png`}
             alt={book.title}
@@ -56,7 +69,6 @@ const Item = ({ book }: IProps) => {
           <div className="pt-2 pb-3 text-sm">{book.description}</div>
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap gap-2">
-              {/* #TODO: 자기가 가지고있는 tag만 나올수있게 하자. 삭제한태그는 여기서도 사라져야 함. */}
               {book.tags?.map((tag) => (
                 <div
                   key={tag.id}

@@ -1,4 +1,3 @@
-import Layout from "@/components/layout";
 import { useRouter } from "next/router";
 import TagForm from "@/components/tags/form";
 import Header from "@/components/header";
@@ -10,10 +9,10 @@ const Edit = () => {
   const { data } = useTag(parseInt(router.query.id as string));
 
   return (
-    <Layout>
+    <>
       <Header col1={<TitleCol hasBackBtn>Edit Tag</TitleCol>} />
       <TagForm tag={data?.tag} />
-    </Layout>
+    </>
   );
 };
 

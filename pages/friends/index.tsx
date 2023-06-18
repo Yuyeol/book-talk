@@ -2,7 +2,6 @@ import Item from "@/components/friend/item";
 import Header from "@/components/header";
 import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
-import Layout from "@/components/layout";
 import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
 import { useSession } from "next-auth/react";
 import Search from "@/components/icon/search";
@@ -14,7 +13,7 @@ const Friends = () => {
   const { data: userData } = useUser(session?.user?.id as string);
 
   return (
-    <Layout>
+    <>
       <Header
         col1={<TitleCol>Friends</TitleCol>}
         col2={
@@ -32,7 +31,7 @@ const Friends = () => {
           ))}
         </ul>
       )}
-    </Layout>
+    </>
   );
 };
 export default Friends;

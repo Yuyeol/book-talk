@@ -1,4 +1,3 @@
-import Layout from "@/components/layout";
 import Item from "@/components/tags/item";
 import List from "@/components/tags/list";
 import { Tag } from "@prisma/client";
@@ -18,7 +17,7 @@ const Tags = () => {
   const { data } = useTags(session?.user?.id);
 
   return (
-    <Layout>
+    <>
       <Header
         col1={<TitleCol>Tags</TitleCol>}
         col2={
@@ -42,7 +41,7 @@ const Tags = () => {
           ))}
         </List>
       </div>
-    </Layout>
+    </>
   );
 };
 export default Tags;

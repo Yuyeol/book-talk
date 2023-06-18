@@ -1,5 +1,4 @@
-import Layout from "@/components/layout";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import _ from "lodash";
 import Form from "@/components/search/form";
 import Tab from "@/components/search/tab";
@@ -28,6 +27,7 @@ const Search = () => {
     if (loadingRemoveFriend) return;
     mutationRemoveFriend({ friendId: id }, "POST");
   };
+  useEffect(() => {}, []);
 
   const selectTab = useCallback((index: number) => {
     setCurrentTab(index);
@@ -67,7 +67,7 @@ const Search = () => {
     [setResultsWithDebounce]
   );
   return (
-    <Layout>
+    <>
       <div className="p-4">
         <Form
           handleSearch={handleSearch}
@@ -98,7 +98,7 @@ const Search = () => {
           })}
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 export default Search;

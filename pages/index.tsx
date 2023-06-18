@@ -1,6 +1,5 @@
 import Item from "@/components/book/item";
 import Plus from "@/components/icon/plus";
-import Layout from "@/components/layout";
 import Link from "next/link";
 import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
@@ -15,9 +14,8 @@ import { IBookWithTags } from "@/types";
 const Home = () => {
   const { data: session } = useSession();
   const { data } = useBooks(session?.user?.id);
-
   return (
-    <Layout>
+    <>
       <Header
         col1={<TitleCol>Book</TitleCol>}
         col2={
@@ -39,7 +37,7 @@ const Home = () => {
           <Item key={book.id} book={book} />
         ))}
       </ul>
-    </Layout>
+    </>
   );
 };
 
