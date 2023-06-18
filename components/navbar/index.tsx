@@ -5,12 +5,21 @@ import Profile from "../icon/profile";
 import Tags from "../icon/tags";
 import Item from "./item";
 import { NAVBAR_HEIGHT, NAVBAR_ZINDEX, NAV_ICON_WIDTH } from "@/constants";
+import { CSSProperties } from "react";
 
-const NavBar = () => {
+interface IProps {
+  navStyles: CSSProperties;
+}
+
+const NavBar = ({ navStyles }: IProps) => {
   return (
     <div
       className="relative w-0"
-      style={{ height: `${NAVBAR_HEIGHT}rem`, zIndex: NAVBAR_ZINDEX }}
+      style={{
+        height: `${NAVBAR_HEIGHT}rem`,
+        zIndex: NAVBAR_ZINDEX,
+        ...navStyles,
+      }}
     >
       <div className="fixed max-w-lg bottom-0 w-full bg-white border-t-[1px] border-black">
         <ul
