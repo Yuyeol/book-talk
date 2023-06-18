@@ -19,7 +19,7 @@ const BookDetail = () => {
 
   return (
     <>
-      <Header col1={<TitleCol hasBackBtn>{bookData?.book.title}</TitleCol>} />
+      <Header col1={<TitleCol hasBackBtn>Book Detail</TitleCol>} />
       {bookData && (
         <>
           <Info book={bookData.book} />
