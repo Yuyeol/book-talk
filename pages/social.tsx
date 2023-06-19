@@ -4,7 +4,7 @@ import Memo from "@/components/book/detail/memo";
 import useMemos from "@/lib/client/useSwr/useMemos";
 
 const Social = () => {
-  const { data } = useMemos();
+  const { data } = useMemos(null, { fetchAll: true });
 
   return (
     <>

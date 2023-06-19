@@ -3,7 +3,7 @@ import fetcher from "@/lib/client/fetcher";
 import { IBooksResponse } from "@/types";
 
 function useBooks(userId?: string) {
-  const url = userId ? `/api/books?userId=${userId}` : "/api/books";
+  const url = userId ? `/api/books?userId=${userId}` : null;
   const { data, error, isLoading, mutate } = useSWR<IBooksResponse>(
     url,
     fetcher

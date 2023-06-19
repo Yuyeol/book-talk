@@ -7,8 +7,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.query);
-
   if (req.method === "GET") {
     const memo = await prisma.memo.findUnique({
       where: {
