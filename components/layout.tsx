@@ -77,7 +77,7 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
   return (
     <TransitionGroup
       component="div"
-      className="relative w-full h-full max-w-lg min-h-screen mx-auto overflow-hidden bg-slate-300 flex flex-col"
+      className="relative w-full h-full max-w-lg min-h-screen mx-auto overflow-hidden bg-white flex flex-col"
     >
       <Transition
         key={router.pathname}
@@ -89,7 +89,7 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
       >
         {(status) => (
           <>
-            <div className="bg-white">
+            <div className="bg-soft-white">
               <div id="header" style={{ ...headerStyles[status] }} />
             </div>
             <div

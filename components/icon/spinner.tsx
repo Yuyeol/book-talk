@@ -1,6 +1,7 @@
+import { PRIMARY_GREEN } from "@/constants";
 import React from "react";
 
-const Spinner = ({ size = 12, color = "red" }) => {
+const Spinner = ({ size = 12, color = PRIMARY_GREEN }) => {
   const offset = 187;
   const duration = "1.4s";
   const spinnerSize = `w-${size} h-${size}`;

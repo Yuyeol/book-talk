@@ -21,7 +21,7 @@ const NavBar = ({ navStyles }: IProps) => {
         ...navStyles,
       }}
     >
-      <div className="fixed max-w-lg bottom-0 w-full bg-white border-t-[1px] border-black">
+      <div className="fixed max-w-lg bottom-0 w-full bg-soft-white rounded-t-xl border-t-grey-2 border-t-2">
         <ul
           className="flex items-center justify-between px-6"
           style={{ height: `${NAVBAR_HEIGHT}rem` }}

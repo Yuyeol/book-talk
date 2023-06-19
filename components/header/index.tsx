@@ -14,7 +14,7 @@ const Header = ({ col1, col2 }: IProps) => {
         style={{ height: `${HEADER_HEIGHT}rem`, zIndex: HEADER_ZINDEX }}
       >
         <div
-          className="fixed flex items-center justify-between w-full max-w-lg px-2 bg-white"
+          className="fixed flex items-center justify-between w-full max-w-lg px-2 bg-soft-white shadow-md"
           style={{
             height: `${HEADER_HEIGHT}rem`,
           }}

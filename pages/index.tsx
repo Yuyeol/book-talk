@@ -1,4 +1,3 @@
-import Item from "@/components/book/item";
 import Plus from "@/components/icon/plus";
 import Link from "next/link";
 import {
@@ -16,14 +15,16 @@ import { useSession } from "next-auth/react";
 import useBooks from "@/lib/client/useSwr/useBooks";
 import { IBookWithTags } from "@/types";
 import Spinner from "@/components/icon/spinner";
+import Item from "@/components/book/item";
 
 const Home = () => {
   const { data: session } = useSession();
   const { data } = useBooks(session?.user?.id);
+
   return (
     <>
       <Header
-        col1={<TitleCol>Book</TitleCol>}
+        col1={<TitleCol>독서중</TitleCol>}
         col2={
           <ToolsCol>
             <Link href="/books/upload">
@@ -39,7 +40,7 @@ const Home = () => {
         }
       />
       {data ? (
-        <ul className="divide-y-2">
+        <ul className="p-4 space-y-4">
           {data.books.map((book: IBookWithTags) => (
             <Item key={book.id} book={book} />
           ))}

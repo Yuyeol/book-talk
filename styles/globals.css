@@ -14,7 +14,10 @@ body::-webkit-scrollbar {
     @apply w-full block px-3 py-1 mb-2 bg-white border border-gray-300 rounded-md shadow-sm
 }
 .c_button_underlined {
-    @apply text-sm underline
+    @apply text-xs underline
+}
+.c_button_block_xs {
+    @apply text-xs bg-primary-green text-soft-white px-1 py-[1px] rounded-md shadow-inner border-b-2 border-sub-green border-r-2
 }
 
 @tailwind utilities;
