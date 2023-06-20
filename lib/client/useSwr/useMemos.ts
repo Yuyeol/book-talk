@@ -11,11 +11,15 @@ function useMemos(
     : bookId
     ? `/api/memos?bookId=${bookId}`
     : null;
-  const { data, error, isLoading } = useSWR<IMemosResponse>(url, fetcher);
+  const { data, error, isLoading, mutate } = useSWR<IMemosResponse>(
+    url,
+    fetcher
+  );
   return {
     data,
     isLoading,
     isError: error,
+    mutate,
   };
 }
 

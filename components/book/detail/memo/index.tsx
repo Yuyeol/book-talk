@@ -6,14 +6,25 @@ import Link from "next/link";
 import Like from "./like";
 import BookInfo from "./book-info";
 import { IMemoWithReactions } from "@/types";
+import useMemos from "@/lib/client/useSwr/useMemos";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface IProps {
   memo: IMemoWithReactions;
 }
 
 const Memo = ({ memo }: IProps) => {
+  const {
+    query: { bookId },
+  } = useRouter();
   const { data: session } = useSession();
-  const { mutation, loading } = useMutation(`/api/memos/${memo.id}`);
+  const {
+    mutation,
+    loading,
+    data: memoResData,
+  } = useMutation(`/api/memos/${memo.id}`);
+  const { data: memosData, mutate } = useMemos(parseInt(bookId as string));
 
   // 해당 메모의 작성자인지 확인
   const isOwner = memo.userId === session?.user?.id;
@@ -22,6 +33,15 @@ const Memo = ({ memo }: IProps) => {
     if (loading) return;
     mutation({ id: id }, "DELETE");
   };
+  useEffect(() => {
+    if (memoResData && memosData?.ok) {
+      mutate({
+        ok: true,
+        memos: memosData.memos.filter((m) => m.id !== memo.id),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memoResData]);
 
   return (
     <div className="p-4">

@@ -1,4 +1,5 @@
 import useMutation from "@/lib/client/useMutation";
+import useMemos from "@/lib/client/useSwr/useMemos";
 import { IMemoForm } from "@/types";
 import { Memo } from "@prisma/client";
 import { useRouter } from "next/router";
@@ -15,9 +16,20 @@ const Form = ({ memo }: IProps) => {
     push,
   } = useRouter();
   const { register, handleSubmit, setValue } = useForm<IMemoForm>();
-  const { mutation, loading } = useMutation(
-    `/api/memos/${memo?.id ?? 0}?bookId=${bookId}`
-  );
+  const { mutate } = useMemos(parseInt(bookId as string));
+  const {
+    mutation,
+    loading,
+    data: memoResData,
+  } = useMutation(`/api/memos/${memo?.id ?? 0}?bookId=${bookId}`);
+
+  useEffect(() => {
+    if (memoResData) {
+      mutate();
+      push(`/books/${bookId}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memoResData]);
   useEffect(() => {
     if (memo) {
       setValue("page", memo.page || undefined);
@@ -28,7 +40,6 @@ const Form = ({ memo }: IProps) => {
   const onSubmit = ({ page, content }: IMemoForm) => {
     if (loading) return;
     mutation({ page, content }, "POST");
-    push(`/books/${bookId}`);
   };
   return (
     <div>
