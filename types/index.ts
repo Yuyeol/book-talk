@@ -21,27 +21,11 @@ export interface IBookForm {
 
 // Memo
 export interface IMemosResponse {
-  memos: IMemoWithReactions[];
+  memos: Memo[];
   ok: boolean;
 }
 export interface IMemoResponse {
   memo: Memo;
-  ok: boolean;
-}
-export interface IMemoWithReactions extends Memo {
-  likes: ILikeWithUser[];
-}
-
-export interface ILikeWithUser extends Like {
-  user: {
-    name: string;
-    nickname: string;
-    image: string;
-  };
-  userId: string;
-}
-export interface IMemosResponse {
-  memos: IMemoWithReactions[];
   ok: boolean;
 }
 export interface IMemoForm {
@@ -88,6 +72,24 @@ export interface ICommentsResponse {
   ok: boolean;
 }
 export interface ICommentWithUser extends Comment {
+  user: {
+    name: string;
+    nickname: string;
+    image: string;
+  };
+  userId: string;
+}
+
+// Like
+export interface ILikesResponse {
+  likes: Like[];
+  ok: boolean;
+}
+export interface ILikeResponse {
+  like: Like;
+  ok: boolean;
+}
+export interface ILikeWithUser extends Like {
   user: {
     name: string;
     nickname: string;

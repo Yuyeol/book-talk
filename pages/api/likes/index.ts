@@ -7,7 +7,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
+    const {
+      query: { memoId },
+    } = req;
+    const likes = await prisma.like.findMany({
+      where: {
+        memoId: parseInt(memoId as string),
+      },
+    });
+    res.status(200).json({
+      ok: true,
+      likes,
+    });
+  } else if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
     const {
       body: { memoId },
@@ -36,7 +49,7 @@ export default async function handler(
     } = req;
     const like = await prisma.like.delete({
       where: {
-        id: id,
+        id: parseInt(id as string),
       },
     });
     res.status(200).json({

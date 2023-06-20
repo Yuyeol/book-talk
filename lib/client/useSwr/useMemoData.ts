@@ -4,12 +4,16 @@ import { IMemoResponse } from "@/types";
 
 function useMemoData(memoId: number) {
   const url = memoId ? `/api/memos/${memoId}` : null;
-  const { data, error, isLoading } = useSWR<IMemoResponse>(url, fetcher);
+  const { data, error, isLoading, mutate } = useSWR<IMemoResponse>(
+    url,
+    fetcher
+  );
 
   return {
     data,
     isLoading,
     isError: error,
+    mutate,
   };
 }
 
