@@ -58,8 +58,7 @@ const Reaction = ({ memoId }: IProps) => {
         />
       </div>
       <LikeCounter likeLength={data?.likes.length} />
-
-      {isCommentOpen && <Comment memoId={memoId} />}
+      <Comment memoId={memoId} isCommentOpen={isCommentOpen} />
     </>
   );
 };

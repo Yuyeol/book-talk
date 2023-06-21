@@ -1,13 +1,21 @@
 import { PRIMARY_GREEN } from "@/constants";
 import React from "react";
+interface IProps {
+  width?: number;
+  height?: number;
+  color?: string;
+}
 
-const Spinner = ({ size = 12, color = PRIMARY_GREEN }) => {
+const Spinner = ({
+  width = 3,
+  height = width,
+  color = PRIMARY_GREEN,
+}: IProps) => {
   const offset = 187;
   const duration = "1.4s";
-  const spinnerSize = `w-${size} h-${size}`;
   return (
     <svg
-      className={`spinner ${spinnerSize}`}
+      className="spinner"
       viewBox="0 0 66 66"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -25,6 +33,8 @@ const Spinner = ({ size = 12, color = PRIMARY_GREEN }) => {
         {`
           .spinner {
             animation: rotator ${duration} linear infinite;
+            width: ${width}rem; 
+            height: ${height}rem;
           }
 
           @keyframes rotator {
@@ -37,6 +47,7 @@ const Spinner = ({ size = 12, color = PRIMARY_GREEN }) => {
             stroke-dashoffset: 0;
             transform-origin: center;
             animation: dash ${duration} ease-in-out infinite;
+            
           }
 
           @keyframes dash {

@@ -13,11 +13,7 @@ const CommentButton: React.FC<IProps> = ({
 }) => {
   return (
     <button onClick={() => setIsCommentOpen((prev) => !prev)} className="block">
-      <Comment
-        width={1.5}
-        color={isCommentOpen ? PRIMARY_GREEN : SOFT_BLACK}
-        fill={isCommentOpen}
-      />
+      <Comment width={1.5} color={isCommentOpen ? PRIMARY_GREEN : SOFT_BLACK} />
     </button>
   );
 };

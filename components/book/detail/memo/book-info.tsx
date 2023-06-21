@@ -25,7 +25,9 @@ const BookInfo = ({ memo }: IProps) => {
             />
           </div>
         ) : (
-          <Spinner />
+          <div className="w-12 h-12 flex justify-center items-center">
+            <Spinner width={1} />
+          </div>
         )}
         <div>
           <div className="font-semibold">{bookData?.book.title}</div>

@@ -53,7 +53,7 @@ const Memo = ({ memo, isSocialFeed }: IProps) => {
             {getElapsedTime(memo.updatedAt) ?? getElapsedTime(memo.createdAt)}
           </div>
         </div>
-        <div className="text-sm border-b-[1px] border-primary-green/70 pb-2 mb-2">
+        <div className="text-sm border-b-[1px] border-primary-green/30 pb-2 mb-2">
           {memo.content}
         </div>
         <Reaction memoId={memo.id} />
