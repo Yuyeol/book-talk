@@ -71,6 +71,11 @@ export interface ICommentsResponse {
   comments: ICommentWithUser[];
   ok: boolean;
 }
+export interface ICommentResponse {
+  comment: ICommentWithUser;
+  ok: boolean;
+  method: "POST" | "DELETE";
+}
 export interface ICommentWithUser extends Comment {
   user: {
     name: string;

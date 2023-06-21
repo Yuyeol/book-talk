@@ -9,10 +9,9 @@ const Social = () => {
   return (
     <>
       <Header col1={<TitleCol>Social</TitleCol>} />
-
       <ul className="">
         {data?.memos.map((memo) => (
-          <Memo memo={memo} key={memo.id} />
+          <Memo memo={memo} key={memo.id} isSocialFeed />
         ))}
       </ul>
     </>

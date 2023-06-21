@@ -4,12 +4,16 @@ import { ICommentsResponse } from "@/types";
 
 function useComments(memoId?: number) {
   const url = memoId ? `/api/comments?memoId=${memoId}` : null;
-  const { data, error, isLoading } = useSWR<ICommentsResponse>(url, fetcher);
+  const { data, error, isLoading, mutate } = useSWR<ICommentsResponse>(
+    url,
+    fetcher
+  );
 
   return {
     data,
     isLoading,
     isError: error,
+    mutate,
   };
 }
 
