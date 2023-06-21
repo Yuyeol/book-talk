@@ -15,7 +15,7 @@ const Item = ({ book }: IProps) => {
   return (
     <li
       ref={ref}
-      className={`relative overflow-hidden rounded-xl shadow-md shadow-black/30
+      className={`relative overflow-hidden rounded-xl shadow-md
       transition-all ease-out duration-500
       ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
     >
