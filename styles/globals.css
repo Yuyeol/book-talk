@@ -10,12 +10,18 @@ body {
 body::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
 }
+input:focus{
+    @apply outline-primary-green;
+}
 
 .c_input{
-    @apply w-full block px-3 py-1 bg-white border border-gray-300 rounded-md shadow-sm
+    @apply w-full block px-3 py-1 border-b-2 rounded-md shadow-sm
 }
 .c_button_block_xs {
-    @apply text-xs bg-primary-green text-soft-white px-1 py-[1px] rounded-md shadow-inner border-b-2 border-sub-green border-r-2
+    @apply text-xs bg-primary-green text-soft-white px-1 py-[1px] rounded-md shadow-sm
+}
+.c_button_block_lg {
+    @apply bg-primary-green text-soft-white w-32 py-[1px] rounded-md shadow-sm
 }
 .c_tag_sm {
     @apply px-1 py-[2px] rounded-md

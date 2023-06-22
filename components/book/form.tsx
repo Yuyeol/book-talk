@@ -74,12 +74,12 @@ const Form = ({ book }: IProps) => {
 
   // book submit
   const onSubmit = async ({ title, author, description, image }: IBookForm) => {
+    if (loading) return;
+    if (!title) return alert("책 제목을 입력해주세요.");
     const imageSrc = image
       ? // 1. input의 image
         await uploadImageToS3(image[0])
       : "";
-    if (loading) return;
-    if (!title) return alert("책 제목을 입력해주세요.");
     mutation(
       {
         title,
@@ -100,37 +100,53 @@ const Form = ({ book }: IProps) => {
   }, [bookResData]);
 
   return (
-    <div className="px-4">
-      <form>
-        {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
-        <ImageForm
-          bookPreviewImg={bookPreviewImg}
-          register={register("image")}
-        />
-        <input
-          className="c_input"
-          placeholder="책 제목"
-          {...register("title")}
-        />
-        <input
-          className="c_input"
-          placeholder="글쓴이"
-          {...register("author")}
-        />
-        <input
-          className="c_input"
-          placeholder="설명"
-          {...register("description")}
-        />
-        {tagsData?.ok && (
-          <TagInput
-            tags={tagsData.tags}
-            selectTag={selectTag}
-            selectedTags={selectedTags}
-          />
-        )}
-      </form>
-      <button onClick={handleSubmit(onSubmit)}>완료</button>
+    <div className="p-6">
+      <div className="px-4 bg-soft-white rounded-xl border-2 border-primary-green">
+        <div className="transition-all duration-500 ease-in">
+          <form>
+            {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
+            <ImageForm
+              bookPreviewImg={bookPreviewImg}
+              register={register("image")}
+            />
+            <div className="space-y-2">
+              <input
+                className="c_input"
+                placeholder="책 제목"
+                {...register("title")}
+              />
+              <input
+                className="c_input"
+                placeholder="글쓴이"
+                {...register("author")}
+              />
+              <input
+                className="c_input"
+                placeholder="설명"
+                {...register("description")}
+              />
+            </div>
+            {tagsData?.ok && (
+              <TagInput
+                tags={tagsData.tags}
+                selectTag={selectTag}
+                selectedTags={selectedTags}
+              />
+            )}
+          </form>
+          <div className="flex gap-4 justify-center mt-4 mb-4">
+            <button
+              className={`c_button_block_lg ${!watch("title") && "bg-grey-3"}`}
+              onClick={handleSubmit(onSubmit)}
+            >
+              완료
+            </button>
+            <button className="c_button_block_lg" onClick={() => router.back()}>
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
