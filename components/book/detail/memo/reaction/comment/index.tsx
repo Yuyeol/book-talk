@@ -64,7 +64,7 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
             <input
               value={commentValue}
               onChange={handleCommentChange}
-              className={`c_input text-xs w-0 transition-all ease-in
+              className={`c_input text-xs w-0 transition-[width,opacity] ease-in
               ${
                 transitionState === "start"
                   ? "w-full opacity-100"
@@ -88,11 +88,21 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
               </button>
             </div>
           </div>
-          <div className="mb-2 divide-y-[1px] divide-primary-green/30">
+          <div
+            className={`mb-2 divide-y-[1px] divide-primary-green/30 overflow-hidden transition-[transform,opacity] ease-in
+            ${
+              transitionState === "start"
+                ? "translate-x-0"
+                : "opacity-0 translate-x-1"
+            }`}
+            style={{
+              transitionDuration: `${TRANSITION_DURATION / 2}ms`,
+            }}
+          >
             {data?.comments.map((comment) => (
               <div key={comment.id} className="pt-2 mt-2">
                 {/* comment에 user가 연결되는데 딜레이가 있어 옵셔널체이닝이 필요 */}
-                <div className="flex gap-1">
+                <div className="flex gap-1 transition-[transform,opacity] ease-in">
                   <div className="w-10 h-10 rounded-xl overflow-hidden">
                     <ResponsiveImage
                       src={
