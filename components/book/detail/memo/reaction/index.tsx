@@ -1,5 +1,5 @@
 import Comment from "@/components/book/detail/memo/reaction/comment";
-import LikeCounter from "@/components/book/detail/memo/reaction/like/like-counter";
+import Counter from "@/components/book/detail/memo/reaction/counter";
 import useMutation from "@/lib/client/useMutation";
 import useLikes from "@/lib/client/useSwr/useLikes";
 import { ILikeResponse } from "@/types";
@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import LikeButton from "@/components/book/detail/memo/reaction/like/like-button";
 import CommentButton from "./comment/comment-button";
+import useComments from "@/lib/client/useSwr/useComments";
 
 interface IProps {
   memoId: number;
@@ -15,7 +16,8 @@ interface IProps {
 const Reaction = ({ memoId }: IProps) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const { data: session } = useSession();
-  const { data, mutate } = useLikes(memoId);
+  const { data: likeData, mutate } = useLikes(memoId);
+  const { data: commentsData } = useComments(memoId);
   const {
     mutation: likeMutation,
     loading: likeLoading,
@@ -23,7 +25,7 @@ const Reaction = ({ memoId }: IProps) => {
   } = useMutation<ILikeResponse>(`/api/likes`);
 
   // 해당 메모의 좋아요 중 내가 누른 좋아요 확인
-  const currentUserLike = data?.likes.find(
+  const currentUserLike = likeData?.likes.find(
     (like) => like.userId === session?.user?.id
   );
   const handleLike = () => {
@@ -38,13 +40,15 @@ const Reaction = ({ memoId }: IProps) => {
     else likeMutation({ memoId: memoId }, "POST");
   };
   useEffect(() => {
-    if (likeResData && data) {
+    if (likeResData && likeData) {
       if (currentUserLike)
         mutate({
           ok: true,
-          likes: data.likes.filter((like) => like.id !== currentUserLike.id),
+          likes: likeData.likes.filter(
+            (like) => like.id !== currentUserLike.id
+          ),
         });
-      else mutate({ ok: true, likes: [...data.likes, likeResData.like] });
+      else mutate({ ok: true, likes: [...likeData.likes, likeResData.like] });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [likeResData]);
@@ -57,7 +61,10 @@ const Reaction = ({ memoId }: IProps) => {
           setIsCommentOpen={setIsCommentOpen}
         />
       </div>
-      <LikeCounter likeLength={data?.likes.length} />
+      <div className="flex items-center text-xs text-center text-soft-black">
+        <Counter type="like" length={likeData?.likes.length} />
+        <Counter type="comment" length={commentsData?.comments.length} />
+      </div>
       <Comment memoId={memoId} isCommentOpen={isCommentOpen} />
     </>
   );

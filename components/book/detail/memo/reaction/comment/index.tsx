@@ -76,7 +76,8 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
             <div className="pl-2">
               <button
                 onClick={handleCommentSubmit}
-                className={`w-6 h-6 rounded-full bg-black text-white transition-[transform,opacity] ease-in
+                className={`w-6 h-6 rounded-full text-white transition-[transform,opacity,backgroundColor] ease-in
+                ${commentValue ? "bg-primary-green" : "bg-grey-3"}
                 ${
                   transitionState === "start"
                     ? "rotate-[-360deg] opacity-100"

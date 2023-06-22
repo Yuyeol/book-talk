@@ -19,7 +19,7 @@ const Info = ({ book }: IProps) => {
           objectFit="contain"
         />
       </div>
-      <div className="flex-1 p-1 text-white">
+      <div className="flex-1 p-2 text-white">
         <div className="border-b-[0.5px] border-soft-white/80 text-sm pb-1">
           <span className="font-semibold">{book.title}</span>
           {book.author && <span> • {book.author}</span>}
