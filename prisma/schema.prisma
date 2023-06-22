@@ -76,7 +76,7 @@ model Book {
   updatedAt   DateTime?
   finishedAt  DateTime?
   memos       Memo[]
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   tags        Tag[]     @relation("BookTags")
 
@@ -91,7 +91,7 @@ model Memo {
   updatedAt DateTime?
   book      Book      @relation(fields: [bookId], references: [id], onDelete: Cascade)
   bookId    Int
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   comments  Comment[]
   likes     Like[]
@@ -105,9 +105,9 @@ model Comment {
   content   String
   createdAt DateTime  @default(now())
   updatedAt DateTime?
-  memo      Memo      @relation(fields: [memoId], references: [id])
+  memo      Memo      @relation(fields: [memoId], references: [id], onDelete: Cascade)
   memoId    Int
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
   @@index([memoId])
@@ -118,9 +118,9 @@ model Like {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime?
-  memo      Memo      @relation(fields: [memoId], references: [id])
+  memo      Memo      @relation(fields: [memoId], references: [id], onDelete: Cascade)
   memoId    Int
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
   @@index([memoId])
@@ -134,7 +134,7 @@ model Tag {
   txtColor  String
   createdAt DateTime @default(now())
   books     Book[]   @relation("BookTags")
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
   @@index([userId])
