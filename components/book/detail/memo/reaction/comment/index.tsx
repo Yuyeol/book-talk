@@ -60,7 +60,7 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
     <>
       {isMounted && (
         <>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-1">
             <input
               value={commentValue}
               onChange={handleCommentChange}

@@ -63,7 +63,7 @@ const More = ({ book }: IProps) => {
         </div>
       </div>
       <button
-        className={`c_button_underlined inline-block transition-transform duration-300 ease-out ${
+        className={`inline-block transition-transform duration-300 ease-out ${
           isMoreOpened ? "rotate-0" : "rotate-90"
         }`}
         onClick={(e) => toggleButtons(e)}

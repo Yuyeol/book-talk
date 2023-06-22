@@ -14,11 +14,11 @@ body::-webkit-scrollbar {
 .c_input{
     @apply w-full block px-3 py-1 bg-white border border-gray-300 rounded-md shadow-sm
 }
-.c_button_underlined {
-    @apply text-xs underline
-}
 .c_button_block_xs {
     @apply text-xs bg-primary-green text-soft-white px-1 py-[1px] rounded-md shadow-inner border-b-2 border-sub-green border-r-2
+}
+.c_tag_sm {
+    @apply px-1 py-[2px] rounded-md
 }
 
 @tailwind utilities;

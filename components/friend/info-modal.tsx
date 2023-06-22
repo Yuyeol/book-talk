@@ -46,7 +46,7 @@ const InfoModal = ({
       }}
     >
       <div className="bg-white max-w-sm w-full h-full overflow-scroll scrollbar-hide z-10 p-4">
-        <button className="c_button_underlined" onClick={removeFriend}>
+        <button className="c_button_block_xs" onClick={removeFriend}>
           삭제
         </button>
         {friendInfo}

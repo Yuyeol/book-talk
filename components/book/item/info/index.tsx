@@ -19,7 +19,7 @@ const Info = ({ book }: IProps) => {
     >
       <div className="flex items-center justify-between mb-2">
         <div>
-          {book.title}
+          <span className="font-semibold">{book.title}</span>
           {book.author && <span> • {book.author}</span>}
         </div>
 

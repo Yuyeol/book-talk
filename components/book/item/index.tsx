@@ -28,7 +28,7 @@ const Item = ({ book }: IProps) => {
             style={{ objectFit: "cover" }}
           />
         </div>
-        <div className="w-40 max-w-xs py-8 mx-auto">
+        <div className="w-40 py-8 mx-auto">
           <ResponsiveImage
             src={book.image || `${CF_DOMAIN}no_book.png`}
             alt={book.title}
