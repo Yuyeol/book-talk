@@ -4,7 +4,7 @@ import { useState } from "react";
 import ResponsiveImage from "../core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import FriendInfo from "./friend-info";
-import { FriendModalPortal } from "@/lib/client/portal";
+import { Portal } from "@/lib/client/portal";
 import { IUserWithBooks } from "@/types";
 
 interface IProps {
@@ -33,7 +33,7 @@ const Item = ({ friend }: IProps) => {
         </div>
       </li>
       {isModalOpen && (
-        <FriendModalPortal>
+        <Portal id="friend-modal">
           <InfoModal
             setIsModalOpen={setIsModalOpen}
             friendId={friend.id}
@@ -46,7 +46,7 @@ const Item = ({ friend }: IProps) => {
               />
             }
           />
-        </FriendModalPortal>
+        </Portal>
       )}
     </>
   );

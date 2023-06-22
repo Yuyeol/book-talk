@@ -93,13 +93,14 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
               <div id="header" style={{ ...headerStyles[status] }} />
             </div>
             <div
-              className="relative"
+              className="flex-1"
               style={{
                 ...pageStyles[status],
               }}
             >
               {children}
             </div>
+            <div id="upload-memo" />
             {router.pathname !== "/login" && (
               <NavBar navStyles={navStyles[status]} />
             )}

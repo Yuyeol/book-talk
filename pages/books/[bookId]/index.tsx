@@ -7,6 +7,9 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import useBook from "@/lib/client/useSwr/useBook";
 import useMemos from "@/lib/client/useSwr/useMemos";
+import Plus from "@/components/icon/plus";
+import { SOFT_WHITE } from "@/constants";
+import { Portal } from "@/lib/client/portal";
 
 const BookDetail = () => {
   const { data: session } = useSession();
@@ -20,22 +23,27 @@ const BookDetail = () => {
   return (
     <>
       <Header col1={<TitleCol hasBackBtn>Book Detail</TitleCol>} />
+      {isOwner && (
+        <Portal id="upload-memo">
+          <div className="max-w-lg w-full fixed bottom-20 flex justify-end pr-2">
+            <div className="p-2 inline-block bg-primary-green rounded-full shadow-md">
+              <Link
+                href={`/books/${bookId}/memo/upload`}
+                className="bg-slate-500"
+              >
+                <Plus width={2} color={SOFT_WHITE} />
+              </Link>
+            </div>
+          </div>
+        </Portal>
+      )}
       {bookData && (
-        <>
+        <div className="mb-12">
           <Info book={bookData.book} />
-          {/* 플로팅으로 만들것. */}
-          {isOwner && (
-            <Link
-              href={`/books/${bookId}/memo/upload`}
-              className="bg-slate-500"
-            >
-              업로드
-            </Link>
-          )}
           {memosData?.memos?.map((memo) => (
             <Memo memo={memo} key={memo.id} />
           ))}
-        </>
+        </div>
       )}
     </>
   );
