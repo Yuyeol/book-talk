@@ -9,27 +9,23 @@ import { IUserWithFriends } from "@/types";
 import useUsers from "@/lib/client/useSwr/useUsers";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
+import useUser from "@/lib/client/useSwr/useUser";
+import { useRouter } from "next/router";
 
 const Search = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const { data } = useUsers();
+  const { mutate } = useUser(session?.user?.id as string);
+
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<IUserWithFriends[]>([]);
-  const { mutation: mutationAddFriend, loading: loadingAddFriend } =
-    useMutation(`/api/users/${session?.user?.id}/friends/add`);
-  const { mutation: mutationRemoveFriend, loading: loadingRemoveFriend } =
-    useMutation(`/api/users/${session?.user?.id}/friends/delete`);
-
-  const addFriend = (id: string) => {
-    if (loadingAddFriend) return;
-    mutationAddFriend({ friendId: id }, "POST");
-  };
-  const removeFriend = (id: string) => {
-    if (loadingRemoveFriend) return;
-    mutationRemoveFriend({ friendId: id }, "POST");
-  };
-  useEffect(() => {}, []);
+  const {
+    data: friendResData,
+    mutation: mutationFriend,
+    loading: loadingFriend,
+  } = useMutation(`/api/users/${session?.user?.id}/friends`);
 
   const selectTab = useCallback((index: number) => {
     setCurrentTab(index);
@@ -68,9 +64,25 @@ const Search = () => {
     },
     [setResultsWithDebounce]
   );
+
+  const addFriend = (id: string) => {
+    if (loadingFriend) return;
+    mutationFriend({ friendId: id, action: "add" }, "POST");
+  };
+  const removeFriend = (id: string) => {
+    if (loadingFriend) return;
+    mutationFriend({ friendId: id, action: "remove" }, "POST");
+  };
+  useEffect(() => {
+    if (friendResData) {
+      mutate();
+      router.back();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [friendResData]);
   return (
     <>
-      <Header col1={<TitleCol>친구 검색</TitleCol>} />
+      <Header col1={<TitleCol hasBackBtn>친구 검색</TitleCol>} />
       <div className="p-4">
         <div className="bg-soft-white p-4 clear-left rounded-xl border-2 border-primary-green">
           <Form

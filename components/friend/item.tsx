@@ -18,7 +18,7 @@ const Item = ({ friend }: IProps) => {
     <>
       <li onClick={() => setIsModalOpen(true)}>
         <div className="flex items-center py-2 bg-white">
-          <div className="w-12 h-12 mr-2 rounded-md bg-slate-600 overflow-hidden">
+          <div className="w-12 h-12 mr-2 rounded-md bg-soft-white overflow-hidden">
             <ResponsiveImage
               src={(friend.image as string) ?? `${CF_DOMAIN}no_book.png`}
               alt={(friend.name as string) ?? "프로필사진"}
