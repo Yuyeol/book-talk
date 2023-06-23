@@ -2,6 +2,7 @@ import { getElapsedTime } from "@/lib/client/getElapsedTime";
 import { IBookWithTags } from "@/types";
 import More from "@/components/book/item/info/more";
 import { useInView } from "react-intersection-observer";
+import BookAuthor from "@/components/book-author";
 
 interface IProps {
   book: IBookWithTags;
@@ -20,7 +21,7 @@ const Info = ({ book }: IProps) => {
       <div className="flex items-center justify-between mb-2">
         <div>
           <span className="font-semibold">{book.title}</span>
-          {book.author && <span> • {book.author}</span>}
+          <BookAuthor author={book.author} />
         </div>
 
         <More book={book} />

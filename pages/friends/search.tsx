@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import useMutation from "@/lib/client/useMutation";
 import { IUserWithFriends } from "@/types";
 import useUsers from "@/lib/client/useSwr/useUsers";
+import Header from "@/components/header";
+import TitleCol from "@/components/header/title-col";
 
 const Search = () => {
   const { data: session } = useSession();
@@ -68,34 +70,37 @@ const Search = () => {
   );
   return (
     <>
+      <Header col1={<TitleCol>친구 검색</TitleCol>} />
       <div className="p-4">
-        <Form
-          handleSearch={handleSearch}
-          searchValue={searchValue}
-          resetSearch={resetSearch}
-        />
-        <Tab
-          selectTab={selectTab}
-          currentTab={currentTab}
-          tabs={["닉네임", "이메일"]}
-        />
-        <div className="divide-y-2">
-          {searchResults.map((result) => {
-            const myFriends = data?.users.find(
-              (user) => user.id === session?.user?.id
-            )?.friendsTo;
-            const isFriend = !!myFriends?.find(
-              (myFriend) => myFriend.id === result.id
-            );
-            return (
-              <Item
-                key={result.id}
-                user={result}
-                isFriend={isFriend}
-                onClickFriend={isFriend ? removeFriend : addFriend}
-              />
-            );
-          })}
+        <div className="bg-soft-white p-4 clear-left rounded-xl border-2 border-primary-green">
+          <Form
+            handleSearch={handleSearch}
+            searchValue={searchValue}
+            resetSearch={resetSearch}
+          />
+          <Tab
+            selectTab={selectTab}
+            currentTab={currentTab}
+            tabs={["닉네임", "이메일"]}
+          />
+          <div className="divide-y-2 divide-primary-green/30 mt-4">
+            {searchResults.map((result) => {
+              const myFriends = data?.users.find(
+                (user) => user.id === session?.user?.id
+              )?.friendsTo;
+              const isFriend = !!myFriends?.find(
+                (myFriend) => myFriend.id === result.id
+              );
+              return (
+                <Item
+                  key={result.id}
+                  user={result}
+                  isFriend={isFriend}
+                  onClickFriend={isFriend ? removeFriend : addFriend}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </>

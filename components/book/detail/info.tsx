@@ -2,6 +2,7 @@ import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import { IBookWithTags } from "@/types";
 import { Tag } from "@prisma/client";
+import BookAuthor from "@/components/book-author";
 
 interface IProps {
   book: IBookWithTags;
@@ -22,7 +23,7 @@ const Info = ({ book }: IProps) => {
       <div className="flex-1 p-2 text-white">
         <div className="border-b-[0.5px] border-soft-white/80 text-sm pb-1">
           <span className="font-semibold">{book.title}</span>
-          {book.author && <span> • {book.author}</span>}
+          <BookAuthor author={book.author} />
         </div>
         <div className="my-1 text-xs">{book.description}</div>
         <div className="flex flex-wrap gap-1">
