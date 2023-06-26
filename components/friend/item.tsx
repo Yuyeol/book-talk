@@ -1,11 +1,12 @@
-import BookInfo from "@/components/friend/book-info";
-import InfoModal from "./info-modal";
+import BookInfo from "@/components/friend/info-modal/book-info";
 import { useState } from "react";
-import ResponsiveImage from "../core/responsive-image";
+import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
-import FriendInfo from "./friend-info";
+import FriendInfo from "@/components/friend/info-modal/friend-info";
 import { Portal } from "@/lib/client/portal";
 import { IUserWithBooks } from "@/types";
+import InfoModal from "@/components/friend/info-modal";
+import More from "./info-modal/more";
 
 interface IProps {
   friend: IUserWithBooks;
@@ -32,22 +33,16 @@ const Item = ({ friend }: IProps) => {
           </div>
         </div>
       </li>
-      {isModalOpen && (
-        <Portal id="friend-modal">
-          <InfoModal
-            setIsModalOpen={setIsModalOpen}
-            friendId={friend.id}
-            friendInfo={<FriendInfo friend={friend} />}
-            bookInfo1={<BookInfo title={"읽고 있는 책"} books={friend.books} />}
-            bookInfo2={
-              <BookInfo
-                title={"아카이브"}
-                books={friend.books.filter((book) => book.finishedAt)}
-              />
-            }
-          />
-        </Portal>
-      )}
+      <Portal id="friend-modal">
+        <InfoModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          friendId={friend.id}
+          more={<More friendId={friend.id} setIsModalOpen={setIsModalOpen} />}
+          friendInfo={<FriendInfo friend={friend} />}
+          bookInfo={<BookInfo books={friend.books} />}
+        />
+      </Portal>
     </>
   );
 };

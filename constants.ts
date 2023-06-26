@@ -23,3 +23,4 @@ export const SUB_GREEN = "#4B9460";
 export const GREY_1 = "#F6F6F6";
 export const GREY_2 = "#E8E8E8";
 export const GREY_3 = "#BDBDBD";
+export const YELLOW_1 = "#FFDA14";
