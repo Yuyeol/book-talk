@@ -29,7 +29,10 @@ export default async function handler(
               books: true,
             },
           },
-          books: true,
+          // 지금은 해당 프로필 정보들의 카운팅용도로만 사용하기 위해 id만 가져옴
+          books: { select: { id: true } },
+          memos: { select: { id: true } },
+          tags: { select: { id: true } },
         },
       });
 
