@@ -5,7 +5,7 @@ import Tab from "@/components/search/tab";
 import Item from "@/components/search/friends/item";
 import { useSession } from "next-auth/react";
 import useMutation from "@/lib/client/useMutation";
-import { IUserWithFriends } from "@/types";
+import { IUserWithRelations } from "@/types";
 import useUsers from "@/lib/client/useSwr/useUsers";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
@@ -20,7 +20,7 @@ const Search = () => {
 
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState<IUserWithFriends[]>([]);
+  const [searchResults, setSearchResults] = useState<IUserWithRelations[]>([]);
   const {
     data: friendResData,
     mutation: mutationFriend,

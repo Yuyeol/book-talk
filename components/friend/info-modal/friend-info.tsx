@@ -1,9 +1,9 @@
-import { IUserWithBooks } from "@/types";
+import { IUserWithRelations } from "@/types";
 import ResponsiveImage from "../../core/responsive-image";
 import { CF_DOMAIN, PRIMARY_GREEN } from "@/constants";
 
 interface IProps {
-  friend: IUserWithBooks;
+  friend: IUserWithRelations;
 }
 const FriendInfo = ({ friend }: IProps) => {
   return (

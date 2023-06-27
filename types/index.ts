@@ -48,18 +48,18 @@ export interface ITagForm {
 
 // User
 export interface IUsersResponse {
-  users: IUserWithFriends[];
+  users: IUserWithRelations[];
   ok: boolean;
 }
 export interface IUserResponse {
-  user: IUserWithFriends;
+  user: IUserWithRelations;
   ok: boolean;
 }
-export interface IUserWithBooks extends User {
+export interface IUserWithRelations extends User {
   books: Book[];
-}
-export interface IUserWithFriends extends IUserWithBooks {
-  friendsTo: IUserWithBooks[];
+  memos: Memo[];
+  tags: Tag[];
+  friendsTo: IUserWithRelations[];
 }
 export interface IProfileResponse {
   ok: boolean;

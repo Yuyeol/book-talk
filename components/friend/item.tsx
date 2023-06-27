@@ -4,12 +4,12 @@ import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import FriendInfo from "@/components/friend/info-modal/friend-info";
 import { Portal } from "@/lib/client/portal";
-import { IUserWithBooks } from "@/types";
+import { IUserWithRelations } from "@/types";
 import InfoModal from "@/components/friend/info-modal";
 import More from "./info-modal/more";
 
 interface IProps {
-  friend: IUserWithBooks;
+  friend: IUserWithRelations;
 }
 
 const Item = ({ friend }: IProps) => {
