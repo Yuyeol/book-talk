@@ -102,3 +102,10 @@ export interface ILikeWithUser extends Like {
   };
   userId: string;
 }
+
+// Profile
+export interface IProfileForm {
+  nickname: string;
+  bio?: string;
+  image?: FileList;
+}

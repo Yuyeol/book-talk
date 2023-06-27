@@ -2,27 +2,12 @@ import ResponsiveImage from "@/components/core/responsive-image";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import { CF_DOMAIN } from "@/constants";
-import useMutation from "@/lib/client/useMutation";
 import useUser from "@/lib/client/useSwr/useUser";
 import { signOut, useSession } from "next-auth/react";
 
 const Profile = () => {
   const { data: session } = useSession();
   const { data } = useUser(session?.user?.id as string);
-
-  const { mutation, loading } = useMutation("/api/users");
-
-  const handleSubmit = () => {
-    // 이후 프로필 수정 만들때 구현할것
-    if (loading) return;
-    mutation(
-      {
-        nickname: "aaa",
-      },
-      "POST"
-    );
-  };
-
   return (
     <>
       <Header col1={<TitleCol>Profile</TitleCol>} />
@@ -35,11 +20,7 @@ const Profile = () => {
             priority
           />
         </div>
-        <div>
-          <div onClick={handleSubmit}>
-            {data?.user?.nickname ?? data?.user?.name}
-          </div>
-        </div>
+        {data?.user?.nickname ?? data?.user?.name}
       </div>
 
       {session ? (

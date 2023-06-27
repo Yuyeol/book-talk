@@ -3,8 +3,9 @@ import Book from "@/components/icon/book";
 import { PRIMARY_GREEN } from "@/constants";
 import { UseFormRegisterReturn } from "react-hook-form";
 interface IProps {
-  bookPreviewImg: string;
+  previewImg: string;
   register: UseFormRegisterReturn;
+  imageFit?: "contain" | "cover";
 }
 
 const FileInput = ({
@@ -25,22 +26,22 @@ const FileInput = ({
   );
 };
 
-const ImageForm = ({ bookPreviewImg, register }: IProps) => {
+const ImageForm = ({ previewImg, register, imageFit = "contain" }: IProps) => {
   return (
-    <div className="relative max-w-xs mx-auto mt-8 overflow-hidden">
-      {bookPreviewImg ? (
-        <>
+    <div className="relative max-w-xs mx-auto mt-8 p-4">
+      {previewImg ? (
+        <div className="overflow-hidden ring-2 ring-offset-1 ring-primary-green rounded-xl bg-soft-white">
           <label htmlFor="book-image_change">
             <ResponsiveImage
-              src={bookPreviewImg}
+              src={previewImg}
               alt="book-image"
               aspectRatio="1"
-              objectFit="contain"
+              objectFit={imageFit}
               priority
             />
           </label>
           <FileInput register={register} id="book-image_change" />
-        </>
+        </div>
       ) : (
         <div className="p-4">
           <label htmlFor="book-image">
@@ -49,9 +50,9 @@ const ImageForm = ({ bookPreviewImg, register }: IProps) => {
                 <Book width={4} color={PRIMARY_GREEN} />
               </div>
               <div className="mt-3 text-soft-black font-semibold text-center">
-                책 표지 이미지를
+                이미지를
                 <br />
-                업로드해주세요
+                업로드 해주세요
               </div>
             </div>
           </label>

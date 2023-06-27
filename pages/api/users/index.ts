@@ -25,10 +25,27 @@ export default async function handler(
         ok: true,
         users,
       });
+    } else if (req.method === "POST") {
+      const { nickname, bio, imageSrc } = req.body;
+      const user = await prisma.user.update({
+        where: {
+          email: session?.user?.email as string,
+        },
+        data: {
+          nickname: nickname,
+          bio,
+          image: imageSrc,
+        },
+      });
+
+      res.status(200).json({
+        ok: true,
+        user,
+      });
+    } else {
+      res.status(403).json({
+        ok: false,
+      });
     }
-  } else {
-    res.status(403).json({
-      ok: false,
-    });
   }
 }
