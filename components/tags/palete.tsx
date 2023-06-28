@@ -34,21 +34,21 @@ const palleteColors = [
   "#FFDA14",
 ];
 
-const Pallete = ({ formType, selectColor }: IProps) => {
+const Palete = ({ formType, selectColor }: IProps) => {
   return (
-    <div>
+    <>
       <div>{formType === "background" ? "배경" : "폰트"}</div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-nowrap gap-2 overflow-x-scroll py-2">
         {palleteColors.map((color) => (
           <div
             onClick={() => selectColor(formType, color)}
             key={color}
-            className="w-5 h-5 bg-black border rounded-full"
+            className="w-[20px] h-[20px] min-w-[20px] bg-black border rounded-full overflow-x-auto"
             style={{ background: color }}
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
-export default Pallete;
+export default Palete;

@@ -47,6 +47,7 @@ export default async function handler(
     res.status(200).json({
       ok: true,
       tag,
+      method: "POST",
     });
   }
   if (req.method === "DELETE") {
@@ -58,6 +59,7 @@ export default async function handler(
     res.status(200).json({
       ok: true,
       tag,
+      method: "DELETE",
     });
   }
 }

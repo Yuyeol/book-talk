@@ -7,6 +7,7 @@ const useToggleTransition = (isToggleOpen: boolean, unmountDelay: number) => {
     ""
   );
   const [isMounted, setIsMounted] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (isToggleOpen) {
@@ -16,10 +17,14 @@ const useToggleTransition = (isToggleOpen: boolean, unmountDelay: number) => {
       }, 0);
     } else {
       setTransitionState("end");
-      setTimeout(() => {
-        setIsMounted(false);
-      }, unmountDelay);
+      // 타임아웃 최초 실행 방지하기 위해 isActive로 체크
+      isActive &&
+        setTimeout(() => {
+          setIsMounted(false);
+        }, unmountDelay);
+      setIsActive(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isToggleOpen, unmountDelay]);
 
   return {

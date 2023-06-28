@@ -132,12 +132,17 @@ const Form = ({ book }: IProps) => {
         </form>
         <div className="flex gap-4 justify-center mt-6 mb-8">
           <button
-            className={`c_button_block_lg ${!watch("title") && "bg-grey-3"}`}
+            className={`c_button_block_lg w-32 ${
+              !watch("title") && "bg-grey-3"
+            }`}
             onClick={handleSubmit(onSubmit)}
           >
             완료
           </button>
-          <button className="c_button_block_lg" onClick={() => router.back()}>
+          <button
+            className="c_button_block_lg w-32"
+            onClick={() => router.back()}
+          >
             취소
           </button>
         </div>

@@ -1,45 +1,39 @@
 import Item from "@/components/tags/item";
-import List from "@/components/tags/list";
 import { Tag } from "@prisma/client";
-import Link from "next/link";
-import Plus from "@/components/icon/plus";
-import { HEADER_ICON_COLOR, HEADER_ICON_WIDTH } from "@/constants";
-import Search from "@/components/icon/search";
-import Filter from "@/components/icon/filter";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
-import ToolsCol from "@/components/header/tools-col";
 import { useSession } from "next-auth/react";
 import useTags from "@/lib/client/useSwr/useTags";
+import Form from "@/components/tags/form";
+import { useState } from "react";
 
 const Tags = () => {
   const { data: session } = useSession();
   const { data } = useTags(session?.user?.id);
+  const [selectedTag, setSelectedTag] = useState<Tag | undefined>();
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
   return (
     <>
-      <Header
-        col1={<TitleCol>Tags</TitleCol>}
-        col2={
-          <ToolsCol>
-            <Link href="/tags/create">
-              <Plus width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
-            </Link>
-            <Link href="/tags/search">
-              <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
-            </Link>
-            <button>
-              <Filter width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
-            </button>
-          </ToolsCol>
-        }
-      />
-      <div className="p-4">
-        <List title="책 태그" description="장르, 특징, 목적 등">
+      <Header col1={<TitleCol>태그</TitleCol>} />
+      <div className="px-4">
+        <div className="py-2 text-xl font-bold">태그 목록</div>
+        <ul className="px-2 flex flex-wrap gap-2">
           {data?.tags.map((tag: Tag) => (
-            <Item key={tag.id} tag={tag} />
+            <Item
+              key={tag.id}
+              tag={tag}
+              setSelectedTag={setSelectedTag}
+              setIsFormOpen={setIsFormOpen}
+            />
           ))}
-        </List>
+        </ul>
+        <Form
+          tag={selectedTag}
+          setSelectedTag={setSelectedTag}
+          isFormOpen={isFormOpen}
+          setIsFormOpen={setIsFormOpen}
+        />
       </div>
     </>
   );
