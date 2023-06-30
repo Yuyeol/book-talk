@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import Dots from "@/components/icon/dots";
 import { PRIMARY_GREEN, SOFT_BLACK } from "@/constants";
 import useMemos from "@/lib/client/useSwr/useMemos";
-import Link from "next/link";
 
 interface IProps {
   memoId: number;
   bookId: number;
+  setSelectedMemoId: (id: number) => void;
 }
 
-const More = ({ memoId, bookId }: IProps) => {
+const More = ({ memoId, setSelectedMemoId }: IProps) => {
   const router = useRouter();
   const [isMoreOpened, setIsMoreOpened] = useState(false);
 
@@ -53,12 +53,21 @@ const More = ({ memoId, bookId }: IProps) => {
               : "translate-x-2 opacity-0"
           }`}
         >
-          <Link href={`/books/${bookId}/memo/${memoId}/edit`}>
-            <button className="c_button_block_xs">수정</button>
-          </Link>
           <button
             className="c_button_block_xs"
-            onClick={() => onDeleteMemo(memoId)}
+            onClick={() => {
+              setIsMoreOpened(false);
+              setSelectedMemoId(memoId);
+            }}
+          >
+            수정
+          </button>
+          <button
+            className="c_button_block_xs"
+            onClick={() => {
+              onDeleteMemo(memoId);
+              setIsMoreOpened(false);
+            }}
           >
             삭제
           </button>

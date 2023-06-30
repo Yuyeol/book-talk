@@ -100,7 +100,6 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
             >
               {children}
             </div>
-            <div id="upload-memo" />
             {router.pathname !== "/login" && (
               <NavBar navStyles={navStyles[status]} />
             )}

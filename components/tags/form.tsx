@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import useMutation from "@/lib/client/useMutation";
 import Palete from "@/components/tags/palete";
 import { Tag } from "@prisma/client";
-import { ITagForm } from "@/types";
+import { ITagForm, ITagResponse } from "@/types";
 import useTags from "@/lib/client/useSwr/useTags";
 import { useSession } from "next-auth/react";
 import useToggleTransition from "@/lib/client/useToggleTransition";
@@ -29,7 +29,7 @@ const Form = ({ tag, isFormOpen, setSelectedTag, setIsFormOpen }: IProps) => {
     mutation,
     data: tagResData,
     loading,
-  } = useMutation(`/api/tags/${tag?.id ?? 0}`);
+  } = useMutation<ITagResponse>(`/api/tags/${tag?.id ?? 0}`);
   const [tagColor, setTagColor] = useState({
     background: "#000000",
     text: "#FFFFFF",
@@ -76,25 +76,35 @@ const Form = ({ tag, isFormOpen, setSelectedTag, setIsFormOpen }: IProps) => {
   };
   useEffect(() => {
     if (tagResData && data) {
+      const {
+        tag: { id, name, bgColor, txtColor, userId, createdAt },
+      } = tagResData;
       if (tagResData.method === "POST")
         mutate({
           ok: true,
-          tags: [
-            ...data.tags,
-            {
-              id: 0,
-              name: tagName,
-              bgColor: tagColor.background,
-              txtColor: tagColor.text,
-              userId: tagResData.tag.userId,
-              createdAt: tagResData.tag.createdAt,
-            },
-          ],
+          tags: tag
+            ? [
+                ...data.tags.filter((tag: Tag) => tag.id !== id),
+                {
+                  id,
+                  name,
+                  bgColor,
+                  txtColor,
+                  userId,
+                  createdAt,
+                },
+              ]
+            : [
+                ...data.tags.map((tag) => {
+                  if (tag.id === id) return { ...tag, name, bgColor, txtColor };
+                  return tag;
+                }),
+              ],
         });
       else if (tagResData.method === "DELETE")
         mutate({
           ok: true,
-          tags: data.tags.filter((tag: Tag) => tag.id !== tagResData.tag.id),
+          tags: data.tags.filter((tag: Tag) => tag.id !== id),
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

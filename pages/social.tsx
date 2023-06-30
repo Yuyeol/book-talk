@@ -11,7 +11,7 @@ const Social = () => {
       <Header col1={<TitleCol>Social</TitleCol>} />
       <ul className="">
         {data?.memos.map((memo) => (
-          <Memo memo={memo} key={memo.id} isSocialFeed />
+          <Memo memo={memo} key={memo.id} />
         ))}
       </ul>
     </>

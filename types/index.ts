@@ -41,6 +41,7 @@ export interface ITagsResponse {
 export interface ITagResponse {
   tag: Tag;
   ok: boolean;
+  method: "POST" | "DELETE";
 }
 export interface ITagForm {
   name: string;
