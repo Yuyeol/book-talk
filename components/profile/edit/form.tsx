@@ -62,7 +62,7 @@ const Form = ({ user }: IProps) => {
           <ImageForm
             previewImg={profilePreviewImg}
             register={register("image")}
-            imageFit={"cover"}
+            type="profile"
           />
           <div className="space-y-2">
             <input

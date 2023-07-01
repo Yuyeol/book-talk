@@ -104,7 +104,11 @@ const Form = ({ book }: IProps) => {
       <div className="px-4 bg-soft-white rounded-xl border-2 border-primary-green">
         <form>
           {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
-          <ImageForm previewImg={bookPreviewImg} register={register("image")} />
+          <ImageForm
+            previewImg={bookPreviewImg}
+            register={register("image")}
+            type="book"
+          />
           <div className="space-y-2">
             <input
               className="c_input"
