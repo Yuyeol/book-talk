@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const BookInfo = ({ memo }: IProps) => {
-  const { data: bookData } = useBook(memo.bookId);
+  const { data: bookData } = useBook(memo.bookId as number);
   return (
     <Link href={`/books/${memo.bookId}`}>
       <div className="flex gap-2 border-b-[1px] border-primary-green/70 pb-2 mb-2">

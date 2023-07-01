@@ -33,7 +33,7 @@ const Memo = ({ memo, setSelectedMemoId }: IProps) => {
             {isOwner && setSelectedMemoId && (
               <More
                 memoId={memo.id}
-                bookId={memo.bookId}
+                bookId={memo.bookId as number}
                 setSelectedMemoId={setSelectedMemoId}
               />
             )}
