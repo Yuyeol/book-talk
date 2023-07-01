@@ -46,6 +46,7 @@ export default async function handler(
     res.status(200).json({
       ok: true,
       comment,
+      method: "POST",
     });
   } else if (req.method === "DELETE") {
     const {
@@ -59,6 +60,7 @@ export default async function handler(
     res.status(200).json({
       ok: true,
       comment,
+      method: "DELETE",
     });
   }
 }

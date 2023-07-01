@@ -1,3 +1,5 @@
+import { GREY_3, PRIMARY_GREEN } from "@/constants";
+
 interface IProps {
   selectTab: (tab: number) => void;
   currentTab: number;
@@ -6,15 +8,14 @@ interface IProps {
 
 const Tab = ({ selectTab, currentTab, tabs }: IProps) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 mt-2">
       {tabs.map((item, i) => (
         <button
-          className="w-14 border-white rounded-md"
+          className="w-14 border-white rounded-lg text-soft-white transition-colors duration-300 shadow-md"
           key={i}
           onClick={() => selectTab(i)}
           style={{
-            color: currentTab === i ? "black" : "white",
-            background: currentTab === i ? "white" : "black",
+            background: currentTab === i ? PRIMARY_GREEN : GREY_3,
           }}
         >
           {item}

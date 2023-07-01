@@ -1,20 +1,26 @@
 import { Tag } from "@prisma/client";
-import Link from "next/link";
 
 interface IProps {
   tag: Tag;
+  setSelectedTag: (tag: Tag) => void;
+  setIsFormOpen: (isFormOpen: boolean) => void;
 }
 
-const Item = ({ tag }: IProps) => {
+const Item = ({ tag, setSelectedTag, setIsFormOpen }: IProps) => {
   return (
-    <Link href={`/tags/${tag.id}/edit`}>
+    <button
+      onClick={() => {
+        setIsFormOpen(true);
+        setSelectedTag(tag);
+      }}
+    >
       <li
-        className="px-4 py-1 text-white rounded-full bg-slate-800"
+        className="px-2 text-white rounded-lg bg-slate-800"
         style={{ background: tag.bgColor, color: tag.txtColor }}
       >
         {tag.name}
       </li>
-    </Link>
+    </button>
   );
 };
 export default Item;

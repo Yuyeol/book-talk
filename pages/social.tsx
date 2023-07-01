@@ -4,12 +4,11 @@ import Memo from "@/components/book/detail/memo";
 import useMemos from "@/lib/client/useSwr/useMemos";
 
 const Social = () => {
-  const { data } = useMemos();
+  const { data } = useMemos(null, { fetchAll: true });
 
   return (
     <>
       <Header col1={<TitleCol>Social</TitleCol>} />
-
       <ul className="">
         {data?.memos.map((memo) => (
           <Memo memo={memo} key={memo.id} />

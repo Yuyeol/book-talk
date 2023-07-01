@@ -2,17 +2,15 @@ import ResponsiveImage from "@/components/core/responsive-image";
 import { CF_DOMAIN } from "@/constants";
 import { IBookWithTags } from "@/types";
 import Link from "next/link";
+import BookAuthor from "@/components/book-author";
 
 interface IProps {
   book: IBookWithTags;
 }
 const Item = ({ book }: IProps) => {
   return (
-    <Link
-      href={`/books/${book.id}`}
-      className="flex items-center py-1 space-x-2"
-    >
-      <div className="w-12 bg-white">
+    <Link href={`/books/${book.id}`} className="flex py-1 space-x-2 mb-1">
+      <div className="w-12 h-12 bg-white rounded-lg overflow-hidden">
         <ResponsiveImage
           src={book.image || `${CF_DOMAIN}no_book.png`}
           alt={book.title}
@@ -22,14 +20,14 @@ const Item = ({ book }: IProps) => {
         />
       </div>
       <div>
-        <div>
-          {book.title} | {book.author}
+        <div className="text-sm mb-1">
+          <span className="font-semibold">{book.title}</span>
+          <BookAuthor author={book.author} />
         </div>
-        <div className="text-sm">{book.description}</div>
-        <div className="flex space-x-2">
+        <div className="flex gap-2 flex-wrap ">
           {book.tags.map((tag) => (
             <div
-              className="text-xs px-1.5 rounded-full"
+              className="text-xs px-1.5 rounded-md"
               style={{ background: tag.bgColor, color: tag.txtColor }}
               key={tag.id}
             >

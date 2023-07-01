@@ -21,27 +21,11 @@ export interface IBookForm {
 
 // Memo
 export interface IMemosResponse {
-  memos: IMemoWithReactions[];
+  memos: Memo[];
   ok: boolean;
 }
 export interface IMemoResponse {
   memo: Memo;
-  ok: boolean;
-}
-export interface IMemoWithReactions extends Memo {
-  likes: ILikeWithUser[];
-}
-
-export interface ILikeWithUser extends Like {
-  user: {
-    name: string;
-    nickname: string;
-    image: string;
-  };
-  userId: string;
-}
-export interface IMemosResponse {
-  memos: IMemoWithReactions[];
   ok: boolean;
 }
 export interface IMemoForm {
@@ -57,6 +41,7 @@ export interface ITagsResponse {
 export interface ITagResponse {
   tag: Tag;
   ok: boolean;
+  method: "POST" | "DELETE";
 }
 export interface ITagForm {
   name: string;
@@ -64,18 +49,18 @@ export interface ITagForm {
 
 // User
 export interface IUsersResponse {
-  users: IUserWithFriends[];
+  users: IUserWithRelations[];
   ok: boolean;
 }
 export interface IUserResponse {
-  user: IUserWithFriends;
+  user: IUserWithRelations;
   ok: boolean;
 }
-export interface IUserWithBooks extends User {
+export interface IUserWithRelations extends User {
   books: Book[];
-}
-export interface IUserWithFriends extends IUserWithBooks {
-  friendsTo: IUserWithBooks[];
+  memos: Memo[];
+  tags: Tag[];
+  friendsTo: IUserWithRelations[];
 }
 export interface IProfileResponse {
   ok: boolean;
@@ -87,6 +72,11 @@ export interface ICommentsResponse {
   comments: ICommentWithUser[];
   ok: boolean;
 }
+export interface ICommentResponse {
+  comment: ICommentWithUser;
+  ok: boolean;
+  method: "POST" | "DELETE";
+}
 export interface ICommentWithUser extends Comment {
   user: {
     name: string;
@@ -94,4 +84,29 @@ export interface ICommentWithUser extends Comment {
     image: string;
   };
   userId: string;
+}
+
+// Like
+export interface ILikesResponse {
+  likes: Like[];
+  ok: boolean;
+}
+export interface ILikeResponse {
+  like: Like;
+  ok: boolean;
+}
+export interface ILikeWithUser extends Like {
+  user: {
+    name: string;
+    nickname: string;
+    image: string;
+  };
+  userId: string;
+}
+
+// Profile
+export interface IProfileForm {
+  nickname: string;
+  bio?: string;
+  image?: FileList;
 }

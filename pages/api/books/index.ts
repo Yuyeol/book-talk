@@ -9,6 +9,7 @@ export default async function handler(
     const {
       query: { userId },
     } = req;
+
     if (userId) {
       const books = await prisma.book.findMany({
         where: {

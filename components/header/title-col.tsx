@@ -18,7 +18,7 @@ const TitleCol = ({ children, hasBackBtn }: IProps) => {
         </button>
       )}
 
-      <div className="text-xl font-bold text">{children}</div>
+      <div className="text-xl font-semibold text">{children}</div>
     </div>
   );
 };

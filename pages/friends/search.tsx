@@ -5,29 +5,27 @@ import Tab from "@/components/search/tab";
 import Item from "@/components/search/friends/item";
 import { useSession } from "next-auth/react";
 import useMutation from "@/lib/client/useMutation";
-import { IUserWithFriends } from "@/types";
+import { IUserWithRelations } from "@/types";
 import useUsers from "@/lib/client/useSwr/useUsers";
+import Header from "@/components/header";
+import TitleCol from "@/components/header/title-col";
+import useUser from "@/lib/client/useSwr/useUser";
+import { useRouter } from "next/router";
 
 const Search = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const { data } = useUsers();
+  const { mutate } = useUser(session?.user?.id as string);
+
   const [currentTab, setCurrentTab] = useState(0);
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState<IUserWithFriends[]>([]);
-  const { mutation: mutationAddFriend, loading: loadingAddFriend } =
-    useMutation(`/api/users/${session?.user?.id}/friends/add`);
-  const { mutation: mutationRemoveFriend, loading: loadingRemoveFriend } =
-    useMutation(`/api/users/${session?.user?.id}/friends/delete`);
-
-  const addFriend = (id: string) => {
-    if (loadingAddFriend) return;
-    mutationAddFriend({ friendId: id }, "POST");
-  };
-  const removeFriend = (id: string) => {
-    if (loadingRemoveFriend) return;
-    mutationRemoveFriend({ friendId: id }, "POST");
-  };
-  useEffect(() => {}, []);
+  const [searchResults, setSearchResults] = useState<IUserWithRelations[]>([]);
+  const {
+    data: friendResData,
+    mutation: mutationFriend,
+    loading: loadingFriend,
+  } = useMutation(`/api/users/${session?.user?.id}/friends`);
 
   const selectTab = useCallback((index: number) => {
     setCurrentTab(index);
@@ -66,36 +64,55 @@ const Search = () => {
     },
     [setResultsWithDebounce]
   );
+
+  const addFriend = (id: string) => {
+    if (loadingFriend) return;
+    mutationFriend({ friendId: id, action: "add" }, "POST");
+  };
+  const removeFriend = (id: string) => {
+    if (loadingFriend) return;
+    mutationFriend({ friendId: id, action: "remove" }, "POST");
+  };
+  useEffect(() => {
+    if (friendResData) {
+      mutate();
+      router.back();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [friendResData]);
   return (
     <>
+      <Header col1={<TitleCol hasBackBtn>친구 검색</TitleCol>} />
       <div className="p-4">
-        <Form
-          handleSearch={handleSearch}
-          searchValue={searchValue}
-          resetSearch={resetSearch}
-        />
-        <Tab
-          selectTab={selectTab}
-          currentTab={currentTab}
-          tabs={["닉네임", "이메일"]}
-        />
-        <div className="divide-y-2">
-          {searchResults.map((result) => {
-            const myFriends = data?.users.find(
-              (user) => user.id === session?.user?.id
-            )?.friendsTo;
-            const isFriend = !!myFriends?.find(
-              (myFriend) => myFriend.id === result.id
-            );
-            return (
-              <Item
-                key={result.id}
-                user={result}
-                isFriend={isFriend}
-                onClickFriend={isFriend ? removeFriend : addFriend}
-              />
-            );
-          })}
+        <div className="bg-soft-white p-4 clear-left rounded-xl border-2 border-primary-green">
+          <Form
+            handleSearch={handleSearch}
+            searchValue={searchValue}
+            resetSearch={resetSearch}
+          />
+          <Tab
+            selectTab={selectTab}
+            currentTab={currentTab}
+            tabs={["닉네임", "이메일"]}
+          />
+          <div className="divide-y-2 divide-primary-green/30 mt-4">
+            {searchResults.map((result) => {
+              const myFriends = data?.users.find(
+                (user) => user.id === session?.user?.id
+              )?.friendsTo;
+              const isFriend = !!myFriends?.find(
+                (myFriend) => myFriend.id === result.id
+              );
+              return (
+                <Item
+                  key={result.id}
+                  user={result}
+                  isFriend={isFriend}
+                  onClickFriend={isFriend ? removeFriend : addFriend}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </>

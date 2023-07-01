@@ -17,7 +17,6 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
 }: IProps) => {
   const [isBack, setIsBack] = useState(false);
   const router = useRouter();
-  console.log(isBack);
 
   useEffect(() => {
     router.beforePopState(() => {
@@ -65,36 +64,49 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
     exited: {},
     unmounted: {},
   };
+  const navStyles = {
+    entering: {
+      position: `absolute` as CSSProperties["position"],
+    },
+    entered: {},
+    exiting: {},
+    exited: {},
+    unmounted: {},
+  };
 
   return (
-    <div className="relative w-full h-full max-w-lg min-h-screen mx-auto overflow-hidden bg-slate-300">
-      <TransitionGroup style={{ position: "relative" }}>
-        <Transition
-          key={router.pathname}
-          timeout={{
-            enter: TIMEOUT,
-            exit: TIMEOUT,
-          }}
-          onEntered={() => isBack && setIsBack(false)}
-        >
-          {(status) => (
-            <>
-              <div className="bg-white">
-                <div id="header" style={{ ...headerStyles[status] }} />
-              </div>
-              <div
-                style={{
-                  ...pageStyles[status],
-                }}
-              >
-                {children}
-              </div>
-            </>
-          )}
-        </Transition>
-      </TransitionGroup>
-      {router.pathname !== "/login" && <NavBar />}
-    </div>
+    <TransitionGroup
+      component="div"
+      className="relative w-full h-full max-w-lg min-h-screen mx-auto overflow-hidden bg-white flex flex-col"
+    >
+      <Transition
+        key={router.pathname}
+        timeout={{
+          enter: TIMEOUT,
+          exit: TIMEOUT,
+        }}
+        onEntered={() => isBack && setIsBack(false)}
+      >
+        {(status) => (
+          <>
+            <div className="bg-soft-white">
+              <div id="header" style={{ ...headerStyles[status] }} />
+            </div>
+            <div
+              className="flex-1"
+              style={{
+                ...pageStyles[status],
+              }}
+            >
+              {children}
+            </div>
+            {router.pathname !== "/login" && (
+              <NavBar navStyles={navStyles[status]} />
+            )}
+          </>
+        )}
+      </Transition>
+    </TransitionGroup>
   );
 };
 

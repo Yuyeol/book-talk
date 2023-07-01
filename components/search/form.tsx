@@ -14,14 +14,13 @@ const Form = ({ handleSearch, searchValue, resetSearch }: IProps) => {
         className="c_input pr-8"
         placeholder="Search"
       />
-      {searchValue && (
-        <button
-          onClick={resetSearch}
-          className="top-1/2 right-2 bg-slate-400 absolute flex items-center justify-center w-4 h-4 -translate-y-1/2 rounded-full"
-        >
-          <XMark width={0.75} color="white" />
-        </button>
-      )}
+      <button
+        onClick={resetSearch}
+        className={`top-1/2 right-2 bg-slate-400 absolute flex items-center justify-center w-4 h-4 -translate-y-1/2 rounded-full transition-all duration-300 ease-in
+        ${searchValue ? "opacity-100" : "opacity-0"}`}
+      >
+        <XMark width={0.75} color="white" />
+      </button>
     </div>
   );
 };

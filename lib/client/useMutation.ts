@@ -1,7 +1,11 @@
 import { useState } from "react";
 
-export default function useMutation(url: string) {
-  const [state, setState] = useState({
+export default function useMutation<T = any>(url: string) {
+  const [state, setState] = useState<{
+    loading: boolean;
+    data: T | undefined;
+    error: any;
+  }>({
     loading: false,
     data: undefined,
     error: undefined,

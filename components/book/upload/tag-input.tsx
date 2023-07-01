@@ -9,13 +9,14 @@ interface IProps {
 const TagInput = ({ tags, selectTag, selectedTags }: IProps) => {
   return (
     <>
-      <div>태그를 추가해주세요</div>
-      <div className="flex flex-wrap gap-2">
+      <div className="mt-3 mb-1">태그를 추가해주세요</div>
+      <div className="flex flex-wrap gap-2 px-2">
         {tags.map((tag) => (
           <div
             key={tag.id}
-            className={`px-2 text-sm text-white rounded-full ${
-              selectedTags.includes(tag.id) && "ring-2 ring-white"
+            className={`px-2 text-sm text-white rounded-lg ${
+              selectedTags.includes(tag.id) &&
+              "ring-sub-green ring-2 ring-offset-1"
             }`}
             style={{ color: tag.txtColor, background: tag.bgColor }}
             onClick={() => selectTag(tag.id)}

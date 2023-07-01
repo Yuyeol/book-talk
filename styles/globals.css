@@ -2,6 +2,7 @@
 @tailwind components;
 
 body {
+    @apply text-soft-black;
     font-size: 16px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -9,12 +10,27 @@ body {
 body::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
 }
+input:focus{
+    @apply outline-primary-green;
+}
+textarea:focus{
+    @apply outline-primary-green;
+}
+textarea{
+    resize: none;
+}
 
 .c_input{
-    @apply w-full block px-3 py-1 mb-2 bg-white border border-gray-300 rounded-md shadow-sm
+    @apply w-full block px-3 py-1 border-b-2 rounded-md shadow-sm
 }
-.c_button_underlined {
-    @apply text-sm underline
+.c_button_block_xs {
+    @apply text-xs bg-primary-green text-soft-white px-1 py-[1px] rounded-md shadow-sm
+}
+.c_button_block_lg {
+    @apply bg-primary-green text-soft-white w-32 py-[1px] rounded-md shadow-sm
+}
+.c_tag_sm {
+    @apply px-1 py-[2px] rounded-md
 }
 
 @tailwind utilities;

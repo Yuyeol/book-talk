@@ -1,4 +1,4 @@
-import { NAV_ICON_ACTIVE_COLOR, NAV_ICON_COLOR } from "@/constants";
+import { SOFT_BLACK, SUB_GREEN } from "@/constants";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -19,8 +19,7 @@ const Text = ({ text, color }: { text: string; color: string }) => {
 
 const Item = ({ children, text, href }: IProps) => {
   const router = useRouter();
-  const itemColor =
-    router.pathname === href ? NAV_ICON_ACTIVE_COLOR : NAV_ICON_COLOR;
+  const itemColor = router.pathname === href ? SUB_GREEN : SOFT_BLACK;
 
   const clonedChildren = React.cloneElement(children as React.ReactElement, {
     color: itemColor,

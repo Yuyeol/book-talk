@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   session: {
-    maxAge: 60 * 60 * 24, // 세션 유효 기간 설정 (예: 1일)
+    // maxAge: 60 * 60 * 24, // 세션 유효 기간 설정 (예: 1일)
   },
   secret: process.env.SECRET as string,
 };

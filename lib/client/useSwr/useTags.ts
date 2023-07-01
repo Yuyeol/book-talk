@@ -3,7 +3,7 @@ import fetcher from "@/lib/client/fetcher";
 import { ITagsResponse } from "@/types";
 
 function useTags(userId?: string) {
-  const url = userId ? `/api/tags?userId=${userId}` : "/api/tags";
+  const url = userId ? `/api/tags?userId=${userId}` : null;
   const { data, error, isLoading, mutate } = useSWR<ITagsResponse>(
     url,
     fetcher

@@ -6,6 +6,8 @@ import Tab from "@/components/search/tab";
 import { IBookWithTags } from "@/types";
 import useBooks from "@/lib/client/useSwr/useBooks";
 import { useSession } from "next-auth/react";
+import Header from "@/components/header";
+import TitleCol from "@/components/header/title-col";
 
 const Search = () => {
   const { data: session } = useSession();
@@ -52,21 +54,24 @@ const Search = () => {
   );
   return (
     <>
+      <Header col1={<TitleCol>내 책 검색</TitleCol>} />
       <div className="p-4">
-        <Form
-          handleSearch={handleSearch}
-          searchValue={searchValue}
-          resetSearch={resetSearch}
-        />
-        <Tab
-          selectTab={selectTab}
-          currentTab={currentTab}
-          tabs={["제목", "저자", "태그"]}
-        />
-        <div className="divide-y-2">
-          {searchResults.map((result) => (
-            <Item key={result.id} book={result} />
-          ))}
+        <div className="bg-soft-white p-4 clear-left rounded-xl border-2 border-primary-green">
+          <Form
+            handleSearch={handleSearch}
+            searchValue={searchValue}
+            resetSearch={resetSearch}
+          />
+          <Tab
+            selectTab={selectTab}
+            currentTab={currentTab}
+            tabs={["제목", "저자", "태그"]}
+          />
+          <div className="divide-y-2 divide-primary-green/30 mt-4">
+            {searchResults.map((result) => (
+              <Item key={result.id} book={result} />
+            ))}
+          </div>
         </div>
       </div>
     </>

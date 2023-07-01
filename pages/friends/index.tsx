@@ -25,7 +25,7 @@ const Friends = () => {
         }
       />
       {userData?.user?.friendsTo && (
-        <ul className="px-4 divide-y-2">
+        <ul className="px-4 divide-y-[1px] divide-primary-green/50">
           {userData.user.friendsTo.map((friend) => (
             <Item key={friend.id} friend={friend} />
           ))}
