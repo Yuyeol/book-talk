@@ -7,10 +7,12 @@ import { useSession } from "next-auth/react";
 import Search from "@/components/icon/search";
 import Link from "next/link";
 import useUser from "@/lib/client/useSwr/useUser";
+import SpinnerWrapper from "@/components/icon/spinner-wrapper";
+import Spinner from "@/components/icon/spinner";
 
 const Friends = () => {
   const { data: session } = useSession();
-  const { data: userData } = useUser(session?.user?.id as string);
+  const { data: data } = useUser(session?.user?.id as string);
 
   return (
     <>
@@ -24,12 +26,16 @@ const Friends = () => {
           </ToolsCol>
         }
       />
-      {userData?.user?.friendsTo && (
+      {data ? (
         <ul className="px-4 divide-y-[1px] divide-primary-green/50">
-          {userData.user.friendsTo.map((friend) => (
+          {data.user.friendsTo.map((friend) => (
             <Item key={friend.id} friend={friend} />
           ))}
         </ul>
+      ) : (
+        <SpinnerWrapper type="screen-center">
+          <Spinner />
+        </SpinnerWrapper>
       )}
     </>
   );

@@ -1,13 +1,7 @@
 import Plus from "@/components/icon/plus";
 import Link from "next/link";
-import {
-  HEADER_ICON_WIDTH,
-  HEADER_ICON_COLOR,
-  HEADER_HEIGHT,
-  NAVBAR_HEIGHT,
-} from "@/constants";
+import { HEADER_ICON_WIDTH, HEADER_ICON_COLOR } from "@/constants";
 import Search from "@/components/icon/search";
-import Filter from "@/components/icon/filter";
 import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
@@ -16,6 +10,7 @@ import useBooks from "@/lib/client/useSwr/useBooks";
 import { IBookWithTags } from "@/types";
 import Spinner from "@/components/icon/spinner";
 import Item from "@/components/book/item";
+import SpinnerWrapper from "@/components/icon/spinner-wrapper";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -33,9 +28,6 @@ const Home = () => {
             <Link href="/books/search">
               <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
-            <button>
-              <Filter width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
-            </button>
           </ToolsCol>
         }
       />
@@ -46,14 +38,9 @@ const Home = () => {
           ))}
         </ul>
       ) : (
-        <div
-          className="absolute w-full h-screen flex justify-center items-center"
-          style={{
-            transform: `translateY(-${HEADER_HEIGHT + NAVBAR_HEIGHT}rem)`,
-          }}
-        >
+        <SpinnerWrapper type="screen-center">
           <Spinner />
-        </div>
+        </SpinnerWrapper>
       )}
     </>
   );
