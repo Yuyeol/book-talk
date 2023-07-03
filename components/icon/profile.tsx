@@ -1,14 +1,15 @@
 interface IProps {
   width: number;
   color?: string;
+  strokeWidth?: number;
 }
 
-const Profile = ({ width, color }: IProps) => (
+const Profile = ({ width, color, strokeWidth = 1.5 }: IProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    strokeWidth="1.5"
+    strokeWidth={strokeWidth}
     stroke={color}
     style={{ width: `${width}rem`, height: "auto" }}
   >
