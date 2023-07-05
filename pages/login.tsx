@@ -39,7 +39,7 @@ export default function Login() {
                   delay: LOGIN_INITIAL_DELAY + 3 * LOGIN_DELAY_INTERVAL,
                 }}
                 className="w-full px-4 py-2 font-semibold border-2 border-primary-green rounded-md flex items-center justify-center gap-2"
-                onClick={() => signIn("google", { callbackUrl: "/" })}
+                onClick={() => signIn("credentials", { callbackUrl: "/" })}
               >
                 <Profile width={1.2} color={PRIMARY_GREEN} strokeWidth={3.5} />
                 게스트로 입장하기
