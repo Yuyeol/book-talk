@@ -12,7 +12,7 @@ const Item = ({ user, isFriend, onClickFriend }: IProps) => {
     <div className="flex items-center py-1 space-x-2">
       <div className="w-12 h-12 bg-white rounded-lg overflow-hidden">
         <ResponsiveImage
-          src={user.image || `${CF_DOMAIN}no_book.png`}
+          src={user.image || `${CF_DOMAIN}icon/no-image.png`}
           alt={user.name || "프로필사진"}
           aspectRatio="1"
           priority

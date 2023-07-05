@@ -20,17 +20,19 @@ const Item = ({ book }: IProps) => {
       ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
     >
       <Link href={`/books/${book.id}`}>
-        <div className="absolute w-full h-full blur-sm">
-          <Image
-            src={book.image || `${CF_DOMAIN}no_book.png`}
-            alt={book.title}
-            fill
-            style={{ objectFit: "cover" }}
-          />
+        <div className="absolute w-full h-full blur-sm bg-soft-white">
+          {book.image && (
+            <Image
+              src={book.image}
+              alt={book.title}
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          )}
         </div>
         <div className="w-40 py-8 mx-auto">
           <ResponsiveImage
-            src={book.image || `${CF_DOMAIN}no_book.png`}
+            src={book.image || `${CF_DOMAIN}icon/no-image.png`}
             alt={book.title}
             aspectRatio="1"
             priority

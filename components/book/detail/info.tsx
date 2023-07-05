@@ -13,7 +13,7 @@ const Info = ({ book }: IProps) => {
     <div className="flex items-center p-2 bg-primary-green rounded-b-xl shadow-md">
       <div className="w-20 h-20 max-w-xs bg-soft-white rounded-xl overflow-hidden">
         <ResponsiveImage
-          src={book.image || `${CF_DOMAIN}no_book.png`}
+          src={book.image || `${CF_DOMAIN}icon/no-image.png`}
           alt={book.title}
           aspectRatio="1"
           priority
