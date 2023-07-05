@@ -1,6 +1,10 @@
+import { SOFT_BLACK, SOFT_WHITE } from "@/constants";
+import Check from "../icon/check";
+
 interface IProps {
   formType: "background" | "text";
   selectColor: (background: string, color: string) => void;
+  currentColor: string;
 }
 
 const palleteColors = [
@@ -34,7 +38,7 @@ const palleteColors = [
   "#FFDA14",
 ];
 
-const Palete = ({ formType, selectColor }: IProps) => {
+const Palete = ({ formType, selectColor, currentColor }: IProps) => {
   return (
     <>
       <div>{formType === "background" ? "배경" : "폰트"}</div>
@@ -45,7 +49,14 @@ const Palete = ({ formType, selectColor }: IProps) => {
             key={color}
             className="w-[20px] h-[20px] min-w-[20px] bg-black border rounded-full overflow-x-auto"
             style={{ background: color }}
-          />
+          >
+            {currentColor === color && (
+              <Check
+                width={1}
+                color={color === "#F2F2F2" ? SOFT_BLACK : SOFT_WHITE}
+              />
+            )}
+          </div>
         ))}
       </div>
     </>
