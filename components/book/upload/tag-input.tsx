@@ -9,8 +9,7 @@ interface IProps {
 const TagInput = ({ tags, selectTag, selectedTags }: IProps) => {
   return (
     <>
-      <div className="mt-3 mb-1">태그를 추가해주세요</div>
-      <div className="flex flex-wrap gap-2 px-2">
+      <div className="flex flex-wrap gap-2 px-2 mb-6">
         {tags.map((tag) => (
           <div
             key={tag.id}

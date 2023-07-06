@@ -6,6 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
+    // 내 book에 해당하는 메모들만 가져오기
     const {
       query: { bookId },
     } = req;
@@ -14,22 +15,13 @@ export default async function handler(
         where: {
           bookId: parseInt(bookId as string),
         },
-        include: {
-          user: { select: { id: true, name: true, nickname: true } },
-          likes: true,
-        },
       });
       res.status(200).json({
         ok: true,
         memos,
       });
     } else {
-      const memos = await prisma.memo.findMany({
-        include: {
-          user: { select: { id: true, name: true, nickname: true } },
-          likes: true,
-        },
-      });
+      const memos = await prisma.memo.findMany({});
       res.status(200).json({
         ok: true,
         memos,

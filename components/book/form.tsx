@@ -10,6 +10,8 @@ import { IBookForm, IBookWithTags } from "@/types";
 import useTags from "@/lib/client/useSwr/useTags";
 import useBook from "@/lib/client/useSwr/useBook";
 import ImageForm from "@/components/image-form";
+import SpinnerWrapper from "../icon/spinner-wrapper";
+import Spinner from "../icon/spinner";
 
 interface IProps {
   book?: IBookWithTags;
@@ -104,7 +106,11 @@ const Form = ({ book }: IProps) => {
       <div className="px-4 bg-soft-white rounded-xl border-2 border-primary-green">
         <form>
           {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
-          <ImageForm previewImg={bookPreviewImg} register={register("image")} />
+          <ImageForm
+            previewImg={bookPreviewImg}
+            register={register("image")}
+            type="book"
+          />
           <div className="space-y-2">
             <input
               className="c_input"
@@ -122,15 +128,20 @@ const Form = ({ book }: IProps) => {
               {...register("description")}
             />
           </div>
-          {tagsData?.ok && (
+          <div className="mt-3 mb-1">태그를 추가해주세요</div>
+          {tagsData ? (
             <TagInput
               tags={tagsData.tags}
               selectTag={selectTag}
               selectedTags={selectedTags}
             />
+          ) : (
+            <SpinnerWrapper type="block-center" blockHeight={4}>
+              <Spinner width={2} />
+            </SpinnerWrapper>
           )}
         </form>
-        <div className="flex gap-4 justify-center mt-6 mb-8">
+        <div className="flex gap-4 justify-center mb-8">
           <button
             className={`c_button_block_lg w-32 ${
               !watch("title") && "bg-grey-3"

@@ -20,7 +20,9 @@ const BookInfo = ({ books }: IProps) => {
         <div className="relative w-16 h-16">
           <div className="rounded-md overflow-hidden bg-white">
             <ResponsiveImage
-              src={(books?.[0]?.image as string) ?? `${CF_DOMAIN}no_book.png`}
+              src={
+                (books?.[0]?.image as string) ?? `${CF_DOMAIN}icon/no-image.png`
+              }
               alt={(books?.[0]?.title as string) ?? "북커버"}
               aspectRatio="1"
               priority

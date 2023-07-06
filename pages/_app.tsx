@@ -27,7 +27,7 @@ const AuthChecker = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push("/login");
+      router.replace("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);

@@ -93,7 +93,7 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
               <div id="header" style={{ ...headerStyles[status] }} />
             </div>
             <div
-              className="flex-1"
+              className="flex-1 flex flex-col"
               style={{
                 ...pageStyles[status],
               }}

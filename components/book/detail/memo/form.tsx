@@ -89,7 +89,7 @@ const Form = ({
       <div
         className={`bg-soft-white border-b-2 border-r-2 border-l-2 border-primary-green rounded-b-xl px-4shadow-md overflow-hidden shadow-md
         transition-all duration-[1000ms] linear
-        ${isFormOpen ? "h-[174px]" : "h-0 border-b-0"}`}
+        ${isFormOpen ? "h-[174px]" : "h-0"}`}
       >
         <form className="px-4 py-2">
           <div className="bg-white rounded-xl shadow-md p-2 space-y-1">

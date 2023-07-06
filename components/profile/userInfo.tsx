@@ -17,7 +17,7 @@ const UserInfo = ({ user }: IProps) => {
       >
         <div className="rounded-full overflow-hidden max-w-[160px] mx-auto shadow-md border-4 border-soft-white">
           <ResponsiveImage
-            src={(user?.image as string) ?? `${CF_DOMAIN}no_book.png`}
+            src={(user?.image as string) ?? `${CF_DOMAIN}icon/no-image.png`}
             alt={(user.name as string) ?? "프로필 사진"}
             aspectRatio="1"
             priority
