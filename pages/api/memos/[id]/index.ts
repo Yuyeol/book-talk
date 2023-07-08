@@ -17,6 +17,11 @@ export default async function handler(
         id: parseInt(id as string),
       },
     });
+    const likeLength = await prisma.like.count({
+      where: {
+        memoId: parseInt(id as string),
+      },
+    });
     const isLiked = Boolean(
       await prisma.like.findFirst({
         where: {
@@ -33,6 +38,7 @@ export default async function handler(
       ok: true,
       memo,
       isLiked,
+      likeLength,
     });
   } else if (req.method === "POST") {
     const { bookId, id } = req.query;

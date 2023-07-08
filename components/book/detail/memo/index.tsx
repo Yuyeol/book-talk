@@ -19,8 +19,6 @@ const Memo = ({ memo, setSelectedMemoId }: IProps) => {
   // 해당 메모의 작성자인지 확인
   const isOwner = memo.userId === session?.user?.id;
   const { data: memoData } = useMemoData(memo.id);
-  console.log(memoData);
-
   return (
     <div
       ref={ref}
