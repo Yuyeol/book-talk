@@ -5,6 +5,7 @@ import { Memo } from "@prisma/client";
 import Reaction from "@/components/book/detail/memo/reaction";
 import More from "@/components/book/detail/memo/more";
 import { useInView } from "react-intersection-observer";
+import useMemoData from "@/lib/client/useSwr/useMemoData";
 
 interface IProps {
   memo: Memo;
@@ -17,6 +18,8 @@ const Memo = ({ memo, setSelectedMemoId }: IProps) => {
   const [ref, inView] = useInView({ triggerOnce: true });
   // 해당 메모의 작성자인지 확인
   const isOwner = memo.userId === session?.user?.id;
+  const { data: memoData } = useMemoData(memo.id);
+  console.log(memoData);
 
   return (
     <div
@@ -42,7 +45,7 @@ const Memo = ({ memo, setSelectedMemoId }: IProps) => {
           <div className="text-xs text-end border-b-[1px] border-primary-green/30 pb-2 mb-2">
             {getElapsedTime(memo.updatedAt) ?? getElapsedTime(memo.createdAt)}
           </div>
-          <Reaction memoId={memo.id} />
+          {memoData && <Reaction memoId={memo.id} />}
         </div>
       ) : (
         <>a</>

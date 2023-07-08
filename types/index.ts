@@ -27,6 +27,7 @@ export interface IMemosResponse {
 export interface IMemoResponse {
   memo: Memo;
   ok: boolean;
+  isLiked?: boolean;
 }
 export interface IMemoForm {
   page?: number;
