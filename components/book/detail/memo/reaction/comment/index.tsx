@@ -33,6 +33,7 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
   const handleCommentSubmit = () => {
     if (loading) return;
     mutation({ content: commentValue, memoId }, "POST");
+    setCommentValue("");
   };
   const handleCommentDelete = (id: number) => {
     if (loading) return;
