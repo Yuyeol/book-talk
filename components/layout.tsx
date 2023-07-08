@@ -49,17 +49,13 @@ const Layout: React.FC<TransitionKind<React.ReactNode>> = ({
     entering: {
       position: `absolute` as CSSProperties["position"],
       opacity: 0,
-      transform: isBack ? `translateX(-100%)` : `translateX(100%)`,
     },
     entered: {
-      transition: `opacity ${TIMEOUT}ms linear, transform ${TIMEOUT}ms linear`,
       opacity: 1,
       transform: `translateX(0px)`,
     },
     exiting: {
-      transition: `opacity ${TIMEOUT}ms linear, transform ${TIMEOUT}ms linear`,
       opacity: 0,
-      transform: isBack ? `translateX(100%)` : `translateX(-100px)`,
     },
     exited: {},
     unmounted: {},
