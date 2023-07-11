@@ -25,7 +25,6 @@ const BookInfo = ({ books }: IProps) => {
               }
               alt={(books?.[0]?.title as string) ?? "북커버"}
               aspectRatio="1"
-              priority
             />
           </div>
           <div className="absolute top-0 right-0 translate-x-[50%] translate-y-[-50%] px-1 min-w-[16px] inline-block text-center my-auto rounded-full bg-primary-green text-soft-white text-xs">

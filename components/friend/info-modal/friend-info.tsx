@@ -19,7 +19,6 @@ const FriendInfo = ({ friend }: IProps) => {
             src={(friend?.image as string) ?? `${CF_DOMAIN}icon/no-image.png`}
             alt={(friend?.name as string) ?? "프로필 사진"}
             aspectRatio="1"
-            priority
           />
         </div>
       </div>

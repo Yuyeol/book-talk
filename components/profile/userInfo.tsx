@@ -20,7 +20,6 @@ const UserInfo = ({ user }: IProps) => {
             src={(user?.image as string) ?? `${CF_DOMAIN}icon/no-image.png`}
             alt={(user.name as string) ?? "프로필 사진"}
             aspectRatio="1"
-            priority
           />
         </div>
       </div>

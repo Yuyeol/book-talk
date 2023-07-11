@@ -38,7 +38,6 @@ const ImageForm = ({ previewImg, register, type }: IProps) => {
               alt="book-image"
               aspectRatio="1"
               objectFit={type === "profile" ? "cover" : "contain"}
-              priority
             />
           </label>
           <FileInput register={register} id="book-image_change" />

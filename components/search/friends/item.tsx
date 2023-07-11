@@ -15,7 +15,6 @@ const Item = ({ user, isFriend, onClickFriend }: IProps) => {
           src={user.image || `${CF_DOMAIN}icon/no-image.png`}
           alt={user.name || "프로필사진"}
           aspectRatio="1"
-          priority
           objectFit="contain"
         />
       </div>

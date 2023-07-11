@@ -24,7 +24,6 @@ const BookInfo = ({ memo }: IProps) => {
                 src={userData.user.image || `${CF_DOMAIN}icon/no-image.png`}
                 alt={userData.user.name || "no book"}
                 aspectRatio="1"
-                priority
                 objectFit="contain"
               />
             </div>
@@ -34,7 +33,7 @@ const BookInfo = ({ memo }: IProps) => {
             </div>
           </div>
         ) : (
-          <div className="w-12 h-12 flex justify-center items-center">
+          <div className="w-5 h-5 flex justify-center items-center">
             <Spinner width={1} />
           </div>
         )}
@@ -47,7 +46,6 @@ const BookInfo = ({ memo }: IProps) => {
                 src={bookData.book.image || `${CF_DOMAIN}icon/no-image.png`}
                 alt={bookData.book.title || "no book"}
                 aspectRatio="1"
-                priority
                 objectFit="contain"
               />
             </div>

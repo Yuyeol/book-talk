@@ -35,7 +35,6 @@ const Item = ({ book }: IProps) => {
             src={book.image || `${CF_DOMAIN}icon/no-image.png`}
             alt={book.title}
             aspectRatio="1"
-            priority
             objectFit="contain"
           />
         </div>
