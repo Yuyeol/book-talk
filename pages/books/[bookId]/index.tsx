@@ -12,6 +12,9 @@ import { useState } from "react";
 import SpinnerWrapper from "@/components/icon/spinner-wrapper";
 import Spinner from "@/components/icon/spinner";
 import { useInView } from "react-intersection-observer";
+import Seo from "@/components/Seo";
+
+const TITLE = "독서 노트";
 
 const BookDetail = () => {
   const { data: session } = useSession();
@@ -29,7 +32,8 @@ const BookDetail = () => {
 
   return (
     <>
-      <Header col1={<TitleCol hasBackBtn>독서 노트</TitleCol>} />
+      <Seo title={TITLE} />
+      <Header col1={<TitleCol hasBackBtn>{TITLE}</TitleCol>} />
       <div className="mb-12">
         {bookData && memosData ? (
           <>

@@ -9,6 +9,9 @@ import {
 } from "@/constants";
 import { signIn, useSession } from "next-auth/react";
 import { motion } from "framer-motion";
+import Seo from "@/components/Seo";
+
+const TITLE = "로그인";
 
 export default function Login() {
   const { data: session } = useSession();
@@ -21,6 +24,7 @@ export default function Login() {
           </>
         ) : (
           <>
+            <Seo title={TITLE} />
             <Thumbnail />
             <div className="flex flex-col gap-y-2 mt-auto">
               {/*  <button

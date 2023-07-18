@@ -17,6 +17,9 @@ import BlankNotice from "@/components/blank-notice";
 import FriendsIcon from "@/components/icon/friends";
 import Button from "@/components/blank-notice/button";
 import { useRouter } from "next/router";
+import Seo from "@/components/Seo";
+
+const TITLE = "친구";
 
 const Friends = () => {
   const { data: session } = useSession();
@@ -25,8 +28,9 @@ const Friends = () => {
 
   return (
     <>
+      <Seo title={TITLE} />
       <Header
-        col1={<TitleCol>친구</TitleCol>}
+        col1={<TitleCol>{TITLE}</TitleCol>}
         col2={
           <ToolsCol>
             <Link href="/friends/search">

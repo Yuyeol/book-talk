@@ -8,6 +8,9 @@ import useBooks from "@/lib/client/useSwr/useBooks";
 import { useSession } from "next-auth/react";
 import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
+import Seo from "@/components/Seo";
+
+const TITLE = "내 책 찾기";
 
 const Search = () => {
   const { data: session } = useSession();
@@ -54,7 +57,8 @@ const Search = () => {
   );
   return (
     <>
-      <Header col1={<TitleCol>내 책 찾기</TitleCol>} />
+      <Seo title={TITLE} />
+      <Header col1={<TitleCol>{TITLE}</TitleCol>} />
       <div className="p-4">
         <div className="bg-soft-white p-4 clear-left rounded-xl border-2 border-primary-green">
           <Form

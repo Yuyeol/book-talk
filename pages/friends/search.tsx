@@ -11,6 +11,9 @@ import Header from "@/components/header";
 import TitleCol from "@/components/header/title-col";
 import useUser from "@/lib/client/useSwr/useUser";
 import { useRouter } from "next/router";
+import Seo from "@/components/Seo";
+
+const TITLE = "친구 찾기";
 
 const Search = () => {
   const router = useRouter();
@@ -82,7 +85,8 @@ const Search = () => {
   }, [friendResData]);
   return (
     <>
-      <Header col1={<TitleCol hasBackBtn>친구 찾기</TitleCol>} />
+      <Seo title={TITLE} />
+      <Header col1={<TitleCol hasBackBtn>{TITLE}</TitleCol>} />
       <div className="p-4">
         <div className="bg-soft-white p-4 clear-left rounded-xl border-2 border-primary-green">
           <Form

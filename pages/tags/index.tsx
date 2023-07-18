@@ -8,6 +8,9 @@ import Form from "@/components/tags/form";
 import { useState } from "react";
 import SpinnerWrapper from "@/components/icon/spinner-wrapper";
 import Spinner from "@/components/icon/spinner";
+import Seo from "@/components/Seo";
+
+const TITLE = "태그";
 
 const Tags = () => {
   const { data: session } = useSession();
@@ -17,7 +20,8 @@ const Tags = () => {
 
   return (
     <>
-      <Header col1={<TitleCol>태그</TitleCol>} />
+      <Seo title={TITLE} />
+      <Header col1={<TitleCol>{TITLE}</TitleCol>} />
       <div className="px-4">
         <div className="py-2 text-xl font-bold">태그 목록</div>
         {data ? (

@@ -19,6 +19,9 @@ import Book from "@/components/icon/book";
 import BlankNotice from "@/components/blank-notice";
 import Button from "@/components/blank-notice/button";
 import { useRouter } from "next/router";
+import Seo from "@/components/Seo";
+
+const TITLE = "독서중";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -27,8 +30,9 @@ const Home = () => {
 
   return (
     <>
+      <Seo title={TITLE} />
       <Header
-        col1={<TitleCol>독서중</TitleCol>}
+        col1={<TitleCol>{TITLE}</TitleCol>}
         col2={
           <ToolsCol>
             <Link href="/books/upload">
