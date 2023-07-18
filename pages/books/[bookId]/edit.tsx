@@ -12,7 +12,7 @@ const Edit = () => {
 
   return (
     <>
-      <Header col1={<TitleCol hasBackBtn>Edit Book</TitleCol>} />
+      <Header col1={<TitleCol hasBackBtn>내 책 수정</TitleCol>} />
       <Form book={data?.book} />
     </>
   );

@@ -5,7 +5,7 @@ import Form from "@/components/book/form";
 const Upload = () => {
   return (
     <>
-      <Header col1={<TitleCol hasBackBtn>Upload Book</TitleCol>} />
+      <Header col1={<TitleCol hasBackBtn>내 책 등록</TitleCol>} />
       <Form />
     </>
   );

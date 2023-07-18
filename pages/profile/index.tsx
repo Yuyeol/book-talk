@@ -14,7 +14,7 @@ const Profile = () => {
   const { data } = useUser(session?.user?.id as string);
   return (
     <div className="mb-8">
-      <Header col1={<TitleCol>Profile</TitleCol>} />
+      <Header col1={<TitleCol>프로필</TitleCol>} />
       {/* 지금은 데이터를 밖에 빼놨지만, 로딩 처리하려면 data를 안에서 선택렌더링 해야할듯 */}
       {data ? (
         <>

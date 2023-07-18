@@ -54,7 +54,7 @@ const Search = () => {
   );
   return (
     <>
-      <Header col1={<TitleCol>내 책 검색</TitleCol>} />
+      <Header col1={<TitleCol>내 책 찾기</TitleCol>} />
       <div className="p-4">
         <div className="bg-soft-white p-4 clear-left rounded-xl border-2 border-primary-green">
           <Form

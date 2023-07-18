@@ -29,7 +29,7 @@ const BookDetail = () => {
 
   return (
     <>
-      <Header col1={<TitleCol hasBackBtn>Book Detail</TitleCol>} />
+      <Header col1={<TitleCol hasBackBtn>독서 노트</TitleCol>} />
       <div className="mb-12">
         {bookData && memosData ? (
           <>

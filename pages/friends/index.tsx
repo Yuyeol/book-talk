@@ -26,7 +26,7 @@ const Friends = () => {
   return (
     <>
       <Header
-        col1={<TitleCol>Friends</TitleCol>}
+        col1={<TitleCol>친구</TitleCol>}
         col2={
           <ToolsCol>
             <Link href="/friends/search">
