@@ -9,9 +9,10 @@ interface IProps {
   memoId: number;
   bookId: number;
   setSelectedMemoId: (id: number) => void;
+  setIsFormOpen: (state: boolean) => void;
 }
 
-const More = ({ memoId, setSelectedMemoId }: IProps) => {
+const More = ({ memoId, setSelectedMemoId, setIsFormOpen }: IProps) => {
   const router = useRouter();
   const [isMoreOpened, setIsMoreOpened] = useState(false);
 
@@ -58,6 +59,7 @@ const More = ({ memoId, setSelectedMemoId }: IProps) => {
             onClick={() => {
               setIsMoreOpened(false);
               setSelectedMemoId(memoId);
+              setIsFormOpen(true);
             }}
           >
             수정

@@ -57,6 +57,7 @@ const BookDetail = () => {
                 key={memo.id}
                 memo={memo}
                 setSelectedMemoId={setSelectedMemoId}
+                setIsFormOpen={setIsFormOpen}
               />
             ))}
           </>

@@ -24,7 +24,9 @@ const UserInfo = ({ user }: IProps) => {
         </div>
       </div>
       <div className="text-center px-4">
-        <div className="font-semibold text-3xl">{user.name}</div>
+        <div className="font-semibold text-3xl">
+          {user.nickname || user.name}
+        </div>
         <div className="text-xl">{user.bio}</div>
       </div>
     </>

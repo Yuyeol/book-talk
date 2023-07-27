@@ -11,9 +11,10 @@ interface IProps {
   memo: Memo;
   // social은 selectedMemo가 없으므로 이것으로 social과 bookDetail을 구분
   setSelectedMemoId?: (id: number) => void;
+  setIsFormOpen: (state: boolean) => void;
 }
 
-const Memo = ({ memo, setSelectedMemoId }: IProps) => {
+const Memo = ({ memo, setSelectedMemoId, setIsFormOpen }: IProps) => {
   const { data: session } = useSession();
   const [ref, inView] = useInView({ triggerOnce: true });
   // 해당 메모의 작성자인지 확인
@@ -36,6 +37,7 @@ const Memo = ({ memo, setSelectedMemoId }: IProps) => {
                 memoId={memo.id}
                 bookId={memo.bookId as number}
                 setSelectedMemoId={setSelectedMemoId}
+                setIsFormOpen={setIsFormOpen}
               />
             )}
           </div>
