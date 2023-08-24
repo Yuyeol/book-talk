@@ -1,14 +1,14 @@
 # 공유하는 책 메모장 [공책]
 
-## 서비스 링크
+## Service link
 [공책 (바로가기)](https://book-talk.vercel.app/)
 
-## 프로젝트 소개
+## Introduction
 기록한 독서 메모를 공유하여 소통하는 SNS서비스입니다.
 자세한 내용은 다음 [링크 (바로가기)](https://www.notion.so/d373022633214eeca80b658f562f358b?pvs=4)에서 확인 가능합니다.
 
 ---
-## Stacks 🐈
+## Skill 🐈
 
 ### Environment
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
