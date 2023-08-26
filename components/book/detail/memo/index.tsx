@@ -11,7 +11,7 @@ interface IProps {
   memo: Memo;
   // social은 selectedMemo가 없으므로 이것으로 social과 bookDetail을 구분
   setSelectedMemoId?: (id: number) => void;
-  setIsFormOpen: (state: boolean) => void;
+  setIsFormOpen?: (state: boolean) => void;
 }
 
 const Memo = ({ memo, setSelectedMemoId, setIsFormOpen }: IProps) => {
@@ -32,7 +32,7 @@ const Memo = ({ memo, setSelectedMemoId, setIsFormOpen }: IProps) => {
           {!setSelectedMemoId && <BookInfo memo={memo} />}
           <div className="flex items-center justify-between text-xs pb-2 mb-1">
             <div className="">Page. {memo.page}</div>
-            {isOwner && setSelectedMemoId && (
+            {isOwner && setSelectedMemoId && setIsFormOpen && (
               <More
                 memoId={memo.id}
                 bookId={memo.bookId as number}
