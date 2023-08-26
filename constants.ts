@@ -24,3 +24,7 @@ export const GREY_1 = "#F6F6F6";
 export const GREY_2 = "#E8E8E8";
 export const GREY_3 = "#BDBDBD";
 export const YELLOW_1 = "#FFDA14";
+
+// animation
+export const LOGIN_INITIAL_DELAY = 0.5;
+export const LOGIN_DELAY_INTERVAL = 1.2;

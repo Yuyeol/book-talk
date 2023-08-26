@@ -33,6 +33,7 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
   const handleCommentSubmit = () => {
     if (loading) return;
     mutation({ content: commentValue, memoId }, "POST");
+    setCommentValue("");
   };
   const handleCommentDelete = (id: number) => {
     if (loading) return;
@@ -108,11 +109,10 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
                     <ResponsiveImage
                       src={
                         (comment.user?.image as string) ??
-                        `${CF_DOMAIN}no_book.png`
+                        `${CF_DOMAIN}icon/no-image.png`
                       }
                       alt={(comment.user?.name as string) ?? "프로필사진"}
                       aspectRatio="1"
-                      priority
                     />
                   </div>
                   <div className="flex-1">

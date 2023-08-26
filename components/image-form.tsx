@@ -2,10 +2,11 @@ import ResponsiveImage from "@/components/core/responsive-image";
 import Book from "@/components/icon/book";
 import { PRIMARY_GREEN } from "@/constants";
 import { UseFormRegisterReturn } from "react-hook-form";
+import Profile from "@/components/icon/profile";
 interface IProps {
   previewImg: string;
   register: UseFormRegisterReturn;
-  imageFit?: "contain" | "cover";
+  type: "profile" | "book";
 }
 
 const FileInput = ({
@@ -26,7 +27,7 @@ const FileInput = ({
   );
 };
 
-const ImageForm = ({ previewImg, register, imageFit = "contain" }: IProps) => {
+const ImageForm = ({ previewImg, register, type }: IProps) => {
   return (
     <div className="relative max-w-xs mx-auto mt-8 p-4">
       {previewImg ? (
@@ -36,8 +37,7 @@ const ImageForm = ({ previewImg, register, imageFit = "contain" }: IProps) => {
               src={previewImg}
               alt="book-image"
               aspectRatio="1"
-              objectFit={imageFit}
-              priority
+              objectFit={type === "profile" ? "cover" : "contain"}
             />
           </label>
           <FileInput register={register} id="book-image_change" />
@@ -47,10 +47,16 @@ const ImageForm = ({ previewImg, register, imageFit = "contain" }: IProps) => {
           <label htmlFor="book-image">
             <div className="aspect-[1] border-dotted border-4 border-primary-green rounded-xl flex flex-col justify-center items-center">
               <div className="bg-white border-4 border-primary-green p-2 rounded-xl">
-                <Book width={4} color={PRIMARY_GREEN} />
+                {type === "profile" ? (
+                  <Profile width={4} color={PRIMARY_GREEN} />
+                ) : (
+                  <Book width={4} color={PRIMARY_GREEN} />
+                )}
               </div>
               <div className="mt-3 text-soft-black font-semibold text-center">
-                이미지를
+                {type === "profile"
+                  ? "변경할 프로필 이미지를"
+                  : "북커버 이미지를"}
                 <br />
                 업로드 해주세요
               </div>

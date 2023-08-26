@@ -109,7 +109,6 @@ const Form = ({ tag, isFormOpen, setSelectedTag, setIsFormOpen }: IProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tagResData]);
-
   return (
     <>
       <button
@@ -136,8 +135,16 @@ const Form = ({ tag, isFormOpen, setSelectedTag, setIsFormOpen }: IProps) => {
                 이름
                 <input className="c_input flex-1 my-2" {...register("name")} />
               </div>
-              <Palete formType="background" selectColor={selectColor} />
-              <Palete formType="text" selectColor={selectColor} />
+              <Palete
+                formType="background"
+                selectColor={selectColor}
+                currentColor={tagColor.background}
+              />
+              <Palete
+                formType="text"
+                selectColor={selectColor}
+                currentColor={tagColor.text}
+              />
             </form>
             <div
               className="w-fit px-2 text-white rounded-lg bg-slate-800 my-2"

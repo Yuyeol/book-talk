@@ -12,10 +12,9 @@ const Item = ({ book }: IProps) => {
     <Link href={`/books/${book.id}`} className="flex py-1 space-x-2 mb-1">
       <div className="w-12 h-12 bg-white rounded-lg overflow-hidden">
         <ResponsiveImage
-          src={book.image || `${CF_DOMAIN}no_book.png`}
+          src={book.image || `${CF_DOMAIN}icon/no-image.png`}
           alt={book.title}
           aspectRatio="1"
-          priority
           objectFit="contain"
         />
       </div>

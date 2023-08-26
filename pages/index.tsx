@@ -3,11 +3,9 @@ import Link from "next/link";
 import {
   HEADER_ICON_WIDTH,
   HEADER_ICON_COLOR,
-  HEADER_HEIGHT,
-  NAVBAR_HEIGHT,
+  PRIMARY_GREEN,
 } from "@/constants";
 import Search from "@/components/icon/search";
-import Filter from "@/components/icon/filter";
 import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
@@ -16,15 +14,25 @@ import useBooks from "@/lib/client/useSwr/useBooks";
 import { IBookWithTags } from "@/types";
 import Spinner from "@/components/icon/spinner";
 import Item from "@/components/book/item";
+import SpinnerWrapper from "@/components/icon/spinner-wrapper";
+import Book from "@/components/icon/book";
+import BlankNotice from "@/components/blank-notice";
+import Button from "@/components/blank-notice/button";
+import { useRouter } from "next/router";
+import Seo from "@/components/Seo";
+
+const TITLE = "독서중";
 
 const Home = () => {
   const { data: session } = useSession();
   const { data } = useBooks(session?.user?.id);
+  const router = useRouter();
 
   return (
     <>
+      <Seo title={TITLE} />
       <Header
-        col1={<TitleCol>독서중</TitleCol>}
+        col1={<TitleCol>{TITLE}</TitleCol>}
         col2={
           <ToolsCol>
             <Link href="/books/upload">
@@ -33,27 +41,43 @@ const Home = () => {
             <Link href="/books/search">
               <Search width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
             </Link>
-            <button>
-              <Filter width={HEADER_ICON_WIDTH} color={HEADER_ICON_COLOR} />
-            </button>
           </ToolsCol>
         }
       />
       {data ? (
-        <ul className="p-4 space-y-4">
-          {data.books.map((book: IBookWithTags) => (
-            <Item key={book.id} book={book} />
-          ))}
-        </ul>
+        <>
+          {data.books.length === 0 ? (
+            <BlankNotice
+              icon={<Book width={6} color={PRIMARY_GREEN} />}
+              mainDescription={"등록된 책이 없습니다."}
+              subDescription={
+                <>
+                  읽고있는 책을 등록하여
+                  <br />
+                  나만의 기록을 남겨보세요.
+                </>
+              }
+              button={
+                <Button
+                  text="등록하기"
+                  onClick={() => {
+                    router.push("/books/upload");
+                  }}
+                />
+              }
+            />
+          ) : (
+            <ul className="p-4 space-y-4">
+              {data.books.map((book: IBookWithTags) => (
+                <Item key={book.id} book={book} />
+              ))}
+            </ul>
+          )}
+        </>
       ) : (
-        <div
-          className="absolute w-full h-screen flex justify-center items-center"
-          style={{
-            transform: `translateY(-${HEADER_HEIGHT + NAVBAR_HEIGHT}rem)`,
-          }}
-        >
+        <SpinnerWrapper type="screen-center">
           <Spinner />
-        </div>
+        </SpinnerWrapper>
       )}
     </>
   );

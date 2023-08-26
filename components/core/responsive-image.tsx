@@ -5,7 +5,7 @@ export default function ResponsiveImage({
   alt,
   aspectRatio,
   objectFit = "cover",
-  priority,
+  priority = false,
 }: {
   src: string;
   alt: string;

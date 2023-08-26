@@ -20,11 +20,11 @@ const More = ({ friendId, setIsModalOpen }: IProps) => {
   const { data: session } = useSession();
   const { mutate } = useUser(session?.user?.id as string);
   const { mutation, data, loading } = useMutation(
-    `/api/users/${session?.user?.id}/friends/delete`
+    `/api/users/${session?.user?.id}/friends`
   );
   const removeFriend = () => {
     if (loading) return;
-    mutation({ friendId }, "POST");
+    mutation({ friendId, action: "remove" }, "POST");
   };
   useEffect(() => {
     if (data) {

@@ -1,6 +1,7 @@
 import ImageForm from "@/components/image-form";
 import uploadImageToS3 from "@/lib/client/uploadImageToS3";
 import useMutation from "@/lib/client/useMutation";
+import useUsers from "@/lib/client/useSwr/useUsers";
 import { IProfileForm } from "@/types";
 import { User } from "@prisma/client";
 import { useRouter } from "next/router";
@@ -16,6 +17,7 @@ const Form = ({ user }: IProps) => {
 
   const { register, watch, handleSubmit, setValue } = useForm<IProfileForm>();
   const { mutation, loading } = useMutation("/api/users");
+  const { mutate } = useUsers();
   const [profilePreviewImg, setProfilePreviewImg] = useState("");
 
   const onSubmit = async ({ nickname, bio, image }: IProfileForm) => {
@@ -34,6 +36,8 @@ const Form = ({ user }: IProps) => {
       },
       "POST"
     );
+    mutate();
+    router.push("/profile");
   };
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const Form = ({ user }: IProps) => {
           <ImageForm
             previewImg={profilePreviewImg}
             register={register("image")}
-            imageFit={"cover"}
+            type="profile"
           />
           <div className="space-y-2">
             <input
