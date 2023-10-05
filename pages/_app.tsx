@@ -1,8 +1,6 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
-import { Provider } from "react-redux";
-import { store } from "@/app/store";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "@/components/layout";
@@ -11,11 +9,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <AuthChecker>
-        <Provider store={store}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </Provider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </AuthChecker>
     </SessionProvider>
   );
