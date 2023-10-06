@@ -25,6 +25,7 @@ export default async function handler(
           nickname: true,
           image: true,
           friendsTo: {
+            orderBy: [{ nickname: "desc" }, { name: "desc" }],
             include: {
               books: true,
             },

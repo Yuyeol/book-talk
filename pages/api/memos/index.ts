@@ -21,7 +21,11 @@ export default async function handler(
         memos,
       });
     } else {
-      const memos = await prisma.memo.findMany({});
+      const memos = await prisma.memo.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
       res.status(200).json({
         ok: true,
         memos,

@@ -12,6 +12,9 @@ export default async function handler(
 
     if (userId) {
       const books = await prisma.book.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
         where: {
           userId: userId as string,
         },
