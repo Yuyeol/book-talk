@@ -28,6 +28,8 @@ const TITLE = "독서중";
 const Home = () => {
   const { data: session } = useSession();
   const { data, size, setSize } = useBooksWithInfinite(session?.user?.id);
+  console.log(data);
+
   const router = useRouter();
   const [ref, inView] = useInView({});
   useEffect(() => {
@@ -83,7 +85,6 @@ const Home = () => {
                 ))
               )}
               <div ref={ref} />
-              <button onClick={() => setSize(size + 1)}>더보기</button>
             </ul>
           )}
         </>
