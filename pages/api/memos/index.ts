@@ -8,7 +8,7 @@ export default async function handler(
   if (req.method === "GET") {
     // 내 book에 해당하는 메모들만 가져오기
     const {
-      query: { bookId },
+      query: { bookId, page, limit },
     } = req;
     if (bookId) {
       const memos = await prisma.memo.findMany({
@@ -21,7 +21,15 @@ export default async function handler(
         memos,
       });
     } else {
-      const memos = await prisma.memo.findMany({});
+      const memos = await prisma.memo.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: limit ? parseInt(limit as string) : undefined,
+        skip: limit
+          ? parseInt(page as string) * parseInt(limit as string)
+          : undefined,
+      });
       res.status(200).json({
         ok: true,
         memos,

@@ -11,11 +11,11 @@
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.6",
     "@prisma/client": "^4.13.0",
-    "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "18.15.10",
     "@types/react": "18.0.30",
     "@types/react-dom": "18.0.11",
     "aws-sdk": "^2.1366.0",
+    "browser-image-compression": "^2.0.2",
     "dayjs": "^1.11.7",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",

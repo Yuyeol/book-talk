@@ -2,9 +2,9 @@ import useMutation from "@/lib/client/useMutation";
 import { useRouter } from "next/router";
 import { IBookWithTags } from "@/types";
 import { useEffect, useState } from "react";
-import useBooks from "@/lib/client/useSwr/useBooks";
 import Dots from "@/components/icon/dots";
 import { PRIMARY_GREEN, SOFT_WHITE } from "@/constants";
+import useBooksWithInfinite from "@/lib/client/useSwr/useBooksWithInfinite";
 
 interface IProps {
   book: IBookWithTags;
@@ -18,7 +18,7 @@ const More = ({ book }: IProps) => {
     e.preventDefault();
     setIsMoreOpened(!isMoreOpened);
   };
-  const { mutate } = useBooks(book.userId);
+  const { mutate } = useBooksWithInfinite(book.userId);
   const {
     mutation,
     loading,

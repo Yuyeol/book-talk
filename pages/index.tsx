@@ -10,7 +10,6 @@ import ToolsCol from "@/components/header/tools-col";
 import TitleCol from "@/components/header/title-col";
 import Header from "@/components/header";
 import { useSession } from "next-auth/react";
-import useBooks from "@/lib/client/useSwr/useBooks";
 import { IBookWithTags } from "@/types";
 import Spinner from "@/components/icon/spinner";
 import Item from "@/components/book/item";
@@ -20,13 +19,25 @@ import BlankNotice from "@/components/blank-notice";
 import Button from "@/components/blank-notice/button";
 import { useRouter } from "next/router";
 import Seo from "@/components/Seo";
+import useBooksWithInfinite from "@/lib/client/useSwr/useBooksWithInfinite";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
 const TITLE = "독서중";
 
 const Home = () => {
   const { data: session } = useSession();
-  const { data } = useBooks(session?.user?.id);
+  const { data, size, setSize } = useBooksWithInfinite(session?.user?.id);
+  console.log(data);
+
   const router = useRouter();
+  const [ref, inView] = useInView({});
+  useEffect(() => {
+    if (inView) {
+      setSize(size + 1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
 
   return (
     <>
@@ -46,7 +57,7 @@ const Home = () => {
       />
       {data ? (
         <>
-          {data.books.length === 0 ? (
+          {data[0].books.length === 0 ? (
             <BlankNotice
               icon={<Book width={6} color={PRIMARY_GREEN} />}
               mainDescription={"등록된 책이 없습니다."}
@@ -68,9 +79,12 @@ const Home = () => {
             />
           ) : (
             <ul className="p-4 space-y-4">
-              {data.books.map((book: IBookWithTags) => (
-                <Item key={book.id} book={book} />
-              ))}
+              {data.map((page) =>
+                page.books.map((book: IBookWithTags) => (
+                  <Item key={book.id} book={book} />
+                ))
+              )}
+              <div ref={ref} />
             </ul>
           )}
         </>

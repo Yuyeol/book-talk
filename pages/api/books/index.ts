@@ -7,48 +7,34 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const {
-      query: { userId },
+      query: { userId, page, limit },
     } = req;
-
-    if (userId) {
-      const books = await prisma.book.findMany({
-        where: {
-          userId: userId as string,
-        },
-        select: {
-          id: true,
-          author: true,
-          title: true,
-          image: true,
-          createdAt: true,
-          updatedAt: true,
-          description: true,
-          tags: true,
-          userId: true,
-        },
-      });
-      res.status(200).json({
-        ok: true,
-        books,
-      });
-    } else {
-      const books = await prisma.book.findMany({
-        select: {
-          id: true,
-          author: true,
-          title: true,
-          image: true,
-          createdAt: true,
-          updatedAt: true,
-          description: true,
-          tags: true,
-          userId: true,
-        },
-      });
-      res.status(200).json({
-        ok: true,
-        books,
-      });
-    }
+    const books = await prisma.book.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      where: {
+        userId: userId as string,
+      },
+      select: {
+        id: true,
+        author: true,
+        title: true,
+        image: true,
+        createdAt: true,
+        updatedAt: true,
+        description: true,
+        tags: true,
+        userId: true,
+      },
+      take: limit ? parseInt(limit as string) : undefined,
+      skip: limit
+        ? parseInt(page as string) * parseInt(limit as string)
+        : undefined,
+    });
+    res.status(200).json({
+      ok: true,
+      books,
+    });
   }
 }
