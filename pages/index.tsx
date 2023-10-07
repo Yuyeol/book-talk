@@ -21,21 +21,30 @@ import { useRouter } from "next/router";
 import Seo from "@/components/Seo";
 import useBooksWithInfinite from "@/lib/client/useSwr/useBooksWithInfinite";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+export const BOOKS_PER_PAGE = 2;
 const TITLE = "독서중";
 
 const Home = () => {
   const { data: session } = useSession();
   const { data, size, setSize } = useBooksWithInfinite(session?.user?.id);
+  const [reachedEnd, setReachedEnd] = useState(false);
   const router = useRouter();
   const [ref, inView] = useInView({});
   useEffect(() => {
+    if (reachedEnd) return;
     if (inView) {
       setSize(size + 1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
+  useEffect(() => {
+    if (data) {
+      const clonedData = [...data];
+      setReachedEnd(clonedData.reverse()[0].books.length !== BOOKS_PER_PAGE);
+    }
+  }, [data]);
 
   return (
     <>

@@ -8,6 +8,7 @@ import useMemosWithInfinite from "@/lib/client/useSwr/useMemosWithInfinite";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 
+export const MEMOS_PER_PAGE = 3;
 const TITLE = "소셜";
 
 const Social = () => {
@@ -22,7 +23,7 @@ const Social = () => {
   useEffect(() => {
     if (data) {
       const clonedData = [...data];
-      setReachedEnd(clonedData.reverse()[0].memos.length !== 3);
+      setReachedEnd(clonedData.reverse()[0].memos.length !== MEMOS_PER_PAGE);
     }
   }, [data]);
 
