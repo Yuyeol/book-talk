@@ -28,8 +28,6 @@ const TITLE = "독서중";
 const Home = () => {
   const { data: session } = useSession();
   const { data, size, setSize } = useBooksWithInfinite(session?.user?.id);
-  console.log(data);
-
   const router = useRouter();
   const [ref, inView] = useInView({});
   useEffect(() => {
