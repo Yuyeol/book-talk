@@ -6,19 +6,26 @@ import SpinnerWrapper from "@/components/icon/spinner-wrapper";
 import Seo from "@/components/Seo";
 import useMemosWithInfinite from "@/lib/client/useSwr/useMemosWithInfinite";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+export const MEMOS_PER_PAGE = 3;
 const TITLE = "소셜";
 
 const Social = () => {
   const { data, size, setSize } = useMemosWithInfinite();
+  const [reachedEnd, setReachedEnd] = useState(false);
   const [ref, inView] = useInView({});
   useEffect(() => {
-    if (inView) {
-      setSize(size + 1);
-    }
+    if (reachedEnd) return;
+    if (inView) setSize(size + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
+  useEffect(() => {
+    if (data) {
+      const clonedData = [...data];
+      setReachedEnd(clonedData.reverse()[0].memos.length !== MEMOS_PER_PAGE);
+    }
+  }, [data]);
 
   return (
     <>
@@ -29,7 +36,7 @@ const Social = () => {
           {data.map((page) =>
             page.memos.map((memo) => <Memo memo={memo} key={memo.id} />)
           )}
-          <div ref={ref} />
+          <div ref={ref}></div>
         </ul>
       ) : (
         <SpinnerWrapper type="screen-center">

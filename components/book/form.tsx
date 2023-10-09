@@ -12,6 +12,7 @@ import useBook from "@/lib/client/useSwr/useBook";
 import ImageForm from "@/components/image-form";
 import SpinnerWrapper from "../icon/spinner-wrapper";
 import Spinner from "../icon/spinner";
+import LoadingModal from "../loading-modal";
 
 interface IProps {
   book?: IBookWithTags;
@@ -102,63 +103,66 @@ const Form = ({ book }: IProps) => {
   }, [bookResData]);
 
   return (
-    <div className="p-6">
-      <div className="px-4 bg-soft-white rounded-xl border-2 border-primary-green">
-        <form>
-          {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
-          <ImageForm
-            previewImg={bookPreviewImg}
-            register={register("image")}
-            type="book"
-          />
-          <div className="space-y-2">
-            <input
-              className="c_input"
-              placeholder="책 제목"
-              {...register("title")}
+    <>
+      <LoadingModal isLoading={loading} />
+      <div className="p-6">
+        <div className="px-4 bg-soft-white rounded-xl border-2 border-primary-green">
+          <form>
+            {/* 이미지 인풋 확인되면 작아지면서 나머지 Input들 노출됨 */}
+            <ImageForm
+              previewImg={bookPreviewImg}
+              register={register("image")}
+              type="book"
             />
-            <input
-              className="c_input"
-              placeholder="글쓴이"
-              {...register("author")}
-            />
-            <input
-              className="c_input"
-              placeholder="설명"
-              {...register("description")}
-            />
+            <div className="space-y-2">
+              <input
+                className="c_input"
+                placeholder="책 제목"
+                {...register("title")}
+              />
+              <input
+                className="c_input"
+                placeholder="글쓴이"
+                {...register("author")}
+              />
+              <input
+                className="c_input"
+                placeholder="설명"
+                {...register("description")}
+              />
+            </div>
+            <div className="mt-3 mb-1">태그를 추가해주세요</div>
+            {tagsData ? (
+              <TagInput
+                tags={tagsData.tags}
+                selectTag={selectTag}
+                selectedTags={selectedTags}
+              />
+            ) : (
+              <SpinnerWrapper type="block-center" blockHeight={4}>
+                <Spinner width={2} />
+              </SpinnerWrapper>
+            )}
+          </form>
+          <div className="flex gap-4 justify-center mb-8">
+            <button
+              className={`c_button_block_lg w-32 ${
+                !watch("title") && "bg-grey-3"
+              }`}
+              onClick={handleSubmit(onSubmit)}
+            >
+              완료
+            </button>
+            <button
+              className="c_button_block_lg w-32"
+              onClick={() => router.back()}
+            >
+              취소
+            </button>
           </div>
-          <div className="mt-3 mb-1">태그를 추가해주세요</div>
-          {tagsData ? (
-            <TagInput
-              tags={tagsData.tags}
-              selectTag={selectTag}
-              selectedTags={selectedTags}
-            />
-          ) : (
-            <SpinnerWrapper type="block-center" blockHeight={4}>
-              <Spinner width={2} />
-            </SpinnerWrapper>
-          )}
-        </form>
-        <div className="flex gap-4 justify-center mb-8">
-          <button
-            className={`c_button_block_lg w-32 ${
-              !watch("title") && "bg-grey-3"
-            }`}
-            onClick={handleSubmit(onSubmit)}
-          >
-            완료
-          </button>
-          <button
-            className="c_button_block_lg w-32"
-            onClick={() => router.back()}
-          >
-            취소
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Form;

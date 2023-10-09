@@ -68,6 +68,7 @@ const Form = ({ tag, isFormOpen, setSelectedTag, setIsFormOpen }: IProps) => {
     if (!inputs.name) return alert("태그 이름을 입력해주세요");
     mutation({ ...inputs, ...tagColor }, "POST");
     clearForm();
+    setIsFormOpen(false);
   };
   const deleteTag = () => {
     if (loading) return;

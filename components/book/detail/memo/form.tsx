@@ -49,6 +49,7 @@ const Form = ({
     if (loading) return;
     mutation({ page, content }, "POST");
     clearForm();
+    setIsFormOpen(false);
   };
 
   useEffect(() => {

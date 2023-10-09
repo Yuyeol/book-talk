@@ -6,7 +6,7 @@ interface IProps {
 const Counter = ({ type, length }: IProps) => {
   return (
     <>
-      {length !== 0 && (
+      {!!length && (
         <>
           {type === "like" ? "좋아요 " : "댓글 "}
           {length}개{" "}
