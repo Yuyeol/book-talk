@@ -8,7 +8,7 @@ import useMemosWithInfinite from "@/lib/client/useSwr/useMemosWithInfinite";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 
-export const MEMOS_PER_PAGE = 3;
+export const MEMOS_PER_PAGE = 10;
 const TITLE = "소셜";
 
 const Social = () => {
