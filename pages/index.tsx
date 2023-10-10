@@ -23,7 +23,7 @@ import useBooksWithInfinite from "@/lib/client/useSwr/useBooksWithInfinite";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 
-export const BOOKS_PER_PAGE = 2;
+export const BOOKS_PER_PAGE = 3;
 const TITLE = "독서중";
 
 const Home = () => {
