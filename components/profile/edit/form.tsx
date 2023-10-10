@@ -16,7 +16,7 @@ const Form = ({ user }: IProps) => {
   const router = useRouter();
 
   const { register, watch, handleSubmit, setValue } = useForm<IProfileForm>();
-  const { mutation, loading } = useMutation("/api/users");
+  const { mutation, data: userResData, loading } = useMutation("/api/users");
   const { mutate } = useUsers();
   const [profilePreviewImg, setProfilePreviewImg] = useState("");
 
@@ -36,12 +36,18 @@ const Form = ({ user }: IProps) => {
       },
       "POST"
     );
-    mutate();
-    router.push("/profile");
   };
+  useEffect(() => {
+    if (userResData) {
+      mutate();
+      router.push("/profile");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userResData]);
 
   useEffect(() => {
     if (user) {
+      setProfilePreviewImg(user.image || "");
       setValue("nickname", user.nickname || "");
       setValue("bio", user.bio || "");
     }
