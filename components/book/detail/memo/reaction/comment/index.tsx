@@ -116,7 +116,9 @@ const Comment = ({ memoId, isCommentOpen }: IProps) => {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="">{comment.user?.name}</div>
+                    <div className="">
+                      {comment.user?.nickname || comment.user?.name}
+                    </div>
                     <div className="text-sm">{comment.content}</div>
                   </div>
                 </div>

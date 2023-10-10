@@ -19,7 +19,7 @@ const Item = ({ user, isFriend, onClickFriend }: IProps) => {
         />
       </div>
       <div className="flex-1 text-sm mb-1">
-        <div className="font-semibold">{user.name}</div>
+        <div className="font-semibold">{user.nickname || user.name}</div>
         <div>{user.email}</div>
       </div>
 

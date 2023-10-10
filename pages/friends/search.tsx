@@ -44,7 +44,8 @@ const Search = () => {
       if (!search || !data?.users) return [];
       return data.users.filter((user) => {
         if (user.id === session?.user?.id) return;
-        if (currentTab === 0) return user.name?.includes(search);
+        if (currentTab === 0)
+          return user.nickname?.includes(search) || user.name?.includes(search);
         if (currentTab === 1) return user.email?.includes(search);
       });
     },
